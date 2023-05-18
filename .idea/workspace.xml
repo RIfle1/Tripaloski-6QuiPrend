@@ -5,88 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f14768f5-5e0a-4783-b224-3f696ca73c66" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/allclasses-index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/allpackages-index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/constant-values.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/copy.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/element-list" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/help-doc.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index-files/index-1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index-files/index-10.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index-files/index-11.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index-files/index-12.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index-files/index-13.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index-files/index-14.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index-files/index-15.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index-files/index-2.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index-files/index-3.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index-files/index-4.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index-files/index-5.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index-files/index-6.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index-files/index-7.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index-files/index-8.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index-files/index-9.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/jquery-ui.overrides.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/legal/ADDITIONAL_LICENSE_INFO" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/legal/ASSEMBLY_EXCEPTION" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/legal/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/legal/jquery.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/legal/jqueryUI.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/member-search-index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/module-search-index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/overview-tree.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/package-search-index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/module-summary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/GuiLauncherMain.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/GuiMain.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/abstractClasses/abstractCharacter.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/abstractClasses/package-summary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/abstractClasses/package-tree.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/classes/Card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/classes/Npc.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/classes/Player.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/classes/package-summary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/classes/package-tree.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/controllers/BoardController.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/controllers/MainMenuController.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/controllers/package-summary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/controllers/package-tree.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/functions/GeneralFunctions.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/functions/JavaFxFunctions.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/functions/package-summary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/functions/package-tree.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/package-summary.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/project/project/package-tree.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/resources/glass.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/resources/x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/script-dir/jquery-3.6.0.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/script-dir/jquery-ui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/script-dir/jquery-ui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/script.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/search-page.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/search.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/search.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/stylesheet.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/tag-search-index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaDoc/type-search-index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project/abstractClasses/abstractCharacter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project/classes/Card.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project/classes/Npc.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project/classes/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project/GuiLauncherMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/GuiLauncherMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project/GuiMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/GuiMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/abstractClasses/abstractCharacter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/abstractClasses/abstractCharacter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/classes/Npc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/classes/Npc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/classes/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/classes/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/BoardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/MainMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project/functions/GeneralFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/functions/GeneralFunctions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project/functions/JavaFxFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/functions/JavaFxFunctions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/project/fxml/Board.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/Board.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/project/fxml/MainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/MainMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/project/styles/generalStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/styles/generalStyles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +57,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "Z:/stuff2/Programming/Java Projects/Tripaloski-6QuiPrend/src/main/resources/project/images",
+    "last_opened_file_path": "Z:/stuff2/Programming/Java Projects/HarryPotter",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -183,7 +109,7 @@
       <updated>1684169317528</updated>
       <workItem from="1684169318762" duration="9000" />
       <workItem from="1684169514253" duration="686000" />
-      <workItem from="1684415716953" duration="19863000" />
+      <workItem from="1684415716953" duration="22536000" />
     </task>
     <servers />
   </component>

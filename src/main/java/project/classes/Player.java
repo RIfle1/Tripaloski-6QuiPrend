@@ -11,32 +11,38 @@ import java.util.List;
 @Getter
 @Setter
 public class Player extends abstractCharacter {
+
+
     /**
      * Constructor
-     * @param characterName Character Name
+     *
+     * @param characterName   Character Name
+     * @param points          Points
      * @param characterNumber Character Number
-     * @param cardsList Cards List
-     * @param takenCardsList Taken Cards List
+     * @param cardsList       Cards List
+     * @param takenCardsList  Taken Cards List
      */
 
     @Builder
-    public Player(String characterName, int characterNumber, List<Card> cardsList, List<Card> takenCardsList) {
-        super(characterName, characterNumber, cardsList, takenCardsList);
+    public Player(String characterName, int characterNumber, int points, List<Card> cardsList, List<Card> takenCardsList) {
+        super(characterName, characterNumber, points, cardsList, takenCardsList);
     }
 
     /**
      * Initialize players
+     *
      * @param maxCharacters number of maximum players to initialize
      * @return a list of players
      */
 
-    public static List<Player> initializePlayers(int maxCharacters) {
+    public static List<Player> initializePlayers(int maxCharacters, int startingPoints) {
         List<Player> playerList = new ArrayList<>();
 
         for (int i = 1; i <= maxCharacters; i++) {
             Player player = Player.builder()
                     .characterName("Player" + i)
                     .characterNumber(i)
+                    .points(startingPoints)
                     .cardsList(new ArrayList<>())
                     .takenCardsList(new ArrayList<>())
                     .build();

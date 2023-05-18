@@ -24,3 +24,9 @@
     -fx-font-family: "Bell MT", sans-serif;
     -fx-font-size: 43;
 }
+
+.errorText {
+    -fx-fill: darkred;
+    -fx-font-family: "Bell MT", sans-serif;
+    -fx-font-size: 20;
+}

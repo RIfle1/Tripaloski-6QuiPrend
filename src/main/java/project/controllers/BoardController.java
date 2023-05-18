@@ -32,6 +32,8 @@ public class BoardController implements Initializable {
     // Variant 2 => Players can choose their cards by turn
     // Variant 3 => Variant 1 + Variant 2
     private static int variantNumber;
+    private static int roundNumber;
+    private static int startingPoints;
 
     /**
      * Send to the Board Scene
@@ -46,12 +48,15 @@ public class BoardController implements Initializable {
 
     public static void boardScene(MouseEvent event, int playerNumberParam,
                                   int npcNumberParam, int variantNumberParam,
+                                  int roundNumberParam, int startingPointsParam,
                                   List<Player> playerListParam, List<Npc> npcListParam) {
         playerNumber = playerNumberParam;
         npcNumber = npcNumberParam;
         variantNumber = variantNumberParam;
         playerList = playerListParam;
         npcList = npcListParam;
+        roundNumber = roundNumberParam;
+        startingPoints = startingPointsParam;
 
 
         FXMLLoader characterCreationFxmlLoader = new FXMLLoader(returnFXMLURL("Board.fxml"));
@@ -112,8 +117,8 @@ public class BoardController implements Initializable {
      */
 
     public void initializeCharacters() {
-        playerList = Player.initializePlayers(playerNumber);
-        npcList = Npc.initializeNpcs(npcNumber);
+        playerList = Player.initializePlayers(playerNumber, startingPoints);
+        npcList = Npc.initializeNpcs(npcNumber, startingPoints);
 
         initializeCharacterCards();
     }
