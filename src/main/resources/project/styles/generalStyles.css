@@ -1,0 +1,26 @@
+.mainWindow {
+    -fx-pref-height: 1010px;
+    -fx-max-height: 1010px;
+    -fx-min-height: 1010px;
+    -fx-pref-width: 1920px;
+    -fx-max-width: 1920px;
+    -fx-min-width: 1920px;
+    -fx-background-color: grey;
+}
+
+/*.mainMenuBackground {*/
+/*    -fx-background-image: url('../images/MainMenu.jpg');*/
+/*    -fx-background-size: 100% 100%;*/
+/*}*/
+
+.mainMenuButton {
+    -fx-transition: 1.5s ease;
+    -fx-font-family: "Bell MT", sans-serif;
+    -fx-font-size: 43;
+}
+
+.mainMenuButton:hover {
+    -fx-fill: #062172;
+    -fx-font-family: "Bell MT", sans-serif;
+    -fx-font-size: 43;
+}

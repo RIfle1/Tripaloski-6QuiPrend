@@ -5,33 +5,149 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f14768f5-5e0a-4783-b224-3f696ca73c66" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project/tripaloski6quiprend/HelloApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project/tripaloski6quiprend/HelloController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/project/tripaloski6quiprend/hello-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/project/GuiLauncherMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/project/GuiMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/project/controllers/MainMenuController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/project/functions/GeneralFunctions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/project/functions/JavaFxFunctions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/MainMenu.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/101.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/102.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/103.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/104.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/14.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/15.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/17.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/18.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/19.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/20.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/21.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/22.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/23.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/24.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/25.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/26.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/27.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/28.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/29.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/30.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/31.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/33.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/34.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/35.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/36.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/37.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/38.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/39.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/40.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/41.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/42.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/43.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/44.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/45.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/46.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/47.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/48.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/49.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/50.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/51.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/52.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/53.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/54.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/55.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/56.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/57.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/58.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/59.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/60.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/61.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/62.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/63.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/64.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/65.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/66.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/67.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/68.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/69.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/70.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/71.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/72.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/73.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/74.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/75.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/76.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/77.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/78.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/79.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/80.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/81.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/82.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/83.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/84.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/85.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/86.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/87.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/88.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/89.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/90.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/91.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/92.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/93.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/94.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/95.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/96.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/97.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/98.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/99.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/backside.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/styles/generalStyles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/tripaloski6quiprend/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/tripaloski6quiprend/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/project/tripaloski6quiprend/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+        <option value="CSS File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="workspaceImportEnabled" value="true" />
-      </MavenImportingSettings>
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
     </option>
   </component>
   <component name="ProjectId" id="2Pq0ThZwMu8dZ6DWwNxG0lNBR6D" />
@@ -45,9 +161,47 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "Z:/stuff2/Programming/Java Projects/Tripaloski-6QuiPrend/src/main/resources/project/images",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="Z:\stuff2\Programming\Java Projects\Tripaloski-6QuiPrend\src\main\resources\project\images" />
+      <recent name="Z:\stuff2\Programming\Java Projects\Tripaloski-6QuiPrend\src\main\resources\project" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="Z:\stuff2\Programming\Java Projects\Tripaloski-6QuiPrend\src\main\resources\project\fxml" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="project.functions" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="GuiMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="project.GuiMain" />
+      <module name="Tripaloski-6QuiPrend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="project.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.GuiMain" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -57,6 +211,8 @@
       <option name="presentableId" value="Default" />
       <updated>1684169317528</updated>
       <workItem from="1684169318762" duration="9000" />
+      <workItem from="1684169514253" duration="686000" />
+      <workItem from="1684415716953" duration="4275000" />
     </task>
     <servers />
   </component>

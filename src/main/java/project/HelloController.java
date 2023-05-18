@@ -1,4 +1,4 @@
-package project.tripaloski6quiprend;
+package project;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
