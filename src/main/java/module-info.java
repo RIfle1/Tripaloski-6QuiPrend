@@ -5,7 +5,7 @@ module project.tripaloski6quiprend {
 
     opens project.controllers to javafx.fxml;
     opens project to javafx.fxml;
-    
+
     exports project;
     exports project.controllers;
 }
