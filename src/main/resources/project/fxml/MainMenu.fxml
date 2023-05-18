@@ -8,7 +8,8 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="mainWindow" stylesheets="@../styles/generalStyles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.MainMenuController">
    <children>
       <Text layoutX="911.0" layoutY="928.0" onMouseReleased="#playButtonOnClicked" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="mainMenuButton" text="Play !" />
-      <ChoiceBox fx:id="playersNumberCb" layoutX="822.0" layoutY="308.0" prefHeight="29.0" prefWidth="276.0" />
-      <ChoiceBox fx:id="variantNumberCb" layoutX="822.0" layoutY="377.0" prefHeight="29.0" prefWidth="276.0" />
+      <ChoiceBox fx:id="playersNumberCb" layoutX="822.0" layoutY="413.0" prefHeight="29.0" prefWidth="276.0" />
+      <ChoiceBox fx:id="variantNumberCb" layoutX="822.0" layoutY="600.0" prefHeight="29.0" prefWidth="276.0" />
+      <ChoiceBox fx:id="npcNumberCb" layoutX="822.0" layoutY="505.0" prefHeight="29.0" prefWidth="276.0" />
    </children>
 </AnchorPane>
