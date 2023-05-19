@@ -1,14 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="project.fxml.Board2"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/generalStyles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.Board2Controller">
+
+
+    <styleClass>
+        <String fx:value="mainWindow" />
+        <String fx:value="background" />
+    </styleClass>
+
+   <Rectangle fx:id="playerHandRectangle" fill="WHITE" height="206.0" layoutY="97.0" opacity="0.5" width="1920.0" />
+   <Label fx:id="playerTurnText1" layoutX="8.0" layoutY="97.0" prefHeight="17.0" prefWidth="292.0" style="&#10;           -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );&#10;       " text="Main du joueur" textFill="#422ff2">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+    <Rectangle fx:id="playerTurnRectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="53.0" layoutX="-6.0" layoutY="22.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="1926.0">
+        <effect>
+            <DropShadow height="53.04" offsetY="6.0" radius="44.8775" width="128.47" />
+        </effect>
+    </Rectangle>
+   <Label fx:id="playerTurnText" alignment="CENTER" layoutX="687.0" layoutY="20.0" prefHeight="17.0" prefWidth="547.0" text="Tour du joueur" textFill="#422ff2">
+       <style>
+           -fx-font-size: 40px;
+           -fx-font-weight: bold;
+           -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );
+       </style>
+   </Label>
+
+
+    <FlowPane fx:id="cardFlowPane" hgap="10" layoutX="14.0" layoutY="331.0" prefHeight="417.0" prefWidth="691.0" style="-fx-padding: 10px;" vgap="10">
+<!--      <children>-->
+<!--          <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="20.0" layoutY="20.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="130.0" layoutY="20.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="240.0" layoutY="20.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="350.0" layoutY="20.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="460.0" layoutY="20.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="570.0" layoutY="20.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="20.0" layoutY="180.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="130.0" layoutY="180.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="240.0" layoutY="180.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="350.0" layoutY="180.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="460.0" layoutY="180.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="570.0" layoutY="180.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="20.0" layoutY="340.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="130.0" layoutY="340.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="240.0" layoutY="340.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="350.0" layoutY="340.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="460.0" layoutY="340.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="570.0" layoutY="340.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="20.0" layoutY="500.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="130.0" layoutY="500.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="240.0" layoutY="500.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="350.0" layoutY="500.0" opacity="0.5" width="100.0" />-->
+<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="460.0" layoutY="500.0" opacity="0.5" width="100.0" />-->
+<!--      </children>-->
+    </FlowPane>
+   <Label fx:id="playerTurnText11" alignment="CENTER" layoutX="1574.0" layoutY="97.0" prefHeight="17.0" prefWidth="292.0" style="&#10;           -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );&#10;       " text="Vaches du joueur" textFill="#422ff2">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </Label>
+
+    <ImageView fx:id="vacheImageView" fitHeight="176.0" fitWidth="156.0" layoutX="1642.0" layoutY="132.0" preserveRatio="true">
+      <image>
+         <Image url="@../images/vacheRouge.png" />
+      </image></ImageView>
+   <Label fx:id="playerTurnText111" layoutX="1785.0" layoutY="169.0" prefHeight="116.0" prefWidth="45.0" style="&#10;           -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );&#10;       " text="X">
+      <font>
+         <Font size="65.0" />
+      </font>
+   </Label>
 
 </AnchorPane>
