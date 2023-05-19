@@ -1,0 +1,21 @@
+Index: src/main/resources/project/styles/generalStyles.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>.mainWindow {\r\n    -fx-pref-height: 1010px;\r\n    -fx-max-height: 1010px;\r\n    -fx-min-height: 1010px;\r\n    -fx-pref-width: 1920px;\r\n    -fx-max-width: 1920px;\r\n    -fx-min-width: 1920px;\r\n    -fx-background-color: grey;\r\n}\r\n\r\n/*.mainMenuBackground {*/\r\n/*    -fx-background-image: url('../images/MainMenu.jpg');*/\r\n/*    -fx-background-size: 100% 100%;*/\r\n/*}*/\r\n\r\n.mainMenuButton {\r\n    -fx-transition: 1.5s ease;\r\n    -fx-font-family: \"Bell MT\", sans-serif;\r\n    -fx-font-size: 43;\r\n}\r\n\r\n.mainMenuButton:hover {\r\n    -fx-fill: #062172;\r\n    -fx-font-family: \"Bell MT\", sans-serif;\r\n    -fx-font-size: 43;\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/project/styles/generalStyles.css b/src/main/resources/project/styles/generalStyles.css
+--- a/src/main/resources/project/styles/generalStyles.css	
++++ b/src/main/resources/project/styles/generalStyles.css	
+@@ -23,4 +23,9 @@
+     -fx-fill: #062172;
+     -fx-font-family: "Bell MT", sans-serif;
+     -fx-font-size: 43;
++}
++
++.background {
++    -fx-background-image: url('../images/Background.jpg');
++    -fx-background-size: 100% 100%;
+ }
+\ No newline at end of file

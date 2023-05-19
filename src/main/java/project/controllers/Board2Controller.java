@@ -18,7 +18,7 @@ public class Board2Controller {
 
     @FXML private FlowPane cardFlowPane;
     @FXML private Label playerTurnText;
-    @FXML private ImageView vacheImageView;
+
 
     public void initialize() {
         int numRows = 4;
@@ -46,8 +46,6 @@ public class Board2Controller {
 
         playerTurnText.setText("Tour du joueur"+ " " + playerName); //playerName à implémenter
 
-        Image vacheRouge = new Image(getClass().getResourceAsStream("vacheRouge.png"));
-        vacheImageView.setImage(vacheRouge);
     }
 
 }
