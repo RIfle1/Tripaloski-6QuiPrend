@@ -41,13 +41,15 @@ public class JavaFxFunctions {
      * @param event      ActionEvent of the button clicked
      * @param FXMLLoader FXMLLoader of the scene to send the user to
      */
-    public static void sendToScene(ActionEvent event, FXMLLoader FXMLLoader) {
+    public static Scene sendToScene(ActionEvent event, FXMLLoader FXMLLoader) {
         Scene scene = getScene(FXMLLoader);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+
+        return scene;
     }
 
     /**

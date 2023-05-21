@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -42,6 +41,7 @@ public class MainMenuController implements Initializable {
 
     /**
      * Initialize the Main Menu
+     *
      * @param stage Stage
      */
     public static void mainMenuScene(Stage stage) {
@@ -56,6 +56,7 @@ public class MainMenuController implements Initializable {
 
     /**
      * Return a list of numbers from minNumber to maxNumber
+     *
      * @param minNumber Minimum number
      * @param maxNumber Maximum number
      * @return List of numbers from minNumber to maxNumber
@@ -64,7 +65,7 @@ public class MainMenuController implements Initializable {
     private static List<String> returnCbList(int minNumber, int maxNumber) {
         List<String> numberCbList = new ArrayList<>();
 
-        if(maxNumber < minNumber) {
+        if (maxNumber < minNumber) {
             maxNumber = minNumber;
         }
 
@@ -79,6 +80,7 @@ public class MainMenuController implements Initializable {
 
     /**
      * Runs when the play button is clicked
+     *
      * @param event MouseEvent
      */
     @FXML
@@ -90,7 +92,7 @@ public class MainMenuController implements Initializable {
         int roundNumber;
         int startingPoints;
 
-        if(checkPositiveInt(roundNumberTf.getText())) {
+        if (checkPositiveInt(roundNumberTf.getText())) {
             roundNumber = Integer.parseInt(roundNumberTf.getText());
         } else {
             errorT.setText("Round Number must be a positive integer");
@@ -98,7 +100,7 @@ public class MainMenuController implements Initializable {
             return;
         }
 
-        if(checkPositiveInt(startingPointsTf.getText())) {
+        if (checkPositiveInt(startingPointsTf.getText())) {
             startingPoints = Integer.parseInt(startingPointsTf.getText());
         } else {
             errorT.setText("Starting Points must be a positive integer");
@@ -106,7 +108,7 @@ public class MainMenuController implements Initializable {
             return;
         }
 
-        if(!isAllowedCharacterAmount()) {
+        if (!isAllowedCharacterAmount()) {
             errorT.setText("The sum of Players and NPCs must be less than or equals to " + maxPlayersNumber);
             errorT.setVisible(true);
             return;
@@ -117,7 +119,8 @@ public class MainMenuController implements Initializable {
 
     /**
      * Initialize the Main Menu
-     * @param url URL
+     *
+     * @param url            URL
      * @param resourceBundle ResourceBundle
      */
     @Override
@@ -156,6 +159,7 @@ public class MainMenuController implements Initializable {
 
     /**
      * Return a list of variants
+     *
      * @return List of variants
      */
     private List<String> returnVariantsList() {

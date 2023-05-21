@@ -7,14 +7,17 @@ import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import project.abstractClasses.AbstractCharacter;
 import project.classes.*;
 
@@ -25,6 +28,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static project.classes.Card.returnRandomCard;
+import static project.controllers.MainMenuController.mainMenuScene;
 import static project.functions.GeneralFunctions.*;
 import static project.functions.JavaFxFunctions.*;
 
@@ -85,7 +89,17 @@ public class BoardController implements Initializable {
 
         FXMLLoader characterCreationFxmlLoader = new FXMLLoader(returnFXMLURL("Board.fxml"));
         ActionEvent actionEvent = new ActionEvent(event.getSource(), event.getTarget());
-        sendToScene(actionEvent, characterCreationFxmlLoader);
+
+        Scene scene = sendToScene(actionEvent, characterCreationFxmlLoader);
+
+        scene.setOnKeyPressed(e -> onKeyPressed(e, scene));
+    }
+
+    static void onKeyPressed(KeyEvent event, Scene scene) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            Stage stage = (Stage) scene.getWindow();
+            mainMenuScene(stage);
+        }
     }
 
     /**
@@ -118,6 +132,17 @@ public class BoardController implements Initializable {
 
     private void displayBoard() {
 //        scoreBoardGridPane
+//        board.getCardsList().forEach(card -> {
+//            gameBoardGriPane.getChildren().stream().filter(node -> node.getId().equals(card.getCardNumber())).findFirst().ifPresent(node -> {
+//                gameBoardGriPane.getChildren().remove(node);
+//            });
+//        });
+
+
+//        board.getCardsList().forEach(card -> {
+//            System.out.println("Card: " + card.getCardNumber() + " Image: " + card.getCardImage());
+//        });
+
 
         Card[][] localBoard = board.getBoard();
 
@@ -130,9 +155,9 @@ public class BoardController implements Initializable {
                     Rectangle imageRectangle = returnImageRectangle(90, 140, 10, 10, "cards/" + card.getCardImage());
                     imageRectangle.setId(String.valueOf(card.getCardNumber()));
                     gameBoardGriPane.add(imageRectangle, column, row);
-                }
-                catch (NullPointerException e) {
-                    System.out.println("No card on Row: " + row + " Column: " + column);
+//                    System.out.println("Card: " + card.getCardNumber() + " Row: " + row + " Column: " + column);
+                } catch (NullPointerException e) {
+//                    System.out.println("No card on Row: " + row + " Column: " + column);
                 }
 
             }
@@ -230,7 +255,7 @@ public class BoardController implements Initializable {
         if (imageList.size() > 1) imageList.remove(imageName);
 
         Rectangle imageRectangle = returnImageRectangle(50, 50,
-                50,50, "icons/" + imageName);
+                50, 50, "icons/" + imageName);
         imageRectangle.setEffect(new DropShadow(20, Color.BLACK));
 
         GridPane horizontalGridPane = new GridPane();
