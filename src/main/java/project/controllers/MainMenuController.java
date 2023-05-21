@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -23,9 +24,9 @@ import static project.functions.JavaFxFunctions.*;
 public class MainMenuController implements Initializable {
 
     private final static int maxPlayersNumber = 10;
-    private final static int minPlayersNumber = 1;
-    private final static int maxNpcNumber = 10;
-    private final static int minNpcNumber = 1;
+    private final static int minPlayersNumber = 2;
+    private final static int maxNpcNumber = 8;
+    private final static int minNpcNumber = 0;
     @FXML
     private ChoiceBox<String> npcNumberCb;
     @FXML
@@ -44,7 +45,7 @@ public class MainMenuController implements Initializable {
      * @param stage Stage
      */
     public static void mainMenuScene(Stage stage) {
-        Image icon = new Image(returnImagePath("logo.png"));
+        Image icon = new Image(returnImagePath("icons/logo.png"));
         stage.getIcons().add(icon);
         stage.setTitle("6 Qui Prend!");
         stage.setResizable(false);
@@ -63,9 +64,16 @@ public class MainMenuController implements Initializable {
     private static List<String> returnCbList(int minNumber, int maxNumber) {
         List<String> numberCbList = new ArrayList<>();
 
+        if(maxNumber < minNumber) {
+            maxNumber = minNumber;
+        }
+
+
         for (int i = minNumber; i <= maxNumber; i++) {
             numberCbList.add(String.valueOf(i));
         }
+
+
         return numberCbList;
     }
 
@@ -98,6 +106,12 @@ public class MainMenuController implements Initializable {
             return;
         }
 
+        if(!isAllowedCharacterAmount()) {
+            errorT.setText("The sum of Players and NPCs must be less than or equals to " + maxPlayersNumber);
+            errorT.setVisible(true);
+            return;
+        }
+
         boardScene(event, playersNumber, npcNumber, variantNumber, roundNumber, startingPoints, new ArrayList<>(), new ArrayList<>());
     }
 
@@ -108,30 +122,26 @@ public class MainMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setPlayersNumberCb();
-        setNpcNumberCb();
+        setCharacterNumberCb(playersNumberCb, minPlayersNumber, maxPlayersNumber);
+        setCharacterNumberCb(npcNumberCb, minNpcNumber, maxNpcNumber);
+
         setVariantNumberCb();
         setGameParams();
     }
 
-    /**
-     * Set the players number choice box
-     */
-    private void setPlayersNumberCb() {
-        List<String> playersNumberCbList = returnCbList(minPlayersNumber, maxPlayersNumber);
+    private void setCharacterNumberCb(ChoiceBox<String> characterNumberCb, int min, int max) {
+        characterNumberCb.getItems().clear();
+        List<String> characterNumberCbList = returnCbList(min, max);
 
-        playersNumberCb.getItems().addAll(playersNumberCbList);
-        playersNumberCb.setValue(playersNumberCbList.get(0));
+        characterNumberCb.getItems().addAll(characterNumberCbList);
+        characterNumberCb.setValue(characterNumberCbList.get(0));
     }
 
-    /**
-     * Set the npc number choice box
-     */
-    private void setNpcNumberCb() {
-        List<String> npcNumberCbList = returnCbList(minNpcNumber, maxNpcNumber);
+    private boolean isAllowedCharacterAmount() {
+        int playersNumber = Integer.parseInt(playersNumberCb.getValue());
+        int npcNumber = Integer.parseInt(npcNumberCb.getValue());
 
-        npcNumberCb.getItems().addAll(npcNumberCbList);
-        npcNumberCb.setValue(npcNumberCbList.get(0));
+        return playersNumber + npcNumber <= maxPlayersNumber;
     }
 
     /**

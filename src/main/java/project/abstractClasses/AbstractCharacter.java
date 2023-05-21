@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Setter
 @Getter
-public abstract class abstractCharacter {
+public abstract class AbstractCharacter {
     private String characterName;
     private int characterNumber;
     private int points;
@@ -25,7 +25,7 @@ public abstract class abstractCharacter {
      * @param takenCardsList Taken Cards List
      */
 
-    public abstractCharacter(String characterName, int characterNumber, int points, List<Card> cardsList, List<Card> takenCardsList) {
+    public AbstractCharacter(String characterName, int characterNumber, int points, List<Card> cardsList, List<Card> takenCardsList) {
         this.characterName = characterName;
         this.characterNumber = characterNumber;
         this.points = points;

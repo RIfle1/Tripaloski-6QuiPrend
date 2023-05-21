@@ -1,30 +1,42 @@
 package project.controllers;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import project.classes.Card;
-import project.classes.Npc;
-import project.classes.Player;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import project.abstractClasses.AbstractCharacter;
+import project.classes.*;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 
-import static project.functions.GeneralFunctions.generateDoubleBetween;
-import static project.functions.JavaFxFunctions.returnFXMLURL;
-import static project.functions.JavaFxFunctions.sendToScene;
+import static project.classes.Card.returnRandomCard;
+import static project.functions.GeneralFunctions.*;
+import static project.functions.JavaFxFunctions.*;
 
 /**
  * Board Controller
  */
 public class BoardController implements Initializable {
-    public static int maxCards;
-    private static List<Card> deck = new ArrayList<>();
+    private static Deck deck;
+    private static Board board;
     private static List<Player> playerList = new ArrayList<>();
     private static List<Npc> npcList = new ArrayList<>();
+
     private static int playerNumber;
     private static int npcNumber;
     // Variant 0 => No Modifications to the game
@@ -34,6 +46,20 @@ public class BoardController implements Initializable {
     private static int variantNumber;
     private static int roundNumber;
     private static int startingPoints;
+    private static GridPane scoreBoardGridPane = new GridPane();
+
+    @FXML
+    private GridPane chosenCardsGridPane;
+    @FXML
+    private GridPane gameBoardGriPane;
+    @FXML
+    private GridPane gameStatsGridPane;
+    @FXML
+    private GridPane playerCardsGridPane;
+    @FXML
+    private Text playerCardsT;
+    @FXML
+    private Text playerTurnT;
 
     /**
      * Send to the Board Scene
@@ -46,10 +72,7 @@ public class BoardController implements Initializable {
      * @param npcListParam       List of NPCs (Optional)
      */
 
-    public static void boardScene(MouseEvent event, int playerNumberParam,
-                                  int npcNumberParam, int variantNumberParam,
-                                  int roundNumberParam, int startingPointsParam,
-                                  List<Player> playerListParam, List<Npc> npcListParam) {
+    public static void boardScene(MouseEvent event, int playerNumberParam, int npcNumberParam, int variantNumberParam, int roundNumberParam, int startingPointsParam, List<Player> playerListParam, List<Npc> npcListParam) {
         playerNumber = playerNumberParam;
         npcNumber = npcNumberParam;
         variantNumber = variantNumberParam;
@@ -58,6 +81,7 @@ public class BoardController implements Initializable {
         roundNumber = roundNumberParam;
         startingPoints = startingPointsParam;
 
+        deck = new Deck(variantNumber, playerNumber, npcNumber);
 
         FXMLLoader characterCreationFxmlLoader = new FXMLLoader(returnFXMLURL("Board.fxml"));
         ActionEvent actionEvent = new ActionEvent(event.getSource(), event.getTarget());
@@ -73,42 +97,45 @@ public class BoardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeDeck(variantNumber);
         if (variantNumber == 0 || variantNumber == 1) initializeCharacters();
 
-//        deck.forEach(card -> {
-//            System.out.println("Number: " + card.getCardNumber() + " Heads: " + card.getCardHeads());
-//        });
+        initializeScoreBoard();
+        displayScoreBoard();
+
+        initializeBoard();
+        displayBoard();
     }
 
-    /**
-     * Initialize the deck
-     *
-     * @param variantNumber Variant Number Chosen in the Main Menu
-     */
+    private void initializeBoard() {
+        board = new Board(new Card[4][6]);
 
-    public void initializeDeck(int variantNumber) {
-        if (variantNumber == 1 || variantNumber == 3) {
-            maxCards = (playerNumber + npcNumber) * 10 + 4;
-        } else {
-            maxCards = 104;
+        for (Card[] cardArray : board.getBoard()) {
+            Card randomCard = returnRandomCard(deck);
+            cardArray[0] = randomCard;
+            deck.getDeck().remove(randomCard);
         }
+    }
 
-        for (int i = 1; i <= maxCards; i++) {
-            int heads = 0;
-            heads += endsWith(i, 5, 2);
-            heads += endsWith(i, 0, 3);
-            heads += multipleOf(i, 11, 5);
+    private void displayBoard() {
+//        scoreBoardGridPane
 
-            if (heads == 0) heads = 1;
+        Card[][] localBoard = board.getBoard();
 
-            Card card = Card.builder()
-                    .cardNumber(i)
-                    .cardHeads(heads)
-                    .cardImage(i + ".png")
-                    .build();
+        for (int row = 0; row < localBoard.length; row++) {
+            for (int column = 0; column < localBoard[row].length; column++) {
+                try {
+                    Card card = localBoard[row][column];
+//                    System.out.println("cards/" + card.getCardImage() + " Row: " + row + " Column: " + column);
+//                    ImageView cardImageView = returnObjectImageView("cards/" + card.getCardImage(), 130, 80, 1);
+                    Rectangle imageRectangle = returnImageRectangle(90, 140, 10, 10, "cards/" + card.getCardImage());
+                    imageRectangle.setId(String.valueOf(card.getCardNumber()));
+                    gameBoardGriPane.add(imageRectangle, column, row);
+                }
+                catch (NullPointerException e) {
+                    System.out.println("No card on Row: " + row + " Column: " + column);
+                }
 
-            deck.add(card);
+            }
         }
     }
 
@@ -130,48 +157,142 @@ public class BoardController implements Initializable {
     public void initializeCharacterCards() {
         playerList.forEach(player -> {
             for (int i = 1; i <= 10; i++) {
-                int randomCard = (int) generateDoubleBetween(1, maxCards);
-                player.getCardsList().add(deck.get(randomCard));
+                giveCard(player.getCardsList());
             }
         });
 
         npcList.forEach(npc -> {
             for (int i = 1; i <= 10; i++) {
-                int randomCard = (int) generateDoubleBetween(1, maxCards);
-                npc.getCardsList().add(deck.get(randomCard));
+                giveCard(npc.getCardsList());
             }
         });
     }
 
-    /**
-     * Check if the number ends with a specific number
-     *
-     * @return Amount of heads to add
-     */
+    private void giveCard(List<Card> abstractCharacterCardList) {
+        Card randomCard = returnRandomCard(deck);
+        abstractCharacterCardList.add(randomCard);
+        deck.getDeck().remove(randomCard);
+    }
 
-    private int endsWith(int number, int endNumber, int returnNumber) {
-        if (String.valueOf(number).endsWith(String.valueOf(endNumber))) {
-            return returnNumber;
-        } else {
-            return 0;
-        }
+
+    /**
+     * Initialize the scoreboard GridPane
+     */
+    private void initializeScoreBoard() {
+        scoreBoardGridPane.setAlignment(Pos.TOP_CENTER);
+        scoreBoardGridPane.setVgap(10);
+
+        ColumnConstraints scoreBoardGridPaneColumn1 = new ColumnConstraints();
+
+        scoreBoardGridPaneColumn1.setPrefWidth(290);
+        scoreBoardGridPaneColumn1.setMaxWidth(Region.USE_PREF_SIZE);
+        scoreBoardGridPaneColumn1.setMinWidth(Region.USE_PREF_SIZE);
+
+        scoreBoardGridPane.getColumnConstraints().add(scoreBoardGridPaneColumn1);
     }
 
     /**
-     * Check if the number is a multiple of a specific number
-     *
-     * @param number       Input number
-     * @param multiple     Multiple number
-     * @param returnNumber Amount of heads to add
-     * @return Amount of heads to add
+     * Display the scoreboard
      */
+    private void displayScoreBoard() {
+        AtomicInteger rowNumber = new AtomicInteger(0);
+        ArrayList<String> imageList = returnImageList(returnTargetPath("images/icons"));
 
-    private int multipleOf(int number, int multiple, int returnNumber) {
-        if (number % multiple == 0) {
-            return returnNumber;
-        } else {
-            return 0;
-        }
+
+        playerList.forEach(player -> {
+            returnCharacterInfoGrid(rowNumber, imageList, player);
+            rowNumber.getAndIncrement();
+        });
+
+        npcList.forEach(npc -> {
+            returnCharacterInfoGrid(rowNumber, imageList, npc);
+            rowNumber.getAndIncrement();
+        });
+
+        gameStatsGridPane.add(scoreBoardGridPane, 1, 1);
     }
+
+    /**
+     * Returns Character Info Grid Pane for the scoreboard
+     *
+     * @param rowNumber         Row Number
+     * @param imageList         Image List
+     * @param abstractCharacter Abstract Character
+     */
+    private void returnCharacterInfoGrid(AtomicInteger rowNumber, ArrayList<String> imageList, AbstractCharacter abstractCharacter) {
+        Text playerName = new Text(abstractCharacter.getCharacterName());
+        playerName.getStyleClass().add("playerInfoTextStyle1");
+
+        Text playerPoints = new Text(abstractCharacter.getPoints() + "⭐");
+        playerPoints.getStyleClass().add("playerInfoTextStyle2");
+
+        String imageName = imageList.get((int) generateDoubleBetween(0, imageList.size() - 1));
+        if (imageList.size() > 1) imageList.remove(imageName);
+
+        Rectangle imageRectangle = returnImageRectangle(50, 50,
+                50,50, "icons/" + imageName);
+        imageRectangle.setEffect(new DropShadow(20, Color.BLACK));
+
+        GridPane horizontalGridPane = new GridPane();
+//            horizontalGridPane.setAlignment(Pos.CENTER);
+
+        ColumnConstraints horizontalGridPaneColumn1 = new ColumnConstraints();
+        ColumnConstraints horizontalGridPaneColumn2 = new ColumnConstraints();
+
+        horizontalGridPaneColumn1.setPrefWidth(70);
+        horizontalGridPaneColumn1.setMaxWidth(Region.USE_PREF_SIZE);
+        horizontalGridPaneColumn1.setMinWidth(Region.USE_PREF_SIZE);
+        horizontalGridPaneColumn1.setHalignment(HPos.CENTER);
+
+        horizontalGridPaneColumn2.setPrefWidth(120);
+        horizontalGridPaneColumn2.setMaxWidth(Region.USE_PREF_SIZE);
+        horizontalGridPaneColumn2.setMinWidth(Region.USE_PREF_SIZE);
+
+        RowConstraints horizontalGridPaneRow1 = new RowConstraints();
+
+        horizontalGridPaneRow1.setPrefHeight(70);
+        horizontalGridPaneRow1.setMaxHeight(Region.USE_PREF_SIZE);
+        horizontalGridPaneRow1.setMinHeight(Region.USE_PREF_SIZE);
+
+        horizontalGridPane.getColumnConstraints().addAll(horizontalGridPaneColumn1, horizontalGridPaneColumn2);
+        horizontalGridPane.getRowConstraints().addAll(horizontalGridPaneRow1);
+
+        horizontalGridPane.add(imageRectangle, 0, 0);
+
+        GridPane verticalGridPane = new GridPane();
+
+        ColumnConstraints verticalGridPaneColumn1 = new ColumnConstraints();
+
+        verticalGridPaneColumn1.setPrefWidth(120);
+        verticalGridPaneColumn1.setMaxWidth(Region.USE_PREF_SIZE);
+        verticalGridPaneColumn1.setMinWidth(Region.USE_PREF_SIZE);
+
+        RowConstraints verticalGridPaneRow1 = new RowConstraints();
+        RowConstraints verticalGridPaneRow2 = new RowConstraints();
+
+        verticalGridPaneRow1.setPrefHeight(35);
+        verticalGridPaneRow1.setMaxHeight(Region.USE_PREF_SIZE);
+        verticalGridPaneRow1.setMinHeight(Region.USE_PREF_SIZE);
+
+        verticalGridPaneRow2.setPrefHeight(35);
+        verticalGridPaneRow2.setMaxHeight(Region.USE_PREF_SIZE);
+        verticalGridPaneRow2.setMinHeight(Region.USE_PREF_SIZE);
+
+        verticalGridPane.getColumnConstraints().addAll(verticalGridPaneColumn1);
+        verticalGridPane.getRowConstraints().addAll(verticalGridPaneRow1, verticalGridPaneRow2);
+
+        verticalGridPane.add(playerName, 0, 0);
+        verticalGridPane.add(playerPoints, 0, 1);
+
+
+        horizontalGridPane.add(verticalGridPane, 1, 0);
+
+        BackgroundFill horizontalGridPaneBackgroundFill = new BackgroundFill(new Color(1, 1, 1, 0.5), new CornerRadii(15), Insets.EMPTY);
+        Background horizontalGridPaneBackground = new Background(horizontalGridPaneBackgroundFill);
+        horizontalGridPane.setBackground(horizontalGridPaneBackground);
+
+        scoreBoardGridPane.add(horizontalGridPane, 0, rowNumber.get());
+    }
+
 
 }

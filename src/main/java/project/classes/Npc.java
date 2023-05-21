@@ -3,14 +3,14 @@ package project.classes;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import project.abstractClasses.abstractCharacter;
+import project.abstractClasses.AbstractCharacter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-public class Npc extends abstractCharacter {
+public class Npc extends AbstractCharacter {
 
     /**
      * Constructor

@@ -6,23 +6,32 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import project.GuiLauncherMain;
+import project.abstractClasses.AbstractCharacter;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class JavaFxFunctions {
@@ -128,6 +137,18 @@ public class JavaFxFunctions {
         return spellImageView;
     }
 
+    public static Rectangle returnImageRectangle(int width, int height,
+                                                 int arcWidth, int arcHeight,
+                                                 String imageName) {
+        Rectangle imageRectangle = new Rectangle(width, height);
+        imageRectangle.setArcHeight(arcHeight);
+        imageRectangle.setArcWidth(arcWidth);
+        ImagePattern imagePattern = new ImagePattern(returnObjectImage(imageName));
+        imageRectangle.setFill(imagePattern);
+
+        return imageRectangle;
+    }
+
 
     /**
      * Returns an Image of a given image string
@@ -154,6 +175,10 @@ public class JavaFxFunctions {
      */
     public static String returnImagePath(String objectName) {
         return Objects.requireNonNull(GuiLauncherMain.class.getClassLoader().getResource("project/images/")) + objectName;
+    }
+
+    public static String returnPath(String objectName) {
+        return Objects.requireNonNull(GuiLauncherMain.class.getClassLoader().getResource(objectName)).toString() ;
     }
 
     /**
@@ -444,6 +469,7 @@ public class JavaFxFunctions {
         threadY.start();
         return nodeTimelineX;
     }
+
 
 
 }

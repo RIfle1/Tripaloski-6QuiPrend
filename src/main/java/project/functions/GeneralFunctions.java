@@ -1,7 +1,11 @@
 package project.functions;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 public class GeneralFunctions {
 
@@ -80,6 +84,25 @@ public class GeneralFunctions {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public static ArrayList<String> returnImageList(String imageDir) {
+        File[] images = new File(imageDir).listFiles();
+
+        assert images != null;
+
+        ArrayList<String> imageList = new ArrayList<>();
+
+        Stream.of(images)
+                .filter(file -> !file.isDirectory())
+                .map(File::getName)
+                .forEach(imageList::add);
+
+        return imageList;
+    }
+
+    public static String returnTargetPath(String dir) {
+        return "target/classes/project/" + dir;
     }
 
 //    public static String returnFileAttribute(String dir, String filenameCompressed, String attribute) {

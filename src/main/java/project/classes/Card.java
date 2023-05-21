@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import static project.functions.GeneralFunctions.generateDoubleBetween;
+
 @Getter
 @Setter
 @Builder
@@ -23,6 +25,16 @@ public class Card {
         this.cardNumber = cardNumber;
         this.cardHeads = cardHeads;
         this.cardImage = cardImage;
+    }
+
+    /**
+     * Return a random card from the deck
+     * @param deck Deck
+     * @return Random Card
+     */
+    public static Card returnRandomCard(Deck deck) {
+        int randomCardNumber = (int) generateDoubleBetween(0, deck.getDeck().size() - 1);
+        return deck.getDeck().get(randomCardNumber);
     }
 }
 
