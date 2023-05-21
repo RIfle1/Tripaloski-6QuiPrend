@@ -6,7 +6,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -18,68 +20,93 @@
         <String fx:value="background" />
     </styleClass>
 
-   <Rectangle fx:id="playerHandRectangle" fill="WHITE" height="206.0" layoutY="97.0" opacity="0.5" width="1920.0" />
+         <Rectangle fx:id="playerHandRectangle" arcHeight="10.0" arcWidth="10.0" fill="WHITE" height="190.0" layoutY="97.0" opacity="0.5" width="1511.0" />
    <Label fx:id="playerTurnText1" layoutX="8.0" layoutY="97.0" prefHeight="17.0" prefWidth="292.0" style="&#10;           -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );&#10;       " text="Main du joueur" textFill="#422ff2">
       <font>
          <Font size="24.0" />
       </font>
    </Label>
-    <Rectangle fx:id="playerTurnRectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="53.0" layoutX="-6.0" layoutY="22.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="1926.0">
+    <Rectangle fx:id="playerTurnRectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="53.0" layoutX="3.0" layoutY="22.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="1511.0">
         <effect>
             <DropShadow height="53.04" offsetY="6.0" radius="44.8775" width="128.47" />
         </effect>
     </Rectangle>
-   <Label fx:id="playerTurnText" alignment="CENTER" layoutX="687.0" layoutY="20.0" prefHeight="17.0" prefWidth="547.0" text="Tour du joueur" textFill="#422ff2">
+   <Label fx:id="playerTurnText" alignment="CENTER" layoutX="452.0" layoutY="20.0" prefHeight="58.0" prefWidth="608.0" text="Tour du joueur" textFill="#422ff2">
        <style>
            -fx-font-size: 40px;
            -fx-font-weight: bold;
            -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );
        </style>
    </Label>
-
-
-    <FlowPane fx:id="cardFlowPane" hgap="10" layoutX="14.0" layoutY="331.0" prefHeight="417.0" prefWidth="691.0" style="-fx-padding: 10px;" vgap="10">
-<!--      <children>-->
-<!--          <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="20.0" layoutY="20.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="130.0" layoutY="20.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="240.0" layoutY="20.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="350.0" layoutY="20.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="460.0" layoutY="20.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="570.0" layoutY="20.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="20.0" layoutY="180.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="130.0" layoutY="180.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="240.0" layoutY="180.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="350.0" layoutY="180.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="460.0" layoutY="180.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="570.0" layoutY="180.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="20.0" layoutY="340.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="130.0" layoutY="340.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="240.0" layoutY="340.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="350.0" layoutY="340.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="460.0" layoutY="340.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="570.0" layoutY="340.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="20.0" layoutY="500.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="130.0" layoutY="500.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="240.0" layoutY="500.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="350.0" layoutY="500.0" opacity="0.5" width="100.0" />-->
-<!--         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="460.0" layoutY="500.0" opacity="0.5" width="100.0" />-->
-<!--      </children>-->
-    </FlowPane>
-   <Label fx:id="playerTurnText11" alignment="CENTER" layoutX="1574.0" layoutY="97.0" prefHeight="17.0" prefWidth="292.0" style="&#10;           -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );&#10;       " text="Vaches du joueur" textFill="#422ff2">
+   <Label fx:id="playerTurnText11" alignment="CENTER" layoutX="1574.0" layoutY="32.0" prefHeight="17.0" prefWidth="292.0" style="&#10;           -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );&#10;       " text="Joueurs" textFill="#422ff2">
       <font>
-         <Font size="24.0" />
+         <Font size="30.0" />
       </font>
    </Label>
 
-    <ImageView fx:id="vacheImageView" fitHeight="176.0" fitWidth="156.0" layoutX="1642.0" layoutY="132.0" preserveRatio="true">
-      <image>
-         <Image url="@../images/vacheRouge.png" />
-      </image></ImageView>
-   <Label fx:id="playerTurnText111" layoutX="1785.0" layoutY="169.0" prefHeight="116.0" prefWidth="45.0" style="&#10;           -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );&#10;       " text="X">
-      <font>
-         <Font size="65.0" />
-      </font>
-   </Label>
+   <GridPane hgap="5.0" layoutX="14.0" layoutY="320.0" prefHeight="639.0" prefWidth="633.0" vgap="12.0" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="1273.0" AnchorPane.topAnchor="320.0">
+     <columnConstraints>
+       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+     </columnConstraints>
+     <rowConstraints>
+         <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+     </rowConstraints>
+      <children>
+      
+          <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" opacity="0.5" width="100.0" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="2" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="121.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="5" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="3" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="1" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="454.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="4" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.rowIndex="1" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="172.0" opacity="0.5" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="454.0" layoutY="172.0" opacity="0.5" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="565.0" layoutY="172.0" opacity="0.5" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.rowIndex="3" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.rowIndex="2" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="232.0" layoutY="492.0" opacity="0.5" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+         <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="149.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      
+          <ImageView fx:id="vacheImageView" fitHeight="82.0" fitWidth="89.0" opacity="0.56" preserveRatio="true" GridPane.columnIndex="5">
+            <image>
+               <Image url="@../images/vacheRouge.png" />
+            </image>
+          </ImageView>
+         <ImageView fx:id="vacheImageView1" fitHeight="82.0" fitWidth="89.0" layoutX="551.0" layoutY="45.0" opacity="0.56" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
+            <image>
+               <Image url="@../images/vacheRouge.png" />
+            </image>
+         </ImageView>
+         <ImageView fx:id="vacheImageView11" fitHeight="82.0" fitWidth="89.0" layoutX="551.0" layoutY="208.0" opacity="0.56" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
+            <image>
+               <Image url="@../images/vacheRouge.png" />
+            </image>
+         </ImageView>
+         <ImageView fx:id="vacheImageView111" fitHeight="82.0" fitWidth="89.0" layoutX="551.0" layoutY="371.0" opacity="0.56" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
+            <image>
+               <Image url="@../images/vacheRouge.png" />
+            </image>
+         </ImageView>
+      </children>
+   </GridPane>
 
 </AnchorPane>
