@@ -44,7 +44,7 @@ public class Board2Controller {
             }
         }
 
-        playerTurnText.setText("Tour du joueur"+ " " + playerName); //playerName à implémenter
+//        playerTurnText.setText("Tour du joueur"+ " " + playerName); //playerName à implémenter
 
     }
 
