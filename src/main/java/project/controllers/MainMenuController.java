@@ -114,7 +114,7 @@ public class MainMenuController implements Initializable {
             return;
         }
 
-        boardScene(event, playersNumber, npcNumber, variantNumber, roundNumber, startingPoints, new ArrayList<>(), new ArrayList<>());
+        boardScene(event, playersNumber, npcNumber, variantNumber, roundNumber, startingPoints);
     }
 
     /**

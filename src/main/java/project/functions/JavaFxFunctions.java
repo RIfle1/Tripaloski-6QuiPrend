@@ -6,32 +6,25 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import project.GuiLauncherMain;
-import project.abstractClasses.AbstractCharacter;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class JavaFxFunctions {
@@ -297,15 +290,11 @@ public class JavaFxFunctions {
      * Selects a given sub grid pane
      *
      * @param mainGridPane     Main grid pane where the sub grid pane is located
-     * @param selectedGridPane Sub grid pane to select
+     * @param selectedNode Sub grid pane to select
      */
-    public static void selectSubGridPane(GridPane mainGridPane, GridPane selectedGridPane) {
-        mainGridPane.getChildren().forEach(node -> {
-            if (node instanceof GridPane) {
-                ((GridPane) node).getStyleClass().remove("clickableNodePressed");
-            }
-        });
-        selectedGridPane.getStyleClass().add("clickableNodePressed");
+    public static void selectNode(GridPane mainGridPane, Node selectedNode) {
+        deselectAllSubGridPanes(mainGridPane);
+        selectedNode.getStyleClass().add("clickableNodePressed");
     }
 
     /**
@@ -314,7 +303,7 @@ public class JavaFxFunctions {
      * @param mainGridPane         Main grid pane where the sub grid pane is located
      * @param selectedGridPaneFxID ID of the sub grid pane to select
      */
-    public static void selectSubGridPane(GridPane mainGridPane, String selectedGridPaneFxID) {
+    public static void selectNode(GridPane mainGridPane, String selectedGridPaneFxID) {
         Objects.requireNonNull(mainGridPane.getChildren().stream()
                         .filter(node -> node.getId().equals(selectedGridPaneFxID))
                         .findFirst()
@@ -328,11 +317,7 @@ public class JavaFxFunctions {
      * @param gridPane Main grid pane where the sub grid panes are located
      */
     public static void deselectAllSubGridPanes(GridPane gridPane) {
-        gridPane.getChildren().forEach(node -> {
-            if (node instanceof GridPane) {
-                ((GridPane) node).getStyleClass().remove("clickableNodePressed");
-            }
-        });
+        gridPane.getChildren().forEach(node -> node.getStyleClass().remove("clickableNodePressed"));
     }
 
     /**

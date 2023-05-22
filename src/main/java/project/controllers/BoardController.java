@@ -38,20 +38,14 @@ import static project.functions.JavaFxFunctions.*;
 public class BoardController implements Initializable {
     private static Deck deck;
     private static Board board;
-    private static List<Player> playerList = new ArrayList<>();
-    private static List<Npc> npcList = new ArrayList<>();
-
-    private static int playerNumber;
-    private static int npcNumber;
+    private static CharacterList characterList;
     // Variant 0 => No Modifications to the game
     // Variant 1 => Max cards based on number of players
     // Variant 2 => Players can choose their cards by turn
     // Variant 3 => Variant 1 + Variant 2
     private static int variantNumber;
     private static int roundNumber;
-    private static int startingPoints;
-    private static GridPane scoreBoardGridPane = new GridPane();
-
+    private static GridPane scoreBoardGridPane;
     @FXML
     private GridPane chosenCardsGridPane;
     @FXML
@@ -59,7 +53,7 @@ public class BoardController implements Initializable {
     @FXML
     private GridPane gameStatsGridPane;
     @FXML
-    private GridPane playerCardsGridPane;
+    private GridPane playerCardsInfoGridPane;
     @FXML
     private Text playerCardsT;
     @FXML
@@ -72,20 +66,14 @@ public class BoardController implements Initializable {
      * @param playerNumberParam  Number of players
      * @param npcNumberParam     Number of NPCs
      * @param variantNumberParam Variant Number
-     * @param playerListParam    List of players (Optional)
-     * @param npcListParam       List of NPCs (Optional)
      */
 
-    public static void boardScene(MouseEvent event, int playerNumberParam, int npcNumberParam, int variantNumberParam, int roundNumberParam, int startingPointsParam, List<Player> playerListParam, List<Npc> npcListParam) {
-        playerNumber = playerNumberParam;
-        npcNumber = npcNumberParam;
+    public static void boardScene(MouseEvent event, int playerNumberParam, int npcNumberParam, int variantNumberParam, int roundNumberParam, int startingPointsParam) {
         variantNumber = variantNumberParam;
-        playerList = playerListParam;
-        npcList = npcListParam;
         roundNumber = roundNumberParam;
-        startingPoints = startingPointsParam;
 
-        deck = new Deck(variantNumber, playerNumber, npcNumber);
+        deck = new Deck(variantNumber, playerNumberParam, npcNumberParam);
+        characterList = new CharacterList(playerNumberParam, npcNumberParam, startingPointsParam);
 
         FXMLLoader characterCreationFxmlLoader = new FXMLLoader(returnFXMLURL("Board.fxml"));
         ActionEvent actionEvent = new ActionEvent(event.getSource(), event.getTarget());
@@ -104,20 +92,59 @@ public class BoardController implements Initializable {
 
     /**
      * Initialize the game
-     *
      * @param url            URL
      * @param resourceBundle Resource Bundle
      */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (variantNumber == 0 || variantNumber == 1) initializeCharacters();
+        initializeCharacterCards();
 
         initializeScoreBoard();
         displayScoreBoard();
 
         initializeBoard();
         displayBoard();
+
+        startGame();
+    }
+
+    private void startGame() {
+        displayCharacterCards(characterList.getCharacters().get(0));
+        displayPlayerInfo(characterList.getCharacters().get(0));
+
+//        characterList.getCharacters().forEach(character -> {
+//            displayCharacterCards(character);
+//        });
+    }
+
+    private void displayCharacterCards(AbstractCharacter abstractCharacter) {
+        List<Card> characterCards = abstractCharacter.getCardsList();
+
+        GridPane playerCardsGridPane = new GridPane();
+        playerCardsGridPane.setAlignment(Pos.TOP_LEFT);
+        GridPane.setMargin(playerCardsGridPane, new Insets(0, 0, 0, 5));
+
+        playerCardsGridPane.setHgap(5);
+
+        for (int i = 0; i < characterCards.size(); i++) {
+            Card card = characterCards.get(i);
+
+            Rectangle imageRectangle = returnImageRectangle(90, 140, 10, 10, "cards/" + card.getCardImage());
+            imageRectangle.getStyleClass().add("clickableNode");
+            imageRectangle.setId(String.valueOf(card.getCardNumber()));
+
+            imageRectangle.setOnMouseReleased(event -> selectNode(playerCardsGridPane, imageRectangle));
+
+            playerCardsGridPane.add(imageRectangle, i, 0);
+        }
+
+        playerCardsInfoGridPane.add(playerCardsGridPane, 0, 1);
+    }
+
+    private void displayPlayerInfo(AbstractCharacter abstractCharacter) {
+        playerCardsT.setText(abstractCharacter.getCharacterName() + "'s Cards");
+        playerTurnT.setText(abstractCharacter.getCharacterName() + "'s Turn");
     }
 
     private void initializeBoard() {
@@ -131,19 +158,6 @@ public class BoardController implements Initializable {
     }
 
     private void displayBoard() {
-//        scoreBoardGridPane
-//        board.getCardsList().forEach(card -> {
-//            gameBoardGriPane.getChildren().stream().filter(node -> node.getId().equals(card.getCardNumber())).findFirst().ifPresent(node -> {
-//                gameBoardGriPane.getChildren().remove(node);
-//            });
-//        });
-
-
-//        board.getCardsList().forEach(card -> {
-//            System.out.println("Card: " + card.getCardNumber() + " Image: " + card.getCardImage());
-//        });
-
-
         Card[][] localBoard = board.getBoard();
 
         for (int row = 0; row < localBoard.length; row++) {
@@ -165,30 +179,13 @@ public class BoardController implements Initializable {
     }
 
     /**
-     * Initialize the characters
-     */
-
-    public void initializeCharacters() {
-        playerList = Player.initializePlayers(playerNumber, startingPoints);
-        npcList = Npc.initializeNpcs(npcNumber, startingPoints);
-
-        initializeCharacterCards();
-    }
-
-    /**
      * Initialize the characters cards
      */
 
     public void initializeCharacterCards() {
-        playerList.forEach(player -> {
+        characterList.getCharacters().forEach(character -> {
             for (int i = 1; i <= 10; i++) {
-                giveCard(player.getCardsList());
-            }
-        });
-
-        npcList.forEach(npc -> {
-            for (int i = 1; i <= 10; i++) {
-                giveCard(npc.getCardsList());
+                giveCard(character.getCardsList());
             }
         });
     }
@@ -204,6 +201,8 @@ public class BoardController implements Initializable {
      * Initialize the scoreboard GridPane
      */
     private void initializeScoreBoard() {
+        scoreBoardGridPane = new GridPane();
+
         scoreBoardGridPane.setAlignment(Pos.TOP_CENTER);
         scoreBoardGridPane.setVgap(10);
 
@@ -223,17 +222,12 @@ public class BoardController implements Initializable {
         AtomicInteger rowNumber = new AtomicInteger(0);
         ArrayList<String> imageList = returnImageList(returnTargetPath("images/icons"));
 
-
-        playerList.forEach(player -> {
-            returnCharacterInfoGrid(rowNumber, imageList, player);
+        characterList.getCharacters().forEach(character -> {
+            returnCharacterInfoGrid(rowNumber, imageList, character);
             rowNumber.getAndIncrement();
         });
 
-        npcList.forEach(npc -> {
-            returnCharacterInfoGrid(rowNumber, imageList, npc);
-            rowNumber.getAndIncrement();
-        });
-
+        gameStatsGridPane.getChildren().remove(scoreBoardGridPane);
         gameStatsGridPane.add(scoreBoardGridPane, 1, 1);
     }
 

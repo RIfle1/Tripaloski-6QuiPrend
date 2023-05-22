@@ -62,3 +62,39 @@
     -fx-background-radius: 20;
 }
 
+.clickableNode {
+    -fx-stroke: transparent;
+    -fx-stroke-width: 3;
+}
+
+.clickableNodePressed {
+    -fx-stroke: #3d7211;
+    -fx-stroke-width: 3;
+}
+
+.clickableNode:hover {
+    -fx-stroke: #3d7211;
+    -fx-stroke-width: 3;
+}
+
+.buttonStyle {
+    -fx-font-family: "System", sans-serif;
+    -fx-font-size: 16;
+    -fx-text-fill: #422ff2;
+    -fx-font-weight: bold;
+
+    -fx-border-color: lightgrey;
+    -fx-border-width: 2;
+    -fx-border-radius: 20;
+
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-background-radius: 20;
+
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );
+}
+
+.buttonStyle:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 20;
+}
+

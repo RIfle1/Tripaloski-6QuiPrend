@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f14768f5-5e0a-4783-b224-3f696ca73c66" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/project/classes/CharacterList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2023_17_06__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2023_17_06__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2023_17_06__Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2023_17_06__Changes_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project/classes/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/classes/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/BoardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/MainMenuController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project/functions/JavaFxFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/functions/JavaFxFunctions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/project/fxml/Board.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/Board.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/project/styles/generalStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/styles/generalStyles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,13 +24,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -51,7 +57,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "Z:/stuff2/Programming/Java Projects/HarryPotter",
+    "last_opened_file_path": "C:/Users/phili/Desktop/Uni/Programming/Java Projects/HarryPotter",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -107,11 +113,23 @@
       <workItem from="1684169318762" duration="9000" />
       <workItem from="1684169514253" duration="686000" />
       <workItem from="1684415716953" duration="5772000" />
+      <workItem from="1684744372052" duration="7039000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
