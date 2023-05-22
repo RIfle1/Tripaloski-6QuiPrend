@@ -6,6 +6,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -138,10 +139,14 @@ public class JavaFxFunctions {
         Rectangle imageRectangle = new Rectangle(width, height);
         imageRectangle.setArcHeight(arcHeight);
         imageRectangle.setArcWidth(arcWidth);
-        ImagePattern imagePattern = new ImagePattern(returnObjectImage(imageName));
-        imageRectangle.setFill(imagePattern);
+        setRectangleImage(imageRectangle, imageName);
 
         return imageRectangle;
+    }
+
+    public static void setRectangleImage(Rectangle rectangle, String imageName) {
+        ImagePattern imagePattern = new ImagePattern(returnObjectImage(imageName));
+        rectangle.setFill(imagePattern);
     }
 
 
@@ -341,7 +346,7 @@ public class JavaFxFunctions {
      *
      * @param parentGridPane      Grid pane where the node is located
      * @param selectedObjectClass Class to search for in all the nodes in the parent grid pane
-     * @return Node with the given class
+     * @return StringID of node on index 0 and Node with the given class on index 1
      */
     public static List<Object> returnSelectedNodes(GridPane parentGridPane, String selectedObjectClass) {
         return returnSelectedNodesSub(selectedObjectClass, parentGridPane);
@@ -353,7 +358,7 @@ public class JavaFxFunctions {
      * @param mainAnchorPane      Main anchor pane where the parent grid pane is located
      * @param parentGridPaneFxID  ID of the parent grid pane
      * @param selectedObjectClass Class to search for in all the nodes in the parent grid pane
-     * @return Node with the given class
+     * @return StringID of node on index 0 and Node with the given class on index 1
      */
     public static List<Object> returnSelectedNodes(GridPane mainAnchorPane, String parentGridPaneFxID, String selectedObjectClass) {
         GridPane parentGridPane = (GridPane) mainAnchorPane.lookup("#" + parentGridPaneFxID);
@@ -365,13 +370,13 @@ public class JavaFxFunctions {
      *
      * @param selectedObjectClass Class to search for in all the nodes in the parent grid pane
      * @param parentGridPane      Grid pane where the node is located
-     * @return Node with the given class
+     * @return StringID of node on index 0 and Node with the given class on index 1
      */
     @NotNull
     public static List<Object> returnSelectedNodesSub(String selectedObjectClass, GridPane parentGridPane) {
 
         try {
-            GridPane selectedNode = (GridPane) returnNodeByClass(parentGridPane, selectedObjectClass);
+            Node selectedNode = returnNodeByClass(parentGridPane, selectedObjectClass);
             String nodeId = selectedNode.getId();
 
             return Arrays.asList(nodeId, selectedNode);
@@ -455,6 +460,23 @@ public class JavaFxFunctions {
         threadX.start();
         threadY.start();
         return nodeTimelineX;
+    }
+
+    public static void animateCardTranslation(Node attackingNode, Node attackedNode, Runnable onFinishedFunc) {
+
+        Bounds startingBounds = attackingNode.localToScene(attackingNode.getBoundsInLocal());
+        Bounds endingBounds = attackedNode.localToScene(attackedNode.getBoundsInLocal());
+
+        double boundsXDiff = endingBounds.getCenterX() - startingBounds.getCenterX();
+        double boundsYDiff = endingBounds.getCenterY() - startingBounds.getCenterY();
+
+        Timeline nodeTimelineX = translationEffect(attackingNode, boundsXDiff, boundsYDiff,
+                1, () -> {}, 0.5,
+                1, false);
+
+        nodeTimelineX.setOnFinished(event -> {
+            onFinishedFunc.run();
+        });
     }
 
 
