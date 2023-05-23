@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -58,6 +59,7 @@ public class BoardController implements Initializable {
     private static GridPane chosenCardsGridPane;
     private static ArrayList<Card> chosenCardsList;
     private static AbstractCharacter currentCharacter;
+    private static Card currentCard;
     @FXML
     private GridPane chosenCardsInfoGridPane;
     @FXML
@@ -75,7 +77,7 @@ public class BoardController implements Initializable {
     @FXML
     private Button takeRowButton;
     @FXML
-    private Rectangle rectangleTest;
+    private GridPane takenCardsGridPane;
 
     /**
      * Send to the Board Scene
@@ -122,16 +124,13 @@ public class BoardController implements Initializable {
         return null;
     }
 
-    public void resolveCards(int index) {
+    public void resolveCards() {
         chosenCardsList = sortCardsByIncreasingOrder(chosenCardsList);
 
-//        chosenCardsList.forEach(card -> {
-//            System.out.println(card.getCardNumber());
-//        });
-
         Card[][] localBoard = board.getBoard();
-        Card card = chosenCardsList.get(index);
-        int bestCardNumberDifference = card.getCardNumber();
+        currentCard = chosenCardsList.get(0);
+
+        int bestCardNumberDifference = currentCard.getCardNumber();
         int currentCardNumberDifference;
         int bestRow = -1;
         int bestColumn = -1;
@@ -153,7 +152,7 @@ public class BoardController implements Initializable {
             }
             assert lastRowCard != null;
             int lastRowCardNumber = lastRowCard.getCardNumber();
-            int cardNumber = card.getCardNumber();
+            int cardNumber = currentCard.getCardNumber();
 
             currentCardNumberDifference = Math.abs(cardNumber - lastRowCardNumber);
 
@@ -175,54 +174,58 @@ public class BoardController implements Initializable {
         }
 
         if (bestRow != -1) {
-            board.getBoard()[bestRow][bestColumn] = card;
-            currentCharacter = findCharacterByCard(card);
-            currentCharacter.getCardsList().remove(card);
 
-            // ANIMATION STUFF
-            Rectangle cardRectangle = (Rectangle) returnChildNodeById(chosenCardsGridPane, String.valueOf(card.getCardNumber()));
-            Rectangle selectedCardRectangle2 = returnImageRectangle(90, 140, 10, 10, "cards/" + card.getCardNumber() + ".png");
-            selectedCardRectangle2.setId(cardRectangle.getId());
-//        Rectangle targetRectangle = (Rectangle) getNodeByRowColumnIndex(bestColumn, bestRow, gameBoardGridPane);
 
-            int finalBestColumn = bestColumn;
             int finalBestRow = bestRow;
-            List<Timeline> timelineList = new ArrayList<>(animateCardTranslation(cardRectangle, gameBoardGridPane));
-            timelineList.get(0).setOnFinished(e -> {
-                gameBoardGridPane.add(selectedCardRectangle2, finalBestColumn, finalBestRow);
-                chosenCardsGridPane.getChildren().remove(cardRectangle);
+            int finalBestColumn = bestColumn;
+            resolveChosenCardAnimation(currentCard, bestRow, bestColumn, () -> {
+                resolveChosenCard(finalBestRow, finalBestColumn);
             });
 
-            timelineList.forEach(Timeline::play);
 
-            if (index + 1 < chosenCardsList.size()) {
-                resolveCards(index + 1);
-            } else {
-                chosenCardsList.clear();
-                chooseCardButton.setDisable(false);
-
-                playerTurn(0);
-            }
         } else {
-//            Stage stage = (Stage) gameBoardGridPane.getScene().getWindow();
-
-//            createPopup(stage, Alert.AlertType.INFORMATION, "Your card is too small too go anywhere on the board. Please Choose the row you want to take.");
-
-            chosenCardsList.remove(card);
-
-            currentCharacter = findCharacterByCard(card);
-
-            displayPlayerInfo("", currentCharacter.getCharacterName() + "'s card '" +
-                    card.getCardNumber() +
-                    "' is too small, please choose the row you want to take.");
-
+            currentCharacter = findCharacterByCard(currentCard);
+            displayPlayerInfo("", currentCharacter.getCharacterName() + "'s card '" + currentCard.getCardNumber() + "' is too small, please choose the row you want to take.");
             setBoardRowsOnHover();
-
             takeRowButton.setDisable(false);
-
-
         }
 
+        System.out.println("Chosen cards list size: " + chosenCardsList.size());
+
+    }
+
+    private void resolveChosenCard(int bestRow, int bestColumn) {
+        board.getBoard()[bestRow][bestColumn] = currentCard;
+
+        currentCharacter = findCharacterByCard(currentCard);
+        currentCharacter.getCardsList().remove(currentCard);
+        chosenCardsList.remove(currentCard);
+
+        if (chosenCardsList.size() > 0) {
+            resolveCards();
+        } else {
+            chooseCardButton.setDisable(false);
+
+            playerTurn(0);
+        }
+    }
+
+    private void resolveChosenCardAnimation(Card card, int bestRow, int bestColumn, Runnable runnableFunc) {
+        // ANIMATION STUFF
+        Rectangle cardRectangle = (Rectangle) returnChildNodeById(chosenCardsGridPane, String.valueOf(card.getCardNumber()));
+        Rectangle selectedCardRectangle2 = returnImageRectangle(90, 140, 10, 10, "cards/" + card.getCardNumber() + ".png");
+        selectedCardRectangle2.setId(cardRectangle.getId());
+
+        Rectangle targetRectangle = (Rectangle) getNullIdNodeByRowColumnIndex(bestColumn, bestRow, gameBoardGridPane);
+
+        List<Timeline> timelineList = new ArrayList<>(animateCardTranslation(cardRectangle, targetRectangle));
+        timelineList.get(0).setOnFinished(e -> {
+            gameBoardGridPane.add(selectedCardRectangle2, bestColumn, bestRow);
+            chosenCardsGridPane.getChildren().remove(cardRectangle);
+            runnableFunc.run();
+        });
+
+        timelineList.forEach(Timeline::play);
     }
 
     public void setBoardRowsOnHover() {
@@ -230,7 +233,7 @@ public class BoardController implements Initializable {
 
             if (node instanceof Rectangle) {
 
-                if(node.getId() == null) {
+                if (node.getId() == null) {
                     node.getStyleClass().add("clickableNode");
                     node.getStyleClass().add("clickableNodeS");
                 }
@@ -239,8 +242,7 @@ public class BoardController implements Initializable {
                 node.setOnMouseEntered(e -> {
                     gameBoardGridPane.getChildren().forEach(nodeSub -> {
                         if (nodeSub instanceof Rectangle) {
-                            setSynchronizedFunction(nodeRow, (Rectangle) nodeSub,
-                                    () -> onHoverFunction((Rectangle) nodeSub));
+                            setSynchronizedFunction(nodeRow, (Rectangle) nodeSub, () -> onHoverFunction((Rectangle) nodeSub));
 
                         }
                     });
@@ -249,8 +251,7 @@ public class BoardController implements Initializable {
                 node.setOnMouseExited(e1 -> {
                     gameBoardGridPane.getChildren().forEach(nodeSub -> {
                         if (nodeSub instanceof Rectangle) {
-                            setSynchronizedFunction(nodeRow, (Rectangle) nodeSub,
-                                    () -> onHoverFunction((Rectangle) nodeSub));
+                            setSynchronizedFunction(nodeRow, (Rectangle) nodeSub, () -> onHoverFunction((Rectangle) nodeSub));
                         }
                     });
 
@@ -261,8 +262,7 @@ public class BoardController implements Initializable {
                     deselectAllSubNodes(gameBoardGridPane);
                     gameBoardGridPane.getChildren().forEach(nodeSub -> {
                         if (nodeSub instanceof Rectangle) {
-                            setSynchronizedFunction(nodeRow, (Rectangle) nodeSub,
-                                    () -> permanentSelectFunction((Rectangle) nodeSub));
+                            setSynchronizedFunction(nodeRow, (Rectangle) nodeSub, () -> permanentSelectFunction((Rectangle) nodeSub));
                         }
                     });
                 });
@@ -343,7 +343,7 @@ public class BoardController implements Initializable {
                     });
                     displayPlayerInfo("", "Cards Resolution");
 
-                    resolveCards(0);
+                    resolveCards();
                 } else {
                     playerTurn(cardsPlaced + 1);
                     chooseCardButton.setDisable(false);
@@ -362,12 +362,73 @@ public class BoardController implements Initializable {
 
     @FXML
     void takeRowOnClick(MouseEvent mouseEvent) {
-        Rectangle selectedRowRectangle = (Rectangle) returnSelectedNodes(gameBoardGridPane, "clickableNodePressed").get(1);
-        int selectedRow = returnNodeRowIndex(selectedRowRectangle);
-        System.out.println(selectedRow);
-        
+        try {
+            Rectangle selectedRowRectangle = (Rectangle) returnSelectedNodes(gameBoardGridPane, "clickableNodePressed").get(1);
+            int selectedRow = returnNodeRowIndex(selectedRowRectangle);
+
+            List<Card> cardsOnBoardRow = returnCardsOnBoardRow(selectedRow);
+
+            currentCharacter.getTakenCardsList().addAll(cardsOnBoardRow);
+            calculateCharactersPoints();
+            updatePlayerInfoGridPane(currentCharacter);
+
+            deselectAllSubNodes(gameBoardGridPane);
+
+            cardsOnBoardRow.forEach(card -> {
+                Rectangle cardRectangle = (Rectangle) returnChildNodeById(gameBoardGridPane, String.valueOf(card.getCardNumber()));
+
+                List<Timeline> timelineList = animateCardTranslation(cardRectangle, takenCardsGridPane);
+                timelineList.get(0).setOnFinished((actionEvent) -> {
+                    gameBoardGridPane.getChildren().remove(cardRectangle);
+                    Rectangle cardRectangle2 = returnImageRectangle(90, 140, 10, 10, "cards/" + cardRectangle.getId() + ".png");
+
+                    Node previousNode = takenCardsGridPane.getChildren().get(takenCardsGridPane.getChildren().size() - 1);
+                    cardRectangle2.setTranslateX(previousNode.getTranslateX() + 25);
+
+                    takenCardsGridPane.add(cardRectangle2, 0, 0);
+                });
+                timelineList.forEach(Timeline::play);
+            });
+
+            resolveChosenCardAnimation(currentCard, selectedRow, 0, () -> {
+                resolveChosenCard(selectedRow, 0);
+            });
+        }
+        catch(Exception e) {
+            System.out.println("takeRowOnClick *FUNCTION* -> No row selected");
+            ActionEvent actionEvent = new ActionEvent(mouseEvent.getSource(), mouseEvent.getTarget());
+            createPopup(actionEvent, Alert.AlertType.ERROR, "Please select a row");
+        }
+
 
 //        takeRowButton.setDisable(true);
+    }
+
+    public List<Card> returnCardsOnBoardRow(int rowParam) {
+        List<Card> cardsOnBoardRow = new ArrayList<>();
+        Card[][] localBoard = board.getBoard();
+
+        for (int row = 0; row < localBoard.length; row++) {
+            for (int column = 0; column < localBoard[row].length; column++) {
+                if (row == rowParam && localBoard[row][column] != null) {
+                    cardsOnBoardRow.add(localBoard[row][column]);
+                }
+            }
+        }
+        return cardsOnBoardRow;
+    }
+
+    public void calculateCharactersPoints() {
+        List<Card> cardsToRemove = new ArrayList<>();
+
+        characterList.getCharacters().forEach(character -> {
+            character.getTakenCardsList().forEach(card -> {
+                character.setPoints(character.getPoints() - card.getCardHeads());
+                cardsToRemove.add(card);
+            });
+
+            character.getTakenCardsList().removeAll(cardsToRemove);
+        });
     }
 
     private Card returnCharacterCardByNumber(AbstractCharacter abstractCharacter, String cardNumber) {
@@ -540,30 +601,35 @@ public class BoardController implements Initializable {
      * Display the scoreboard
      */
     private void displayScoreBoard() {
+        gameStatsGridPane.getChildren().remove(scoreBoardGridPane);
+        scoreBoardGridPane.getChildren().clear();
+
+
         AtomicInteger rowNumber = new AtomicInteger(0);
         ArrayList<String> imageList = returnImageList(returnTargetPath("images/icons"));
 
         characterList.getCharacters().forEach(character -> {
-            returnCharacterInfoGrid(rowNumber, imageList, character);
+            GridPane characterInfoGridPane = returnCharacterInfoGrid(imageList, character);
+            scoreBoardGridPane.add(characterInfoGridPane, 0, rowNumber.get());
             rowNumber.getAndIncrement();
         });
 
-        gameStatsGridPane.getChildren().remove(scoreBoardGridPane);
+
         gameStatsGridPane.add(scoreBoardGridPane, 1, 1);
     }
 
     /**
      * Returns Character Info Grid Pane for the scoreboard
      *
-     * @param rowNumber         Row Number
      * @param imageList         Image List
      * @param abstractCharacter Abstract Character
      */
-    private void returnCharacterInfoGrid(AtomicInteger rowNumber, ArrayList<String> imageList, AbstractCharacter abstractCharacter) {
+    private GridPane returnCharacterInfoGrid(ArrayList<String> imageList, AbstractCharacter abstractCharacter) {
         Text playerName = new Text(abstractCharacter.getCharacterName());
         playerName.getStyleClass().add("playerInfoTextStyle1");
 
         Text playerPoints = new Text(abstractCharacter.getPoints() + "⭐");
+        playerPoints.setId(abstractCharacter.getCharacterName() + "Points");
         playerPoints.getStyleClass().add("playerInfoTextStyle2");
 
         String imageName = imageList.get((int) generateDoubleBetween(0, imageList.size() - 1));
@@ -629,9 +695,14 @@ public class BoardController implements Initializable {
         BackgroundFill horizontalGridPaneBackgroundFill = new BackgroundFill(new Color(1, 1, 1, 0.5), new CornerRadii(15), Insets.EMPTY);
         Background horizontalGridPaneBackground = new Background(horizontalGridPaneBackgroundFill);
         horizontalGridPane.setBackground(horizontalGridPaneBackground);
+        horizontalGridPane.setId(abstractCharacter.getCharacterName());
 
-        scoreBoardGridPane.add(horizontalGridPane, 0, rowNumber.get());
+//        scoreBoardGridPane.add(horizontalGridPane, 0, rowNumber.get());
+        return horizontalGridPane;
     }
 
-
+    private void updatePlayerInfoGridPane(AbstractCharacter abstractCharacter) {
+        Text playerPointsT = (Text) scoreBoardGridPane.lookup("#" + abstractCharacter.getCharacterName() + "Points");
+        playerPointsT.setText(abstractCharacter.getPoints() + "⭐");
+    }
 }

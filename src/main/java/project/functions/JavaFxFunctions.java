@@ -408,22 +408,29 @@ public class JavaFxFunctions {
      */
     public static Node returnChildNodeById(GridPane parentGridPane, String childGridPaneFxId) {
         return parentGridPane.getChildren().stream()
-                .filter(node -> node.getId().equals(childGridPaneFxId))
+                .filter(node -> {
+                 if(node.getId() != null) {
+                     return node.getId().equals(childGridPaneFxId);
+                 } else {
+                     return false;
+                 }
+                })
                 .findFirst()
                 .orElse(null);
     }
 
-    public static Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
+    public static Node getNullIdNodeByRowColumnIndex(final int row, final int column, GridPane gridPane) {
         AtomicReference<Node> result = new AtomicReference<>();
         gridPane.getChildren().forEach(node -> {
-            int nodeRow = returnNodeRowIndex(node);
-            int nodeColumn = returnNodeColumnIndex(node);
+            if(node.getId() == null) {
+                int nodeRow = returnNodeRowIndex(node);
+                int nodeColumn = returnNodeColumnIndex(node);
 
-            if(nodeRow == row && nodeColumn == column) {
-                result.set(node);
+                if(nodeRow == row && nodeColumn == column) {
+                    result.set(node);
 //                System.out.println("Node: " + node + " Row: " + nodeRow + " Column: " + nodeColumn);
+                }
             }
-
         });
 
         return result.get();
@@ -519,7 +526,7 @@ public class JavaFxFunctions {
 //        System.out.println("------------------");
 
         return translationEffect(attackingNode, boundsXDiff, boundsYDiff,
-                1, () -> {}, 0.5,
+                0.6, () -> {}, 0.5,
                 1, false);
     }
 

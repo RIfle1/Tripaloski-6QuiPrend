@@ -111,3 +111,10 @@
     -fx-fill: rgba(255, 255, 255, 0.95);
 }
 
+.cardBackSideBackground{
+    -fx-background-image: url('../images/cards/backSide.png');
+    -fx-background-size: 100% 100%;
+
+    -fx-image: url('../images/cards/backSide.png');
+}
+
