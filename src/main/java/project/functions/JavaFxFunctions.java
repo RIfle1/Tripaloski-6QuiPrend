@@ -1,9 +1,6 @@
 package project.functions;
 
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
@@ -26,6 +23,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class JavaFxFunctions {
@@ -298,7 +296,7 @@ public class JavaFxFunctions {
      * @param selectedNode Sub grid pane to select
      */
     public static void selectNode(GridPane mainGridPane, Node selectedNode) {
-        deselectAllSubGridPanes(mainGridPane);
+        deselectAllSubNodes(mainGridPane);
         selectedNode.getStyleClass().add("clickableNodePressed");
     }
 
@@ -321,7 +319,7 @@ public class JavaFxFunctions {
      *
      * @param gridPane Main grid pane where the sub grid panes are located
      */
-    public static void deselectAllSubGridPanes(GridPane gridPane) {
+    public static void deselectAllSubNodes(GridPane gridPane) {
         gridPane.getChildren().forEach(node -> node.getStyleClass().remove("clickableNodePressed"));
     }
 
@@ -331,7 +329,7 @@ public class JavaFxFunctions {
      * @param mainGridPane       Main grid pane where the parent grid pane is located
      * @param parentGridPaneFxID ID of the parent grid pane
      */
-    public static void deselectAllSubGridPanes(GridPane mainGridPane, String parentGridPaneFxID) {
+    public static void deselectAllSubNodes(GridPane mainGridPane, String parentGridPaneFxID) {
         GridPane gridPane = (GridPane) mainGridPane.lookup("#" + parentGridPaneFxID);
 
         gridPane.getChildren().forEach(node -> {
@@ -409,11 +407,48 @@ public class JavaFxFunctions {
      * @return Node with the given fx:id
      */
     public static Node returnChildNodeById(GridPane parentGridPane, String childGridPaneFxId) {
-        return parentGridPane.getChildren().stream().filter(node -> node.getId().equals(childGridPaneFxId))
-                .map(node -> (GridPane) node)
+        return parentGridPane.getChildren().stream()
+                .filter(node -> node.getId().equals(childGridPaneFxId))
                 .findFirst()
                 .orElse(null);
     }
+
+    public static Node getNodeByRowColumnIndex (final int row, final int column, GridPane gridPane) {
+        AtomicReference<Node> result = new AtomicReference<>();
+        gridPane.getChildren().forEach(node -> {
+            int nodeRow = returnNodeRowIndex(node);
+            int nodeColumn = returnNodeColumnIndex(node);
+
+            if(nodeRow == row && nodeColumn == column) {
+                result.set(node);
+//                System.out.println("Node: " + node + " Row: " + nodeRow + " Column: " + nodeColumn);
+            }
+
+        });
+
+        return result.get();
+    }
+
+    public static int returnNodeRowIndex(Node node) {
+        int nodeRow = 0;
+
+        try {
+            nodeRow = GridPane.getRowIndex(node);
+        } catch (Exception ignored) {}
+
+        return nodeRow;
+    }
+
+    public static int returnNodeColumnIndex(Node node) {
+        int nodeColumn = 0;
+
+        try {
+            nodeColumn = GridPane.getColumnIndex(node);
+        } catch (Exception ignored) {}
+
+        return nodeColumn;
+    }
+
 
     /**
      * Translates a node
@@ -429,7 +464,7 @@ public class JavaFxFunctions {
      * @return Timeline of the translation
      */
     @NotNull
-    public static Timeline translationEffect(Node node,
+    public static List<Timeline> translationEffect(Node node,
                                              double boundsXDiff, double boundsYDiff,
                                              double timeStamp, Runnable beforeFinishRunnable, double beforeFinishTimeStampPercent,
                                              int cycleCount, boolean autoReverse) {
@@ -454,31 +489,49 @@ public class JavaFxFunctions {
         nodeTimelineX.setAutoReverse(autoReverse);
         nodeTimelineY.setAutoReverse(autoReverse);
 
-        Thread threadX = new Thread(nodeTimelineX::play);
-        Thread threadY = new Thread(nodeTimelineY::play);
+        List<Timeline> timelineList = new ArrayList<>();
+        timelineList.add(nodeTimelineX);
+        timelineList.add(nodeTimelineY);
 
-        threadX.start();
-        threadY.start();
-        return nodeTimelineX;
+        return timelineList;
     }
 
-    public static void animateCardTranslation(Node attackingNode, Node attackedNode, Runnable onFinishedFunc) {
+    public static List<Timeline> animateCardTranslation(Node attackingNode, Node attackedNode) {
 
         Bounds startingBounds = attackingNode.localToScene(attackingNode.getBoundsInLocal());
         Bounds endingBounds = attackedNode.localToScene(attackedNode.getBoundsInLocal());
 
         double boundsXDiff = endingBounds.getCenterX() - startingBounds.getCenterX();
         double boundsYDiff = endingBounds.getCenterY() - startingBounds.getCenterY();
+//
+//        System.out.println(attackingNode.getId() + " :boundsXDiff: " + boundsXDiff);
+//        System.out.println(attackingNode.getId() + " :boundsYDiff: " + boundsYDiff);
 
-        Timeline nodeTimelineX = translationEffect(attackingNode, boundsXDiff, boundsYDiff,
+//        System.out.println("Ending bounds: " + endingBounds);
+//        System.out.println("Starting boundsX: " + startingBounds.getCenterX());
+//        System.out.println("Starting boundsY: " + startingBounds.getCenterY());
+
+//        System.out.println("AFTER");
+//        System.out.println("Starting boundsX: " + startingBounds.getCenterX());
+//        System.out.println("Starting boundsY: " + startingBounds.getCenterY());
+//        System.out.println("Ending boundsX: " + endingBounds.getCenterX());
+//        System.out.println("Ending boundsY: " + endingBounds.getCenterY());
+//        System.out.println("------------------");
+
+        return translationEffect(attackingNode, boundsXDiff, boundsYDiff,
                 1, () -> {}, 0.5,
                 1, false);
-
-        nodeTimelineX.setOnFinished(event -> {
-            onFinishedFunc.run();
-        });
     }
 
 
+    public static Timeline fadeOutEffect(Node node) {
+        Timeline nodeFadeOutTimeLine = new Timeline();
+        KeyValue nodeKey = new KeyValue(node.opacityProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame nodeFrame = new KeyFrame(Duration.seconds(1), nodeKey);
+        nodeFadeOutTimeLine.getKeyFrames().add(nodeFrame);
+
+        nodeFadeOutTimeLine.play();
+        return nodeFadeOutTimeLine;
+    }
 
 }

@@ -19,6 +19,7 @@ public class Board {
     }
 
     public void setCardsList() {
+        cardsList.clear();
         for (Card[] cardsArray : board) {
             for(Card card : cardsArray) {
                 if(card != null) cardsList.add(card);

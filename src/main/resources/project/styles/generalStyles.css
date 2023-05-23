@@ -98,3 +98,16 @@
     -fx-background-radius: 20;
 }
 
+
+.clickableNodeS {
+    -fx-fill: rgba(255, 255, 255, 0.8);
+}
+
+.clickableNodePressedS {
+    -fx-fill: rgba(255, 255, 255, 0.95);
+}
+
+.clickableNodeS:hover {
+    -fx-fill: rgba(255, 255, 255, 0.95);
+}
+

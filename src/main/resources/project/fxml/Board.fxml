@@ -15,6 +15,82 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/generalStyles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.BoardController">
     <children>
+
+                    <GridPane fx:id="gameBoardGridPane" hgap="5.0" layoutX="14.0" layoutY="324.0" prefHeight="630.0" prefWidth="511.0" vgap="10.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" valignment="CENTER" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <ImageView fitHeight="82.0" fitWidth="89.0" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                    <image>
+                        <Image url="@../images/game/vacheRouge.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="82.0" fitWidth="89.0" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                    <image>
+                        <Image url="@../images/game/vacheRouge.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="82.0" fitWidth="89.0" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                    <image>
+                        <Image url="@../images/game/vacheRouge.png" />
+                    </image>
+                </ImageView>
+      
+                            <ImageView fitHeight="82.0" fitWidth="89.0" preserveRatio="true" GridPane.columnIndex="5">
+                    <image>
+                        <Image url="@../images/game/vacheRouge.png" />
+                    </image>
+                </ImageView>
+      
+                            <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="1" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="2" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="3" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="4" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="5" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.rowIndex="1" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.rowIndex="2" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.rowIndex="3" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" stroke="TRANSPARENT" strokeWidth="3.0" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+            </children>
+        </GridPane>
+        <GridPane fx:id="chosenCardsInfoGridPane" alignment="CENTER" layoutX="935.0" layoutY="484.0" prefHeight="248.0" prefWidth="415.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="530.0" minWidth="530.0" prefWidth="530.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="330.0" minHeight="330.0" prefHeight="330.0" valignment="CENTER" vgrow="SOMETIMES" />
+            </rowConstraints>
+         <children>
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="330.0" opacity="0.5" stroke="WHITE" strokeType="INSIDE" width="530.0" />
+         </children>
+        </GridPane>
         <GridPane fx:id="gameStatsGridPane" layoutX="14.0" layoutY="14.0" prefHeight="258.0" prefWidth="1880.0" vgap="15.0">
             <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1567.0" minWidth="1567.0" prefWidth="1567.0" />
@@ -41,7 +117,7 @@
                     </font>
                 </Text>
 
-                      <Rectangle arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="200.0" opacity="0.5" width="1567.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+                            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="200.0" opacity="0.5" width="1567.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
                 <GridPane fx:id="playerCardsInfoGridPane" prefHeight="205.0" prefWidth="1567.0" GridPane.rowIndex="1">
                     <columnConstraints>
                         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -60,83 +136,8 @@
                 </GridPane>
             </children>
         </GridPane>
-
-              <GridPane fx:id="gameBoardGriPane" hgap="5.0" layoutX="14.0" layoutY="324.0" prefHeight="630.0" prefWidth="511.0" vgap="10.0">
-            <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" valignment="CENTER" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" valignment="CENTER" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" valignment="CENTER" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" valignment="CENTER" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-
-                      <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" opacity="0.5" width="100.0" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="2" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="121.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="5" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="3" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="1" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="454.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="4" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.rowIndex="1" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="172.0" opacity="0.5" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="454.0" layoutY="172.0" opacity="0.5" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="565.0" layoutY="172.0" opacity="0.5" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.rowIndex="3" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.rowIndex="2" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="232.0" layoutY="492.0" opacity="0.5" width="100.0" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                <Rectangle arcHeight="20" arcWidth="20" fill="#FFFFFF" height="150.0" layoutX="10.0" layoutY="11.0" opacity="0.5" width="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-
-                      <ImageView fitHeight="82.0" fitWidth="89.0" opacity="0.56" preserveRatio="true" GridPane.columnIndex="5">
-                    <image>
-                        <Image url="@../images/game/vacheRouge.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="82.0" fitWidth="89.0" layoutX="551.0" layoutY="45.0" opacity="0.56" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="1">
-                    <image>
-                        <Image url="@../images/game/vacheRouge.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="82.0" fitWidth="89.0" layoutX="551.0" layoutY="208.0" opacity="0.56" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="2">
-                    <image>
-                        <Image url="@../images/game/vacheRouge.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="82.0" fitWidth="89.0" layoutX="551.0" layoutY="371.0" opacity="0.56" preserveRatio="true" GridPane.columnIndex="5" GridPane.rowIndex="3">
-                    <image>
-                        <Image url="@../images/game/vacheRouge.png" />
-                    </image>
-                </ImageView>
-            </children>
-        </GridPane>
-        <GridPane fx:id="chosenCardsInfoGridPane" alignment="CENTER" layoutX="935.0" layoutY="484.0" prefHeight="248.0" prefWidth="415.0">
-            <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="530.0" minWidth="530.0" prefWidth="530.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints maxHeight="330.0" minHeight="330.0" prefHeight="330.0" valignment="CENTER" vgrow="SOMETIMES" />
-            </rowConstraints>
-         <children>
-            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="330.0" opacity="0.5" stroke="WHITE" strokeType="INSIDE" width="530.0" />
-         </children>
-        </GridPane>
-      <Button layoutX="1100.0" layoutY="324.0" mnemonicParsing="false" onMouseReleased="#chooseCardOnClick" prefHeight="50.0" prefWidth="190.0" styleClass="buttonStyle" text="Choose Card" />
+      <Button fx:id="chooseCardButton" layoutX="1100.0" layoutY="324.0" mnemonicParsing="false" onMouseReleased="#chooseCardOnClick" prefHeight="50.0" prefWidth="190.0" styleClass="buttonStyle" text="Choose Card" />
+      <Button fx:id="takeRowButton" layoutX="1100.0" layoutY="383.0" mnemonicParsing="false" onMouseReleased="#takeRowOnClick" prefHeight="50.0" prefWidth="190.0" styleClass="buttonStyle" text="Take Row" />
     </children>
 
     <styleClass>
