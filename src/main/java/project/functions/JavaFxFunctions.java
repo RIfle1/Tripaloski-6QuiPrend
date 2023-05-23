@@ -534,7 +534,7 @@ public class JavaFxFunctions {
 //        System.out.println("------------------");
 
         return translationEffect(attackingNode, boundsXDiff, boundsYDiff,
-                0.6, () -> {}, 0.5,
+                0.3, () -> {}, 0.5,
                 1, false);
     }
 
