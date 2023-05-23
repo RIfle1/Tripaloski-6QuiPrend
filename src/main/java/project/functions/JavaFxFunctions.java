@@ -323,6 +323,10 @@ public class JavaFxFunctions {
         gridPane.getChildren().forEach(node -> node.getStyleClass().remove("clickableNodePressed"));
     }
 
+    public static void deselectAllSubNodesS(GridPane gridPane) {
+        gridPane.getChildren().forEach(node -> node.getStyleClass().remove("clickableNodePressedS"));
+    }
+
     /**
      * De-selects all sub grid panes
      *
@@ -432,6 +436,10 @@ public class JavaFxFunctions {
                 }
             }
         });
+
+        if(result.get() == null) {
+            System.out.println("getNullIdNodeByRowColumnIndex *FUNCTION* -> No node found on row " + row + " and column " + column);
+        }
 
         return result.get();
     }
