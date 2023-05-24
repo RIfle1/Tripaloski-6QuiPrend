@@ -50,12 +50,14 @@ public class JavaFxFunctions {
      * @param stage      Stage to send the user to
      * @param FXMLLoader FXMLLoader of the scene to send the user to
      */
-    public static void sendToScene(Stage stage, FXMLLoader FXMLLoader) {
+    public static Scene sendToScene(Stage stage, FXMLLoader FXMLLoader) {
         Scene scene = getScene(FXMLLoader);
 
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+
+        return scene;
     }
 
     /**
@@ -539,14 +541,45 @@ public class JavaFxFunctions {
     }
 
 
-    public static Timeline fadeOutEffect(Node node) {
+    public static Timeline fadeOutEffect(Node node, int timeStamp) {
         Timeline nodeFadeOutTimeLine = new Timeline();
         KeyValue nodeKey = new KeyValue(node.opacityProperty(), 0, Interpolator.EASE_IN);
-        KeyFrame nodeFrame = new KeyFrame(Duration.seconds(1), nodeKey);
+        KeyFrame nodeFrame = new KeyFrame(Duration.seconds(timeStamp), nodeKey);
         nodeFadeOutTimeLine.getKeyFrames().add(nodeFrame);
 
         nodeFadeOutTimeLine.play();
         return nodeFadeOutTimeLine;
+    }
+
+    public static Timeline fadeInEffect(Node node, double timeStamp) {
+        Timeline nodeFadeInTimeLine = new Timeline();
+        KeyValue nodeKey = new KeyValue(node.opacityProperty(), 1, Interpolator.EASE_IN);
+        KeyFrame nodeFrame = new KeyFrame(Duration.seconds(timeStamp), nodeKey);
+        nodeFadeInTimeLine.getKeyFrames().add(nodeFrame);
+
+        nodeFadeInTimeLine.play();
+        return nodeFadeInTimeLine;
+
+    }
+
+    public static Timeline zoomInNode(Node node, double timeStamp, double zoomInFactor) {
+        Timeline nodeZoomInTimeLine = new Timeline();
+        KeyValue nodeKeyX = new KeyValue(node.scaleXProperty(), zoomInFactor, Interpolator.EASE_IN);
+        KeyValue nodeKeyY = new KeyValue(node.scaleYProperty(), zoomInFactor, Interpolator.EASE_IN);
+        KeyFrame nodeFrameX = new KeyFrame(Duration.seconds(timeStamp), nodeKeyX);
+        KeyFrame nodeFrameY = new KeyFrame(Duration.seconds(timeStamp), nodeKeyY);
+        nodeZoomInTimeLine.getKeyFrames().addAll(nodeFrameX, nodeFrameY);
+
+        nodeZoomInTimeLine.play();
+        return nodeZoomInTimeLine;
+    }
+
+    public static void sleep(int time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

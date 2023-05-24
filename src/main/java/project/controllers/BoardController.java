@@ -19,6 +19,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import project.abstractClasses.AbstractCharacter;
 import project.classes.Board;
@@ -27,14 +28,12 @@ import project.classes.CharacterList;
 import project.classes.Deck;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static project.classes.Card.returnRandomCard;
+import static project.controllers.EndGameController.endGameScene;
 import static project.controllers.MainMenuController.mainMenuScene;
 import static project.functions.GeneralFunctions.*;
 import static project.functions.JavaFxFunctions.*;
@@ -43,6 +42,7 @@ import static project.functions.JavaFxFunctions.*;
  * Board Controller
  */
 public class BoardController implements Initializable {
+    private static Stage stage;
     private static Deck deck;
     private static Board board;
     private static CharacterList characterList;
@@ -94,17 +94,19 @@ public class BoardController implements Initializable {
 
         characterList = new CharacterList(playerNumberParam, npcNumberParam, startingPointsParam);
 
-        FXMLLoader characterCreationFxmlLoader = new FXMLLoader(returnFXMLURL("Board.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(returnFXMLURL("Board.fxml"));
         ActionEvent actionEvent = new ActionEvent(event.getSource(), event.getTarget());
 
-        Scene scene = sendToScene(actionEvent, characterCreationFxmlLoader);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = sendToScene(actionEvent, fxmlLoader);
+
 
         scene.setOnKeyPressed(e -> onKeyPressed(e, scene));
     }
 
     static void onKeyPressed(KeyEvent event, Scene scene) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
-            Stage stage = (Stage) scene.getWindow();
+//            Stage stage = (Stage) scene.getWindow();
             mainMenuScene(stage);
         }
     }
@@ -132,7 +134,7 @@ public class BoardController implements Initializable {
         displayBoard();
         setBoardRowsOnHover();
 
-        playerTurn(0);
+        characterTurn(0);
     }
 
     public AbstractCharacter findCharacterByCard(Card card) {
@@ -228,11 +230,50 @@ public class BoardController implements Initializable {
 //            setBoardRowsOnHover();
 //            takeRowButton.setDisable(false);
         }
-
         System.out.println("----------");
+
+        checkEndGame();
 
 //        System.out.println("Chosen cards list size: " + chosenCardsList.size());
 
+    }
+
+    private void checkEndGame() {
+        if(isEndGame()) {
+            disableAllGridPaneButtons(gameBoardGridPane);
+            disableAllGridPaneButtons(playerCardsGridPane);
+
+            displayPlayerInfo("", "Game Ended");
+
+            endGameScene(stage);
+        }
+    }
+
+    private boolean isEndGame() {
+        List<AbstractCharacter> charactersWithNoPoints = returnCharactersWithNoPoints();
+        boolean isEndGame = false;
+
+        if (roundNumber == 0) {
+            isEndGame = true;
+            System.out.println("Round number is 0");
+        } else if (charactersWithNoPoints.size() > 0) {
+            isEndGame = true;
+            System.out.println("Characters with no points: " + charactersWithNoPoints.size());
+        }
+
+        return isEndGame;
+    }
+
+    private List<AbstractCharacter> returnCharactersWithNoPoints() {
+        List<AbstractCharacter> charactersWithNoPoints = new ArrayList<>();
+
+        for (AbstractCharacter character : characterList.getCharacters()) {
+            if (character.getPoints() < 0) {
+                charactersWithNoPoints.add(character);
+            }
+        }
+
+        return charactersWithNoPoints;
     }
 
     private void resolveChosenCard(int bestRow, int bestColumn) {
@@ -248,10 +289,10 @@ public class BoardController implements Initializable {
 
         if (chosenCardsList.size() > 0) {
             resolveCards();
-        } else {
+        } else if (!isEndGame()) {
 //            chooseCardButton.setDisable(false);
 
-            playerTurn(0);
+            characterTurn(0);
         }
     }
 
@@ -265,6 +306,7 @@ public class BoardController implements Initializable {
 
         List<Timeline> timelineList = animateCardTranslation(cardRectangle, targetRectangle);
         timelineList.get(0).setOnFinished(e -> {
+//            sleep(100);
             gameBoardGridPane.add(selectedCardRectangle2, bestColumn, bestRow);
             chosenCardsGridPane.getChildren().remove(cardRectangle);
             runnableFunc.run();
@@ -370,7 +412,7 @@ public class BoardController implements Initializable {
 
                 if (cardsPlaced + 1 >= characterList.getCharacters().size()) {
                     playerCardsGridPane.getChildren().forEach(node -> {
-                        Timeline fadeOutTimeline = fadeOutEffect(node);
+                        Timeline fadeOutTimeline = fadeOutEffect(node, 1);
                         fadeOutTimeline.setOnFinished((actionEvent2) -> {
                             playerCardsGridPane.getChildren().remove(node);
                         });
@@ -378,8 +420,9 @@ public class BoardController implements Initializable {
                     displayPlayerInfo("", "Cards Resolution");
 
                     resolveCards();
+                    roundNumber--;
                 } else {
-                    playerTurn(cardsPlaced + 1);
+                    characterTurn(cardsPlaced + 1);
 //                    chooseCardButton.setDisable(false);
                 }
             });
@@ -388,7 +431,7 @@ public class BoardController implements Initializable {
 
         } catch (Exception e) {
             System.out.println("chooseCardOnClick *FUNCTION* -> No card selected");
-            Stage stage = (Stage) gameBoardGridPane.getScene().getWindow();
+//            Stage stage = (Stage) gameBoardGridPane.getScene().getWindow();
             createPopup(stage, Alert.AlertType.ERROR, "Please select a card");
 //            chooseCardButton.setDisable(false);
         }
@@ -405,7 +448,7 @@ public class BoardController implements Initializable {
             sendCardsOnRow(selectedRow);
         } catch (Exception e) {
             System.out.println("takeRowOnClick *FUNCTION* -> No row selected");
-            Stage stage = (Stage) gameBoardGridPane.getScene().getWindow();
+//            Stage stage = (Stage) gameBoardGridPane.getScene().getWindow();
             createPopup(stage, Alert.AlertType.ERROR, "Please select a row");
         }
     }
@@ -443,14 +486,13 @@ public class BoardController implements Initializable {
                     newColumn.setMaxWidth(Region.USE_PREF_SIZE);
                     newColumn.setHalignment(HPos.CENTER);
                     takenCardsGridPane.getColumnConstraints().add(newColumn);
-                }
-                else if(column.get() >= maxCardsPerRow) {
+                } else if (column.get() >= maxCardsPerRow) {
                     row.set((int) Math.floor((double) cardsPlaced / maxCardsPerRow));
                     column.set(column.get() - maxCardsPerRow);
 //                    System.out.println("***Changed***");
                 }
 
-                if(cardsPlaced < maxCardsPerRow * 2) takenCardsGridPane.add(cardRectangle2, column.get(), row.get());
+                if (cardsPlaced < maxCardsPerRow * 2) takenCardsGridPane.add(cardRectangle2, column.get(), row.get());
 //                System.out.println("Row: " + row.get() + " Column: " + column.get());
 //                System.out.println("Columns count: " + takenCardsGridPane.getColumnConstraints().size());
 
@@ -495,14 +537,41 @@ public class BoardController implements Initializable {
         List<Card> cardsToRemove = new ArrayList<>();
 
         characterList.getCharacters().forEach(character -> {
+            AtomicInteger pointsToRemove = new AtomicInteger();
+
             character.getTakenCardsList().forEach(card -> {
-                character.setPoints(character.getPoints() - card.getCardHeads());
+                int newPoints = character.getPoints() - card.getCardHeads();
+                character.setPoints(newPoints);
+
+                pointsToRemove.addAndGet(- card.getCardHeads());
+
                 cardsToRemove.add(card);
             });
 
             character.getTakenCardsList().removeAll(cardsToRemove);
+
+            displayCharacterPointsReduction(character, pointsToRemove.get());
         });
     }
+
+    private void displayCharacterPointsReduction(AbstractCharacter abstractCharacter, int pointsToRemove) {
+        GridPane characterInfoGridPane = (GridPane) scoreBoardGridPane.lookup("#" + abstractCharacter.getCharacterName());
+
+        Text pointsToRemoveText = new Text(String.valueOf(pointsToRemove));
+        pointsToRemoveText.setTranslateX(100);
+        pointsToRemoveText.getStyleClass().add("pointsToRemoveText");
+
+        if (pointsToRemove < 0) characterInfoGridPane.add(pointsToRemoveText, 1, 0);
+
+        fadeInEffect(pointsToRemoveText, 1);
+        zoomInNode(pointsToRemoveText, 0.5, 1.5).setOnFinished((e) -> {
+            fadeOutEffect(pointsToRemoveText, 1).setOnFinished((e2) -> {
+                characterInfoGridPane.getChildren().remove(pointsToRemoveText);
+            });
+        });
+
+    }
+
 
     private Card returnCharacterCardByNumber(AbstractCharacter abstractCharacter, String cardNumber) {
         return abstractCharacter.getCardsList().stream().filter(card -> card.getCardNumber() == Integer.parseInt(cardNumber)).findFirst().orElse(null);
@@ -519,7 +588,7 @@ public class BoardController implements Initializable {
 //        setRectangleImage(cardRectangle, unmodifiableDeck.getDeck().get(Integer.parseInt(cardId) - 1).getCardImage());
 //    }
 
-    private void playerTurn(int playerNumber) {
+    private void characterTurn(int playerNumber) {
         currentCharacter = characterList.getCharacters().get(playerNumber);
 
         displayPlayerCards(currentCharacter);

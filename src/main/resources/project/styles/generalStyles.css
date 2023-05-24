@@ -8,6 +8,16 @@
     -fx-background-color: grey;
 }
 
+.subWindow {
+    -fx-pref-height: 600px;
+    -fx-max-height: 600px;
+    -fx-min-height: 600px;
+    -fx-pref-width: 800px;
+    -fx-max-width: 800px;
+    -fx-min-width: 800px;
+    -fx-background-color: grey;
+}
+
 /*.mainMenuBackground {*/
 /*    -fx-background-image: url('../images/MainMenu.jpg');*/
 /*    -fx-background-size: 100% 100%;*/
@@ -116,5 +126,13 @@
     -fx-background-size: 100% 100%;
 
     -fx-image: url('../images/cards/backSide.png');
+}
+
+.pointsToRemoveText {
+    -fx-font-family: "System", sans-serif;
+    -fx-font-size: 20;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );
+    -fx-fill: #f64e4e;
+    -fx-opacity: 0;
 }
 
