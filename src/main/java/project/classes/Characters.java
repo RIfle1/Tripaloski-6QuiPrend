@@ -10,13 +10,13 @@ import java.util.List;
 
 @Getter
 @Setter
-public class CharacterList {
-    private List<AbstractCharacter> characters;
+public class Characters {
+    private List<AbstractCharacter> charactersList;
     private int playerNumber;
     private int npcNumber;
     private int startingPoints;
     @Builder
-    public CharacterList(int playerNumber, int npcNumber, int startingPoints) {
+    public Characters(int playerNumber, int npcNumber, int startingPoints) {
         this.playerNumber = playerNumber;
         this.npcNumber = npcNumber;
         this.startingPoints = startingPoints;
@@ -31,7 +31,7 @@ public class CharacterList {
         character.addAll(playerList);
         character.addAll(npcList);
 
-        this.characters = character;
+        this.charactersList = character;
     }
 
 }

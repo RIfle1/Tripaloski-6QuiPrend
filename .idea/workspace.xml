@@ -4,13 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f14768f5-5e0a-4783-b224-3f696ca73c66" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/project/controllers/EndGameController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/EndGame.fxml" afterDir="false" />
+    <list default="true" id="472d48d6-d4be-419a-bee9-5c7e79b5e54f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/rules-6quiprend-05-2012.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/project/controllers/ChooseCardsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/ChooseCards.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/abstractClasses/AbstractCharacter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/abstractClasses/AbstractCharacter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/classes/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/classes/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/classes/CharacterList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/classes/Characters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/classes/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/classes/Deck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/classes/Npc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/classes/Npc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/classes/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/classes/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/EndGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/EndGameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/MainMenuController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project/functions/JavaFxFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/functions/JavaFxFunctions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/project/styles/generalStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/styles/generalStyles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/project/fxml/Board.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/Board.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/project/fxml/EndGame.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/EndGame.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/project/images/icons/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/images/game/logo.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +32,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="FxmlFile" />
         <option value="Class" />
       </list>
@@ -29,18 +40,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="Use Maven wrapper" />
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
-  <component name="ProjectId" id="2Pq0ThZwMu8dZ6DWwNxG0lNBR6D" />
+  <component name="ProjectId" id="2QFntFYw3YmDRIgA4jFMfXco0ep" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -50,34 +50,24 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;Z:/stuff2/Programming/Java Projects/Tripaloski-6QuiPrend&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;last_opened_file_path&quot;: &quot;Z:/stuff2/Programming/Java Projects/Tripaloski-6QuiPrend/src/main/resources&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="Z:\stuff2\Programming\Java Projects\Tripaloski-6QuiPrend\src\main\resources\project\images" />
-      <recent name="Z:\stuff2\Programming\Java Projects\Tripaloski-6QuiPrend\src\main\resources\project" />
+      <recent name="Z:\stuff2\Programming\Java Projects\Tripaloski-6QuiPrend\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="Z:\stuff2\Programming\Java Projects\Tripaloski-6QuiPrend" />
       <recent name="Z:\stuff2\Programming\Java Projects\Tripaloski-6QuiPrend\src\main\resources\project\images\game" />
-      <recent name="Z:\stuff2\Programming\Java Projects\Tripaloski-6QuiPrend\src\main\resources\project\images\icons" />
-      <recent name="Z:\stuff2\Programming\Java Projects\Tripaloski-6QuiPrend\src\main\resources\project\images\cards" />
-      <recent name="Z:\stuff2\Programming\Java Projects\Tripaloski-6QuiPrend\src\main\resources\project\fxml" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="project.controllers" />
-      <recent name="project.functions" />
     </key>
   </component>
   <component name="RunManager">
@@ -103,38 +93,17 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f14768f5-5e0a-4783-b224-3f696ca73c66" name="Changes" comment="" />
-      <created>1684169317528</created>
+      <changelist id="472d48d6-d4be-419a-bee9-5c7e79b5e54f" name="Changes" comment="" />
+      <created>1684958409514</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1684169317528</updated>
-      <workItem from="1684169318762" duration="9000" />
-      <workItem from="1684169514253" duration="686000" />
-      <workItem from="1684415716953" duration="5772000" />
-      <workItem from="1684744372052" duration="7039000" />
-      <workItem from="1684758576862" duration="8044000" />
-      <workItem from="1684782829962" duration="23379000" />
-      <workItem from="1684828823151" duration="2167000" />
-      <workItem from="1684835254978" duration="8885000" />
-      <workItem from="1684861571130" duration="13405000" />
+      <updated>1684958409514</updated>
+      <workItem from="1684958410625" duration="7391000" />
+      <workItem from="1685014593757" duration="10241000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

@@ -11,20 +11,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/generalStyles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.EndGameController">
    <styleClass>
       <String fx:value="subWindow" />
       <String fx:value="background" />
    </styleClass>
    <children>
-      <GridPane layoutX="300.0" layoutY="175.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane layoutX="300.0" layoutY="175.0" prefHeight="600.0" prefWidth="800.0" vgap="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="70.0" minHeight="70.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" valignment="BOTTOM" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="530.0" minHeight="10.0" prefHeight="326.0" valignment="CENTER" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
@@ -35,16 +34,16 @@
                   <DropShadow height="53.04" offsetY="6.0" radius="44.8775" width="128.47" />
                </effect>
             </Rectangle>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="labelStyle" text="Well Played !" GridPane.columnSpan="2">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="labelStyle" text="Well Played !" translateY="-5.0" wrappingWidth="170.4052734375" GridPane.columnSpan="2">
                <font>
                   <Font size="30.0" />
                </font>
             </Text>
             <Button mnemonicParsing="false" onMouseReleased="#onPlayAgainClicked" prefHeight="30.0" prefWidth="200.0" styleClass="buttonStyle" text="Play Again" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Button mnemonicParsing="false" onMouseReleased="#onExitClicked" prefHeight="30.0" prefWidth="200.0" styleClass="buttonStyle" text="Exit" GridPane.rowIndex="3" />
-            <Text fx:id="endGameTextT" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="labelStyle" text="Player XXX Won" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <Text fx:id="endGameTextT" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="labelStyle" text="Player XXX Won" textAlignment="CENTER" wrappingWidth="700.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <font>
-                  <Font size="25.0" />
+                  <Font size="19.0" />
                </font>
             </Text>
             <GridPane fx:id="scoreBoardInfoGridPane" GridPane.columnSpan="2" GridPane.rowIndex="2">
@@ -52,7 +51,7 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
          </children>

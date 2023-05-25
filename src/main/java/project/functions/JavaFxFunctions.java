@@ -4,26 +4,36 @@ import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import project.GuiLauncherMain;
+import project.abstractClasses.AbstractCharacter;
+import project.classes.Characters;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+
+import static project.functions.GeneralFunctions.*;
 
 
 public class JavaFxFunctions {
@@ -75,6 +85,13 @@ public class JavaFxFunctions {
             throw new RuntimeException(e);
         }
         return scene;
+    }
+
+    public static boolean checkConfirmationPopUp(Stage stage, String popUpMsg) {
+        Optional<ButtonType> result = Objects.requireNonNull(createPopup(stage,
+                Alert.AlertType.CONFIRMATION, popUpMsg));
+
+        return result.filter(buttonType -> buttonType == ButtonType.OK).isPresent();
     }
 
     /**
@@ -541,9 +558,9 @@ public class JavaFxFunctions {
     }
 
 
-    public static Timeline fadeOutEffect(Node node, int timeStamp) {
+    public static Timeline fadeOutEffect(Node node, double timeStamp, double endValue) {
         Timeline nodeFadeOutTimeLine = new Timeline();
-        KeyValue nodeKey = new KeyValue(node.opacityProperty(), 0, Interpolator.EASE_IN);
+        KeyValue nodeKey = new KeyValue(node.opacityProperty(), endValue, Interpolator.EASE_IN);
         KeyFrame nodeFrame = new KeyFrame(Duration.seconds(timeStamp), nodeKey);
         nodeFadeOutTimeLine.getKeyFrames().add(nodeFrame);
 
@@ -574,12 +591,115 @@ public class JavaFxFunctions {
         return nodeZoomInTimeLine;
     }
 
-    public static void sleep(int time) {
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    /**
+     * Returns Character Info Grid Pane for the scoreboard
+     *
+     * @param imageName         Image name
+     * @param abstractCharacter Abstract Character
+     */
+    public static GridPane returnCharacterInfoGridPane(String imageName, AbstractCharacter abstractCharacter) {
+        Text playerName = new Text(abstractCharacter.getCharacterName());
+        playerName.getStyleClass().add("playerInfoTextStyle1");
+
+        Text playerPoints = new Text(abstractCharacter.getPoints() + "⭐");
+        playerPoints.setId(abstractCharacter.getCharacterName() + "Points");
+        playerPoints.getStyleClass().add("playerInfoTextStyle2");
+
+
+        Rectangle imageRectangle = returnImageRectangle(50, 50, 50, 50, "icons/" + imageName);
+        imageRectangle.setEffect(new DropShadow(20, Color.BLACK));
+
+        GridPane horizontalGridPane = new GridPane();
+//        horizontalGridPane.setAlignment(Pos.CENTER);
+
+        ColumnConstraints horizontalGridPaneColumn1 = new ColumnConstraints();
+        ColumnConstraints horizontalGridPaneColumn2 = new ColumnConstraints();
+
+        horizontalGridPaneColumn1.setPrefWidth(80);
+        horizontalGridPaneColumn1.setMaxWidth(Region.USE_PREF_SIZE);
+        horizontalGridPaneColumn1.setMinWidth(Region.USE_PREF_SIZE);
+        horizontalGridPaneColumn1.setHalignment(HPos.CENTER);
+
+        horizontalGridPaneColumn2.setPrefWidth(220);
+        horizontalGridPaneColumn2.setMaxWidth(Region.USE_PREF_SIZE);
+        horizontalGridPaneColumn2.setMinWidth(Region.USE_PREF_SIZE);
+
+        RowConstraints horizontalGridPaneRow1 = new RowConstraints();
+
+        horizontalGridPaneRow1.setPrefHeight(70);
+        horizontalGridPaneRow1.setMaxHeight(Region.USE_PREF_SIZE);
+        horizontalGridPaneRow1.setMinHeight(Region.USE_PREF_SIZE);
+
+        horizontalGridPane.getColumnConstraints().addAll(horizontalGridPaneColumn1, horizontalGridPaneColumn2);
+        horizontalGridPane.getRowConstraints().addAll(horizontalGridPaneRow1);
+
+        horizontalGridPane.add(imageRectangle, 0, 0);
+
+        GridPane verticalGridPane = new GridPane();
+
+        RowConstraints verticalGridPaneRow1 = new RowConstraints();
+        RowConstraints verticalGridPaneRow2 = new RowConstraints();
+
+        verticalGridPaneRow1.setPrefHeight(35);
+        verticalGridPaneRow1.setMaxHeight(Region.USE_PREF_SIZE);
+        verticalGridPaneRow1.setMinHeight(Region.USE_PREF_SIZE);
+
+        verticalGridPaneRow2.setPrefHeight(35);
+        verticalGridPaneRow2.setMaxHeight(Region.USE_PREF_SIZE);
+        verticalGridPaneRow2.setMinHeight(Region.USE_PREF_SIZE);
+
+        verticalGridPane.getRowConstraints().addAll(verticalGridPaneRow1, verticalGridPaneRow2);
+
+        verticalGridPane.add(playerName, 0, 0);
+        verticalGridPane.add(playerPoints, 0, 1);
+
+
+        horizontalGridPane.add(verticalGridPane, 1, 0);
+
+        BackgroundFill horizontalGridPaneBackgroundFill = new BackgroundFill(new Color(1, 1, 1, 0.5), new CornerRadii(15), Insets.EMPTY);
+        Background horizontalGridPaneBackground = new Background(horizontalGridPaneBackgroundFill);
+        horizontalGridPane.setBackground(horizontalGridPaneBackground);
+        horizontalGridPane.setId(abstractCharacter.getCharacterName());
+
+        return horizontalGridPane;
+    }
+
+    public static void displayScoreBoard(GridPane parentGridPane, GridPane childGridPane, Characters characters
+            , int columnIndex, int rowIndex, int maxPerColumn) {
+        parentGridPane.getChildren().remove(childGridPane);
+        childGridPane.getChildren().clear();
+
+
+        AtomicInteger rowNumber = new AtomicInteger(0);
+        ArrayList<String> imageList = returnImageList(returnTargetPath("images/icons"));
+
+        AtomicInteger row = new AtomicInteger();
+
+        characters.getCharactersList().forEach(character -> {
+            String imageName;
+
+            if(character.getCharacterImage() == null) {
+                imageName = imageList.get((int) generateDoubleBetween(0, imageList.size() - 1));
+                if (imageList.size() > 1) imageList.remove(imageName);
+                character.setCharacterImage(imageName);
+            }
+            else {
+                imageName = character.getCharacterImage();
+            }
+
+            GridPane characterInfoGridPane = returnCharacterInfoGridPane(imageName, character);
+
+
+            if(rowNumber.get() > maxPerColumn - 1) {
+                row.getAndIncrement();
+                rowNumber.set(0);
+            }
+            childGridPane.add(characterInfoGridPane, row.get(), rowNumber.get());
+            rowNumber.getAndIncrement();
+        });
+
+
+        parentGridPane.add(childGridPane, columnIndex, rowIndex);
     }
 
 }

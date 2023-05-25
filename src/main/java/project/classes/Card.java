@@ -33,8 +33,8 @@ public class Card {
      * @return Random Card
      */
     public static Card returnRandomCard(Deck deck) {
-        int randomCardNumber = (int) generateDoubleBetween(0, deck.getDeck().size() - 1);
-        return deck.getDeck().get(randomCardNumber);
+        int randomCardNumber = (int) generateDoubleBetween(0, deck.getCardsList().size() - 1);
+        return deck.getCardsList().get(randomCardNumber);
     }
 }
 

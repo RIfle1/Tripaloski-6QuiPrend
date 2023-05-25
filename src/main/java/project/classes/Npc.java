@@ -11,7 +11,6 @@ import java.util.List;
 @Getter
 @Setter
 public class Npc extends AbstractCharacter {
-
     /**
      * Constructor
      *
@@ -23,8 +22,8 @@ public class Npc extends AbstractCharacter {
      */
 
     @Builder
-    public Npc(String characterName, int characterNumber, int points, List<Card> cardsList, List<Card> takenCardsList) {
-        super(characterName, characterNumber, points, cardsList, takenCardsList);
+    public Npc(String characterName, String characterImage, int characterNumber, int points, List<Card> cardsList, List<Card> takenCardsList) {
+        super(characterName, characterImage, characterNumber, points, cardsList, takenCardsList);
     }
 
     /**
@@ -39,7 +38,7 @@ public class Npc extends AbstractCharacter {
 
         for (int i = 1; i <= maxCharacters; i++) {
             Npc npc = Npc.builder()
-                    .characterName("Npc" + i)
+                    .characterName("Npc-" + i)
                     .characterNumber(i)
                     .points(startingPoints)
                     .cardsList(new ArrayList<>())

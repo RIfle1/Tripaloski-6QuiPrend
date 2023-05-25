@@ -3,20 +3,23 @@ package project.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static project.controllers.BoardController.boardScene;
+import static project.controllers.ChooseCardsController.chooseCardsScene;
 import static project.functions.GeneralFunctions.checkPositiveInt;
 import static project.functions.JavaFxFunctions.*;
 
@@ -26,6 +29,7 @@ public class MainMenuController implements Initializable {
     private final static int minPlayersNumber = 2;
     private final static int maxNpcNumber = 8;
     private final static int minNpcNumber = 0;
+    public final static int maxCards = 104;
     @FXML
     private ChoiceBox<String> npcNumberCb;
     @FXML
@@ -45,13 +49,19 @@ public class MainMenuController implements Initializable {
      * @param stage Stage
      */
     public static void mainMenuScene(Stage stage) {
-        Image icon = new Image(returnImagePath("icons/logo.png"));
+        Image icon = new Image(returnImagePath("game/logo.png"));
         stage.getIcons().add(icon);
         stage.setTitle("6 Qui Prend!");
         stage.setResizable(false);
 
         FXMLLoader mainMenuFXMLLoader = new FXMLLoader(returnFXMLURL("MainMenu.fxml"));
         sendToScene(stage, mainMenuFXMLLoader);
+    }
+
+    public static void onExitKeyPressed(KeyEvent event, Runnable runnableFunc) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            runnableFunc.run();
+        }
     }
 
     /**
@@ -94,8 +104,15 @@ public class MainMenuController implements Initializable {
 
         if (checkPositiveInt(roundNumberTf.getText())) {
             roundNumber = Integer.parseInt(roundNumberTf.getText());
-        } else {
+        }
+        else {
             errorT.setText("Round Number must be a positive integer");
+            errorT.setVisible(true);
+            return;
+        }
+
+        if(roundNumber < 2 || roundNumber > 10) {
+            errorT.setText("Round Number must be between 2 and 10");
             errorT.setVisible(true);
             return;
         }
@@ -114,7 +131,13 @@ public class MainMenuController implements Initializable {
             return;
         }
 
-        boardScene(event, playersNumber, npcNumber, variantNumber, roundNumber, startingPoints);
+        if(variantNumber == 2 || variantNumber == 3) {
+            chooseCardsScene(event, playersNumber, npcNumber, variantNumber, roundNumber, startingPoints);
+        }
+        else {
+            boardScene(event, playersNumber, npcNumber, variantNumber, roundNumber, startingPoints);
+        }
+
     }
 
     /**

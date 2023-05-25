@@ -12,7 +12,6 @@ import java.util.List;
 @Setter
 public class Player extends AbstractCharacter {
 
-
     /**
      * Constructor
      *
@@ -24,8 +23,8 @@ public class Player extends AbstractCharacter {
      */
 
     @Builder
-    public Player(String characterName, int characterNumber, int points, List<Card> cardsList, List<Card> takenCardsList) {
-        super(characterName, characterNumber, points, cardsList, takenCardsList);
+    public Player(String characterName, String characterImage, int characterNumber, int points, List<Card> cardsList, List<Card> takenCardsList) {
+        super(characterName, characterImage, characterNumber, points, cardsList, takenCardsList);
     }
 
     /**
@@ -40,7 +39,7 @@ public class Player extends AbstractCharacter {
 
         for (int i = 1; i <= maxCharacters; i++) {
             Player player = Player.builder()
-                    .characterName("Player" + i)
+                    .characterName("Player-" + i)
                     .characterNumber(i)
                     .points(startingPoints)
                     .cardsList(new ArrayList<>())

@@ -3,6 +3,7 @@ package project.classes;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import project.controllers.MainMenuController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 public class Deck {
-    private List<Card> deck;
+    private List<Card> cardsList;
     private int variantNumber;
     private int playerNumber;
     private int npcNumber;
@@ -21,10 +22,10 @@ public class Deck {
         this.playerNumber = playerNumber;
         this.npcNumber = npcNumber;
         this.maxCards = returnMaxCards();
-        this.deck = initializeDeck();
+        this.cardsList = initializeCardsList();
     }
 
-    private List<Card> initializeDeck() {
+    private List<Card> initializeCardsList() {
         List<Card> deck = new ArrayList<>();
 
         for (int i = 1; i <= maxCards; i++) {
@@ -47,7 +48,7 @@ public class Deck {
         if (variantNumber == 1 || variantNumber == 3) {
             return (playerNumber + npcNumber) * 10 + 4;
         } else {
-            return 104;
+            return MainMenuController.maxCards;
         }
     }
 

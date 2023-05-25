@@ -13,6 +13,7 @@ import java.util.List;
 @Getter
 public abstract class AbstractCharacter {
     private String characterName;
+    private String characterImage;
     private int characterNumber;
     private int points;
     private List<Card> cardsList;
@@ -25,8 +26,9 @@ public abstract class AbstractCharacter {
      * @param takenCardsList Taken Cards List
      */
 
-    public AbstractCharacter(String characterName, int characterNumber, int points, List<Card> cardsList, List<Card> takenCardsList) {
+    public AbstractCharacter(String characterName, String characterImage, int characterNumber, int points, List<Card> cardsList, List<Card> takenCardsList) {
         this.characterName = characterName;
+        this.characterImage = characterImage;
         this.characterNumber = characterNumber;
         this.points = points;
         this.cardsList = cardsList;
