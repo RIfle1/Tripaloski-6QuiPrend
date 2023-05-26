@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f14768f5-5e0a-4783-b224-3f696ca73c66" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2023_17_06_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_05_2023_17_06__Changes_1.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/images/game/titre.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/styles/guillaumeStyles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/project/fxml/MainMenu2.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/MainMenu2.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/project/styles/generalStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/styles/generalStyles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

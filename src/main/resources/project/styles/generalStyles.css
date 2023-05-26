@@ -89,7 +89,7 @@
 
 .buttonStyle {
     -fx-font-family: "System", sans-serif;
-    -fx-font-size: 16;
+    -fx-font-size: 25;
     -fx-text-fill: #422ff2;
     -fx-font-weight: bold;
 
@@ -107,7 +107,6 @@
     -fx-background-color: rgba(255, 255, 255, 0.9);
     -fx-background-radius: 20;
 }
-
 
 .clickableNodeS {
     -fx-fill: rgba(255, 255, 255, 0.8);
