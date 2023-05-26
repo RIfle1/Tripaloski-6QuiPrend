@@ -394,7 +394,7 @@ public class BoardController implements Initializable {
             }
         });
 
-        disableAllGridPaneButtons(gameBoardGridPane);
+//        disableAllGridPaneButtons(gameBoardGridPane);
     }
 
     private void onMouseEntered(Rectangle nodeSub) {
@@ -480,6 +480,7 @@ public class BoardController implements Initializable {
         int selectedRow = 0;
 
         try {
+            disableAllGridPaneButtons(gameBoardGridPane);
             selectedRow = returnNodeRowIndex(selectedRowRectangle);
         } catch (Exception e) {
             System.out.println("takeRowOnClick *FUNCTION* -> No row selected");
