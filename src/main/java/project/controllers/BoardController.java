@@ -33,7 +33,6 @@ import static project.classes.Card.returnRandomCard;
 import static project.controllers.EndGameController.endGameScene;
 import static project.controllers.MainMenuController.mainMenuScene;
 import static project.controllers.MainMenuController.onExitKeyPressed;
-import static project.functions.GeneralFunctions.generateDoubleBetween;
 import static project.functions.JavaFxFunctions.*;
 
 /**
@@ -634,7 +633,7 @@ public class BoardController implements Initializable {
             System.out.println("NPC CARDS: ");
             currentCharacter.getCardsList().forEach(card -> System.out.print(card.getCardNumber() + ", "));
             System.out.println();
-            Card chosenCard = returnClosestCard();
+            Card chosenCard = returnBestCard();
 
             Rectangle chosenRectangle = (Rectangle) characterCardsGridPane.lookup("#" + chosenCard.getCardNumber());
 
@@ -643,7 +642,7 @@ public class BoardController implements Initializable {
         }
     }
 
-    private Card returnClosestCard() {
+    private Card returnBestCard() {
         Card[][] localBoard = board.getBoard();
         RowResults rowResults;
         Card bestCard = null;
@@ -657,7 +656,10 @@ public class BoardController implements Initializable {
             for(Card card : currentCharacter.getCardsList()) {
                 RowCalculations rowCalculations = getRowCalculations(bestCardNumberDifference, rowResults, card.getCardNumber());
 
-                if(rowCalculations.isCurrentBigger() && rowCalculations.isDifferenceSmaller()) {
+                // If The difference between the current card and each card on the board is the smallest
+                // The current card is greater than each card on the board
+                // The row is smaller than 5 in length
+                if(rowCalculations.isCurrentBigger() && rowCalculations.isDifferenceSmaller() && rowResults.rowTakenLength() < 5) {
                     bestCardNumberDifference = rowCalculations.currentCardNumberDifference();
                     bestCard = card;
                     bestCardRow = row;
