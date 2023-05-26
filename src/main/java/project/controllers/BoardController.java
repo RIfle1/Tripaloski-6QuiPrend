@@ -22,10 +22,7 @@ import project.abstractClasses.AbstractCharacter;
 import project.classes.*;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -647,14 +644,10 @@ public class BoardController implements Initializable {
     private Card returnBestCard() {
         Card[][] localBoard = board.getBoard();
         RowResults rowResults;
-        Card bestCard = null;
         int bestCardNumberDifference = 100;
-        int bestCardRow = -1;
-        int bestCardColumn = -1;
 
-        List<Card> bestCards = new ArrayList<>();
-        List<Integer> bestRows = new ArrayList<>();
-        List<Integer> bestColumns = new ArrayList<>();
+        List<BestCard> bestCardsList= new ArrayList<>();
+
 
         for (int row = 0; row < localBoard.length; row++) {
             rowResults = getRowResults(localBoard, row);
@@ -663,60 +656,67 @@ public class BoardController implements Initializable {
 
                 RowCalculations rowCalculations = getRowCalculations(bestCardNumberDifference, rowResults.lastRowCardNumber, card.getCardNumber());
 
-                // If The difference between the current card and each card on the board is the smallest
-                // The current card is greater than each card on the board
-                if (rowCalculations.isCurrentBigger() && rowCalculations.isDifferenceSmaller()) {
+                if (rowCalculations.isCurrentBigger() && rowResults.rowTakenLength() < 5) {
                     bestCardNumberDifference = rowCalculations.currentCardNumberDifference();
-                    bestCard = card;
-                    bestCardRow = row;
-                    bestCardColumn = rowResults.rowTakenLength();
 
-                    bestCards.add(bestCard);
-                    bestRows.add(bestCardRow);
-                    bestColumns.add(bestCardColumn);
-                }
-            }
-        }
+                    BestCard bestCard = BestCard.builder()
+                            .card(card)
+                            .row(row)
+                            .numberDifference(bestCardNumberDifference)
+                            .column(rowResults.rowTakenLength())
+                            .build();
 
-        // If card is going to be placed on the last row,
-        // choose the card that doesn't go on a row with 5 cards on it already
-        if (bestCardColumn > 4) {
-            System.out.println("Best card column is greater than 4 - card to go on row with less than 5 cards on it");
-
-            if(bestRows.size() > 1) {
-                for(int index = bestRows.size() - 1; index > 0; index--) {
-                    if(bestColumns.get(index) < 4) {
-                        bestCard = bestCards.get(index);
-                        bestCardRow = bestRows.get(index);
-                        bestCardColumn = bestColumns.get(index);
-                        break;
+                    if(replaceBestCard(bestCardsList, bestCard)) {
+                        bestCardsList.add(bestCard);
                     }
                 }
-                System.out.println("Best card has been changed");
             }
-            else {
-                bestCard = null;
-                System.out.println("Best card could not be changed because there is only one card to choose from");
-            }
-
         }
 
-        if (bestCard == null) {
-            bestCardRow = returnBestRowToTake();
-            rowResults = getRowResults(localBoard, bestCardRow);
-            bestCardColumn = rowResults.rowTakenLength();
-            System.out.println("Best card is null - choosing card to get the lowest amount of Heads - Best Row to take: " + bestCardRow);
+        if (bestCardsList.isEmpty()) {
+            int row = returnBestRowToTake();
+            int column = getRowResults(localBoard, row).rowTakenLength();
 
-            bestCard = currentCharacter.returnBiggestCard();
+            BestCard bestCard = BestCard.builder()
+                    .card(currentCharacter.returnSmallestCard())
+                    .row(row)
+                    .numberDifference(bestCardNumberDifference)
+                    .column(column)
+                    .build();
+
+
+            bestCardsList.add(bestCard);
+            System.out.println("bestCardsList is empty - Choosing the smallest card the NPC has");
         }
 
-        assert bestCard != null;
+        bestCardsList.sort(Comparator.comparing(BestCard::getNumberDifference));
+
         System.out.println("returnBestCard *FUNCTION* BEST CARD: " +
-                bestCard.getCardNumber() +
-                " On row " + bestCardRow +
-                " And column " + bestCardColumn);
+                bestCardsList.get(0).getCard().getCardNumber() +
+                " On row " + bestCardsList.get(0).getRow() +
+                " And column " + bestCardsList.get(0).getColumn());
 
-        return bestCard;
+
+        return bestCardsList.get(0).getCard();
+    }
+
+    public static boolean replaceBestCard(List<BestCard> bestCardsList, BestCard newBestCard) {
+        boolean doesCardExist = bestCardsList.stream().anyMatch(bestCard -> bestCard.getCard().equals(newBestCard.getCard()));
+        if(doesCardExist) {
+            BestCard oldBestCard = bestCardsList
+                    .stream().filter(bestCard -> bestCard.getCard().equals(newBestCard.getCard())).findFirst().orElse(null);
+
+            assert oldBestCard != null;
+            boolean isNewCardBetter = newBestCard.getNumberDifference() < oldBestCard.getNumberDifference();
+            if(isNewCardBetter) {
+                bestCardsList.remove(oldBestCard);
+            }
+
+            return isNewCardBetter;
+        }
+        else {
+            return true;
+        }
     }
 
     private void displayCharacterCards(AbstractCharacter abstractCharacter) {
@@ -794,8 +794,7 @@ public class BoardController implements Initializable {
                 }
             });
 
-            characters.getCharactersList()
-                    .forEach(character -> character.getCardsList().sort(Comparator.comparingInt(Card::getCardNumber)));
+            characters.getCharactersList().forEach(AbstractCharacter::sortCardsIncreasing);
         }
     }
 

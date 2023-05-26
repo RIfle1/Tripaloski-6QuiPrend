@@ -9,9 +9,9 @@
 }
 
 .subWindow {
-    -fx-pref-height: 600px;
-    -fx-max-height: 600px;
-    -fx-min-height: 600px;
+    -fx-pref-height: 650px;
+    -fx-max-height: 650px;
+    -fx-min-height: 650px;
     -fx-pref-width: 800px;
     -fx-max-width: 800px;
     -fx-min-width: 800px;

@@ -36,10 +36,18 @@ public abstract class AbstractCharacter {
         this.takenCardsList = takenCardsList;
     }
 
-    public Card returnBiggestCard() {
+    public Card returnSmallestCard() {
         if(!cardsList.isEmpty()) {
             return cardsList.stream().max(Comparator.comparingInt(Card::getCardNumber)).orElseThrow(RuntimeException::new);
         }
         return null;
+    }
+
+    public void sortCardsIncreasing() {
+        cardsList.sort(Comparator.comparingInt(Card::getCardNumber));
+    }
+
+    public void sortCardsDecreasing() {
+        cardsList.sort(Comparator.comparingInt(Card::getCardNumber).reversed());
     }
 }

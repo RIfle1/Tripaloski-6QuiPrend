@@ -17,7 +17,7 @@
       <String fx:value="background" />
    </styleClass>
    <children>
-      <GridPane layoutX="300.0" layoutY="175.0" prefHeight="600.0" prefWidth="800.0" vgap="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane prefHeight="650.0" prefWidth="800.0" vgap="10.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
@@ -25,8 +25,8 @@
         <rowConstraints>
           <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" valignment="BOTTOM" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" valignment="CENTER" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="530.0" minHeight="10.0" prefHeight="326.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="530.0" minHeight="10.0" prefHeight="421.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="104.0" minHeight="60.0" prefHeight="89.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="WHITE" height="50.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="711.0" GridPane.columnSpan="2">
