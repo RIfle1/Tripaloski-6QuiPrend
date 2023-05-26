@@ -394,7 +394,7 @@ public class BoardController implements Initializable {
             }
         });
 
-//        disableAllGridPaneButtons(gameBoardGridPane);
+        disableAllGridPaneButtons(gameBoardGridPane);
     }
 
     private void onMouseEntered(Rectangle nodeSub) {
