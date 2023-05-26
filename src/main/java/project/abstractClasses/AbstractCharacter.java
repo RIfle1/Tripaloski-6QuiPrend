@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import project.classes.Card;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -33,5 +34,12 @@ public abstract class AbstractCharacter {
         this.points = points;
         this.cardsList = cardsList;
         this.takenCardsList = takenCardsList;
+    }
+
+    public Card returnBiggestCard() {
+        if(!cardsList.isEmpty()) {
+            return cardsList.stream().max(Comparator.comparingInt(Card::getCardNumber)).orElseThrow(RuntimeException::new);
+        }
+        return null;
     }
 }

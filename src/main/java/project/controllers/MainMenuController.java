@@ -26,8 +26,8 @@ import static project.functions.JavaFxFunctions.*;
 public class MainMenuController implements Initializable {
 
     private final static int maxPlayersNumber = 10;
-    private final static int minPlayersNumber = 2;
-    private final static int maxNpcNumber = 8;
+    private final static int minPlayersNumber = 0;
+    private final static int maxNpcNumber = 10;
     private final static int minNpcNumber = 0;
     public final static int maxCards = 104;
     @FXML
@@ -126,7 +126,7 @@ public class MainMenuController implements Initializable {
         }
 
         if (!isAllowedCharacterAmount()) {
-            errorT.setText("The sum of Players and NPCs must be less than or equals to " + maxPlayersNumber);
+            errorT.setText("The sum of Players and NPCs must be between 2 and " + maxPlayersNumber);
             errorT.setVisible(true);
             return;
         }
@@ -160,14 +160,17 @@ public class MainMenuController implements Initializable {
         List<String> characterNumberCbList = returnCbList(min, max);
 
         characterNumberCb.getItems().addAll(characterNumberCbList);
-        characterNumberCb.setValue(characterNumberCbList.get(0));
+        characterNumberCb.setValue(characterNumberCbList.get(1));
     }
 
     private boolean isAllowedCharacterAmount() {
         int playersNumber = Integer.parseInt(playersNumberCb.getValue());
         int npcNumber = Integer.parseInt(npcNumberCb.getValue());
 
-        return playersNumber + npcNumber <= maxPlayersNumber;
+        boolean isMax = playersNumber + npcNumber <= maxPlayersNumber;
+        boolean isMin = playersNumber + npcNumber >= 2;
+
+        return isMax && isMin;
     }
 
     /**

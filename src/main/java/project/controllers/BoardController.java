@@ -153,6 +153,7 @@ public class BoardController implements Initializable {
     }
 
     public void resolveCards() {
+        displayCharacterInfo("", "Cards Resolution");
         chosenCardsList = sortCardsByIncreasingOrder(chosenCardsList);
 
         Card[][] localBoard = board.getBoard();
@@ -168,7 +169,7 @@ public class BoardController implements Initializable {
         for (int row = 0; row < localBoard.length; row++) {
 
             RowResults rowResults = getRowResults(localBoard, row);
-            RowCalculations rowCalculations = getRowCalculations(bestCardNumberDifference, rowResults, cardNumber);
+            RowCalculations rowCalculations = getRowCalculations(bestCardNumberDifference, rowResults.lastRowCardNumber, cardNumber);
 
             System.out.println(currentCharacter.getCharacterName() +
                     " | Card Number: " + cardNumber +
@@ -206,15 +207,14 @@ public class BoardController implements Initializable {
             String playerTurnText = currentCharacter.getCharacterName() + "'s card '"
                     + currentCard.getCardNumber() + "' is too small";
 
-            if(currentCharacter instanceof Player) {
+            if (currentCharacter instanceof Player) {
                 playerTurnText += ", please choose the row you want to take.";
                 setBoardRowsOnHover();
                 enableAllGridPaneButtons(gameBoardGridPane);
-            }
-            else if(currentCharacter instanceof Npc) {
+            } else if (currentCharacter instanceof Npc) {
                 playerTurnText += ", NPC will choose the row to take.";
 
-                removeCardsFromBoard(findBestRowToTake());
+                removeCardsFromBoard(returnBestRowToTake());
             }
 
             displayCharacterInfo("", playerTurnText);
@@ -226,14 +226,16 @@ public class BoardController implements Initializable {
     }
 
     @NotNull
-    private static RowCalculations getRowCalculations(int bestCardNumberDifference, RowResults rowResults, int cardNumber) {
-        int currentCardNumberDifference = Math.abs(cardNumber - rowResults.lastRowCardNumber());
-        boolean isCurrentBigger = rowResults.lastRowCardNumber() < cardNumber;
+    private static RowCalculations getRowCalculations(int bestCardNumberDifference, int newCardNumber, int staticCardNumber) {
+        int currentCardNumberDifference = Math.abs(staticCardNumber - newCardNumber);
+        boolean isCurrentBigger = newCardNumber < staticCardNumber;
+        boolean isCurrentSmaller = newCardNumber > staticCardNumber;
         boolean isDifferenceSmaller = currentCardNumberDifference < bestCardNumberDifference;
-        return new RowCalculations(currentCardNumberDifference, isCurrentBigger, isDifferenceSmaller);
+        return new RowCalculations(currentCardNumberDifference, isCurrentSmaller, isCurrentBigger, isDifferenceSmaller);
     }
 
-    private record RowCalculations(int currentCardNumberDifference, boolean isCurrentBigger, boolean isDifferenceSmaller) {
+    private record RowCalculations(int currentCardNumberDifference, boolean isCurrentSmaller, boolean isCurrentBigger,
+                                   boolean isDifferenceSmaller) {
     }
 
     @NotNull
@@ -258,21 +260,21 @@ public class BoardController implements Initializable {
     private record RowResults(int rowTakenLength, int lastRowCardNumber) {
     }
 
-    private int findBestRowToTake() {
+    private int returnBestRowToTake() {
 
         int bestRow = -1;
         int leastRowHeads = 100;
 
-        for(int row = 0; row < board.getBoard().length; row++) {
+        for (int row = 0; row < board.getBoard().length; row++) {
             int rowHeads = 0;
 
-            for(int column = 0; column < board.getBoard()[row].length; column++) {
-                if(board.getBoard()[row][column] != null) {
+            for (int column = 0; column < board.getBoard()[row].length; column++) {
+                if (board.getBoard()[row][column] != null) {
                     rowHeads += board.getBoard()[row][column].getCardHeads();
                 }
             }
 
-            if(rowHeads < leastRowHeads) {
+            if (rowHeads < leastRowHeads) {
                 bestRow = row;
                 leastRowHeads = rowHeads;
             }
@@ -459,7 +461,6 @@ public class BoardController implements Initializable {
                             characterCardsGridPane.getChildren().remove(node);
                         });
                     });
-                    displayCharacterInfo("", "Cards Resolution");
 
                     resolveCards();
                 } else {
@@ -628,7 +629,7 @@ public class BoardController implements Initializable {
         displayCharacterCards(currentCharacter);
         displayCharacterInfo(currentCharacter);
 
-        if(currentCharacter.getClass().equals(Npc.class)) {
+        if (currentCharacter.getClass().equals(Npc.class)) {
 //            Card chosenCard = currentCharacter.getCardsList().get((int) generateDoubleBetween(0, currentCharacter.getCardsList().size() - 1));
             System.out.println(currentCharacter.getCharacterName() + "'s TURN");
             System.out.println("NPC CARDS: ");
@@ -651,26 +652,66 @@ public class BoardController implements Initializable {
         int bestCardRow = -1;
         int bestCardColumn = -1;
 
-        for(int row = 0; row < localBoard.length; row ++) {
+        List<Card> bestCards = new ArrayList<>();
+        List<Integer> bestRows = new ArrayList<>();
+        List<Integer> bestColumns = new ArrayList<>();
+
+        for (int row = 0; row < localBoard.length; row++) {
             rowResults = getRowResults(localBoard, row);
 
-            for(Card card : currentCharacter.getCardsList()) {
-                RowCalculations rowCalculations = getRowCalculations(bestCardNumberDifference, rowResults, card.getCardNumber());
+            for (Card card : currentCharacter.getCardsList()) {
+
+                RowCalculations rowCalculations = getRowCalculations(bestCardNumberDifference, rowResults.lastRowCardNumber, card.getCardNumber());
 
                 // If The difference between the current card and each card on the board is the smallest
                 // The current card is greater than each card on the board
-                // The row is smaller than 5 in length
-                if(rowCalculations.isCurrentBigger() && rowCalculations.isDifferenceSmaller() && rowResults.rowTakenLength() < 5) {
+                if (rowCalculations.isCurrentBigger() && rowCalculations.isDifferenceSmaller()) {
                     bestCardNumberDifference = rowCalculations.currentCardNumberDifference();
                     bestCard = card;
                     bestCardRow = row;
                     bestCardColumn = rowResults.rowTakenLength();
+
+                    bestCards.add(bestCard);
+                    bestRows.add(bestCardRow);
+                    bestColumns.add(bestCardColumn);
                 }
             }
         }
 
+        // If card is going to be placed on the last row,
+        // choose the card that doesn't go on a row with 5 cards on it already
+        if (bestCardColumn > 4) {
+            System.out.println("Best card column is greater than 4 - card to go on row with less than 5 cards on it");
+
+            if(bestRows.size() > 1) {
+                for(int index = bestRows.size() - 1; index > 0; index--) {
+                    if(bestColumns.get(index) < 4) {
+                        bestCard = bestCards.get(index);
+                        bestCardRow = bestRows.get(index);
+                        bestCardColumn = bestColumns.get(index);
+                        break;
+                    }
+                }
+                System.out.println("Best card has been changed");
+            }
+            else {
+                bestCard = null;
+                System.out.println("Best card could not be changed because there is only one card to choose from");
+            }
+
+        }
+
+        if (bestCard == null) {
+            bestCardRow = returnBestRowToTake();
+            rowResults = getRowResults(localBoard, bestCardRow);
+            bestCardColumn = rowResults.rowTakenLength();
+            System.out.println("Best card is null - choosing card to get the lowest amount of Heads - Best Row to take: " + bestCardRow);
+
+            bestCard = currentCharacter.returnBiggestCard();
+        }
+
         assert bestCard != null;
-        System.out.println("returnClosestCard *FUNCTION* BEST CARD: " +
+        System.out.println("returnBestCard *FUNCTION* BEST CARD: " +
                 bestCard.getCardNumber() +
                 " On row " + bestCardRow +
                 " And column " + bestCardColumn);
@@ -686,14 +727,14 @@ public class BoardController implements Initializable {
             Card card = characterCards.get(i);
 
             String cardImage = card.getCardImage();
-            if(abstractCharacter.getClass().equals(Npc.class)) {
+            if (abstractCharacter.getClass().equals(Npc.class)) {
                 cardImage = "backside.png";
             }
 
             Rectangle imageRectangle = returnImageRectangle(90, 140, 10, 10, "cards/" + cardImage);
             imageRectangle.setId(String.valueOf(card.getCardNumber()));
 
-            if(abstractCharacter.getClass().equals(Player.class)) {
+            if (abstractCharacter.getClass().equals(Player.class)) {
                 imageRectangle.getStyleClass().add("clickableNode");
                 imageRectangle.setOnMouseReleased(event -> chooseCardOnClick(imageRectangle));
             }
@@ -734,7 +775,8 @@ public class BoardController implements Initializable {
                     imageRectangle.setId(String.valueOf(card.getCardNumber()));
 
                     gameBoardGridPane.add(imageRectangle, column, row);
-                } catch (NullPointerException ignored) {}
+                } catch (NullPointerException ignored) {
+                }
 
             }
         }
@@ -745,7 +787,7 @@ public class BoardController implements Initializable {
      */
 
     public void initializeCharacterCards() {
-        if(deck.getVariantNumber() != 2 && deck.getVariantNumber() != 3) {
+        if (deck.getVariantNumber() != 2 && deck.getVariantNumber() != 3) {
             characters.getCharactersList().forEach(character -> {
                 for (int i = 1; i <= 10; i++) {
                     giveCard(character.getCardsList());
