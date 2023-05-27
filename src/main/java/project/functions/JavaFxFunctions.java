@@ -13,6 +13,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -26,8 +28,8 @@ import project.GuiLauncherMain;
 import project.abstractClasses.AbstractCharacter;
 import project.classes.Characters;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -87,6 +89,12 @@ public class JavaFxFunctions {
         return scene;
     }
 
+    public static void onExitKeyPressed(KeyEvent event, Runnable runnableFunc) {
+        if (event.getCode().equals(KeyCode.ESCAPE)) {
+            runnableFunc.run();
+        }
+    }
+
     public static boolean checkConfirmationPopUp(Stage stage, String popUpMsg) {
         Optional<ButtonType> result = Objects.requireNonNull(createPopup(stage,
                 Alert.AlertType.CONFIRMATION, popUpMsg));
@@ -140,7 +148,7 @@ public class JavaFxFunctions {
      * @return Image View Object of the given image string
      */
     public static ImageView returnObjectImageView(String objectName, double height, double width, double opacity) {
-        Image spellImage = returnObjectImage(objectName);
+        Image spellImage = returnImage(objectName);
         ImageView spellImageView = new ImageView(spellImage);
         spellImageView.setFitHeight(height);
         spellImageView.setFitWidth(width);
@@ -152,17 +160,17 @@ public class JavaFxFunctions {
 
     public static Rectangle returnImageRectangle(int width, int height,
                                                  int arcWidth, int arcHeight,
-                                                 String imageName) {
+                                                 String imagePath) {
         Rectangle imageRectangle = new Rectangle(width, height);
         imageRectangle.setArcHeight(arcHeight);
         imageRectangle.setArcWidth(arcWidth);
-        setRectangleImage(imageRectangle, imageName);
+        setRectangleImage(imageRectangle, imagePath);
 
         return imageRectangle;
     }
 
-    public static void setRectangleImage(Rectangle rectangle, String imageName) {
-        ImagePattern imagePattern = new ImagePattern(returnObjectImage(imageName));
+    public static void setRectangleImage(Rectangle rectangle, String imagePath) {
+        ImagePattern imagePattern = new ImagePattern(returnImage(imagePath));
         rectangle.setFill(imagePattern);
     }
 
@@ -170,18 +178,11 @@ public class JavaFxFunctions {
     /**
      * Returns an Image of a given image string
      *
-     * @param objectName Name of the image
+     * @param imagePath Path of the image
      * @return Image Object of the given image string
      */
-    public static Image returnObjectImage(String objectName) {
-        String imgPath;
-        try {
-            imgPath = returnImagePath(objectName);
-        } catch (Exception e) {
-            System.out.println("Image not found");
-            imgPath = returnImagePath("unknown");
-        }
-        return new Image(imgPath);
+    public static Image returnImage(String imagePath) {
+        return new Image(imagePath);
     }
 
     /**
@@ -191,11 +192,8 @@ public class JavaFxFunctions {
      * @return Path of the given image string
      */
     public static String returnImagePath(String objectName) {
-        return Objects.requireNonNull(GuiLauncherMain.class.getClassLoader().getResource("project/images/")) + objectName;
-    }
-
-    public static String returnPath(String objectName) {
-        return Objects.requireNonNull(GuiLauncherMain.class.getClassLoader().getResource(objectName)).toString() ;
+//        return Objects.requireNonNull(GuiLauncherMain.class.getClassLoader().getResource("project/images/")) + objectName;
+        return returnPath("project/images/") + objectName;
     }
 
     /**
@@ -205,12 +203,16 @@ public class JavaFxFunctions {
      * @return URL of the given FXML file
      */
     public static URL returnFXMLURL(String fxmlName) {
-        try {
-            return new URL(Objects.requireNonNull(GuiLauncherMain.class.getClassLoader().getResource("project/fxml/")) + fxmlName);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-
+//        try {
+////            return new URL(Objects.requireNonNull(GuiLauncherMain.class.getClassLoader().getResource("project/fxml/")) + fxmlName);
+//            String path = returnPath("project/fxml/") + fxmlName;
+//            return new URL(path);
+//
+//
+//        } catch (MalformedURLException e) {
+//            throw new RuntimeException(e);
+//        }
+        return returnURL("project/fxml/", fxmlName);
     }
 
     /**
@@ -430,16 +432,7 @@ public class JavaFxFunctions {
      * @return Node with the given fx:id
      */
     public static Node returnChildNodeById(GridPane parentGridPane, String childGridPaneFxId) {
-        return parentGridPane.getChildren().stream()
-                .filter(node -> {
-                 if(node.getId() != null) {
-                     return node.getId().equals(childGridPaneFxId);
-                 } else {
-                     return false;
-                 }
-                })
-                .findFirst()
-                .orElse(null);
+        return parentGridPane.lookup("#" + childGridPaneFxId);
     }
 
     public static Node getNullIdNodeByRowColumnIndex(final int row, final int column, GridPane gridPane) {
@@ -531,30 +524,31 @@ public class JavaFxFunctions {
     }
 
     public static List<Timeline> animateCardTranslation(Node attackingNode, Node attackedNode) {
+        try {
+            Bounds startingBounds = attackingNode.localToScene(attackingNode.getBoundsInLocal());
+            Bounds endingBounds = attackedNode.localToScene(attackedNode.getBoundsInLocal());
 
-        Bounds startingBounds = attackingNode.localToScene(attackingNode.getBoundsInLocal());
-        Bounds endingBounds = attackedNode.localToScene(attackedNode.getBoundsInLocal());
+            double boundsXDiff = endingBounds.getCenterX() - startingBounds.getCenterX();
+            double boundsYDiff = endingBounds.getCenterY() - startingBounds.getCenterY();
 
-        double boundsXDiff = endingBounds.getCenterX() - startingBounds.getCenterX();
-        double boundsYDiff = endingBounds.getCenterY() - startingBounds.getCenterY();
+//            System.out.println("Bounds X Start: " + startingBounds.getCenterX());
+//            System.out.println("Bounds Y Start: " + startingBounds.getCenterY());
 //
-//        System.out.println(attackingNode.getId() + " :boundsXDiff: " + boundsXDiff);
-//        System.out.println(attackingNode.getId() + " :boundsYDiff: " + boundsYDiff);
+//            System.out.println("Bounds X End: " + endingBounds.getCenterX());
+//            System.out.println("Bounds Y End: " + endingBounds.getCenterY());
+//
+//            System.out.println("Bounds X Diff: " + boundsXDiff);
+//            System.out.println("Bounds Y Diff: " + boundsYDiff);
 
-//        System.out.println("Ending bounds: " + endingBounds);
-//        System.out.println("Starting boundsX: " + startingBounds.getCenterX());
-//        System.out.println("Starting boundsY: " + startingBounds.getCenterY());
+            return translationEffect(attackingNode, boundsXDiff, boundsYDiff,
+                    0.3, () -> {}, 0.5,
+                    1, false);
+        }
+        catch (Exception e) {
+            System.out.println("animateCardTranslation *FUNCTION* -> Attacking Node or Attacked Node is null");
+            return new ArrayList<>();
+        }
 
-//        System.out.println("AFTER");
-//        System.out.println("Starting boundsX: " + startingBounds.getCenterX());
-//        System.out.println("Starting boundsY: " + startingBounds.getCenterY());
-//        System.out.println("Ending boundsX: " + endingBounds.getCenterX());
-//        System.out.println("Ending boundsY: " + endingBounds.getCenterY());
-//        System.out.println("------------------");
-
-        return translationEffect(attackingNode, boundsXDiff, boundsYDiff,
-                0.3, () -> {}, 0.5,
-                1, false);
     }
 
 
@@ -606,7 +600,7 @@ public class JavaFxFunctions {
         playerPoints.getStyleClass().add("playerInfoTextStyle2");
 
 
-        Rectangle imageRectangle = returnImageRectangle(50, 50, 50, 50, "icons/" + imageName);
+        Rectangle imageRectangle = returnImageRectangle(50, 50, 50, 50, new File("icons/" + imageName).toURI().toString());
         imageRectangle.setEffect(new DropShadow(20, Color.BLACK));
 
         GridPane horizontalGridPane = new GridPane();
@@ -671,7 +665,7 @@ public class JavaFxFunctions {
 
 
         AtomicInteger rowNumber = new AtomicInteger(0);
-        ArrayList<String> imageList = returnImageList(returnTargetPath("images/icons"));
+        ArrayList<String> imageList = returnImageList("icons");
 
         AtomicInteger row = new AtomicInteger();
 
@@ -700,6 +694,15 @@ public class JavaFxFunctions {
 
 
         parentGridPane.add(childGridPane, columnIndex, rowIndex);
+    }
+
+    public static void printPosition(Node node) {
+        Bounds startingBounds = node.localToScene(node.getBoundsInLocal());
+        System.out.println("Rectangle " + node.getId() + " bounds:");
+
+        System.out.println("X: " + startingBounds.getCenterX());
+        System.out.println("Y: " + startingBounds.getCenterY());
+        System.out.println("-----");
     }
 
 }

@@ -1,0 +1,5 @@
+The Npcs choose random cards on every turn.
+
+They also choose a random row when their card is too small to be placed on the board.
+
+On Variant 2 and 3 they will choose a random card from the table.

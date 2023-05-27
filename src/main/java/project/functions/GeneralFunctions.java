@@ -1,10 +1,18 @@
 package project.functions;
 
+import project.GuiLauncherMain;
+
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class GeneralFunctions {
@@ -86,11 +94,28 @@ public class GeneralFunctions {
         }
     }
 
-    public static ArrayList<String> returnImageList(String imageDir) {
-        File[] images = new File(imageDir).listFiles();
+//    public static ArrayList<String> returnImageList(String imageDir) {
+//
+////        File[] images = new File[0];
+//        //            images = new File(Objects.requireNonNull(GuiLauncherMain.class.getResource(imageDir)).toURI()).listFiles();
+//        URI uri = returnURI(imageDir);
+//        File[] images = new File(uri).listFiles();
+//
+//        assert images != null;
+//        ArrayList<String> imageList = new ArrayList<>();
+//
+//        Stream.of(images)
+//                .filter(file -> !file.isDirectory())
+//                .map(File::getName)
+//                .forEach(imageList::add);
+//
+//        return imageList;
+//    }
+
+    public static ArrayList<String> returnImageList(String folder) {
+        File[] images = new File(folder).listFiles();
 
         assert images != null;
-
         ArrayList<String> imageList = new ArrayList<>();
 
         Stream.of(images)
@@ -101,10 +126,33 @@ public class GeneralFunctions {
         return imageList;
     }
 
-    public static String returnTargetPath(String dir) {
-        return "target/classes/project/" + dir;
+
+    public static String readFileAsString(String fileName) {
+        InputStream inputStream = GuiLauncherMain.class.getResourceAsStream("/project/texts/" + fileName);
+        assert inputStream != null;
+        Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
+        return scanner.hasNext() ? scanner.next() : "";
     }
 
+    public static URI returnURI(String path) {
+        try {
+            return Objects.requireNonNull(GuiLauncherMain.class.getResource(path)).toURI();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String returnPath(String objectName) {
+        return Objects.requireNonNull(GuiLauncherMain.class.getClassLoader().getResource(objectName)).toString() ;
+    }
+
+    public static URL returnURL(String path, String objectName) {
+        try {
+            return new URL(returnPath(path) + objectName);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 //    public static String returnFileAttribute(String dir, String filenameCompressed, String attribute) {
 //        List<String> saves = returnSaves(filenameCompressed);
 //
@@ -120,7 +168,17 @@ public class GeneralFunctions {
 //        Date fileDate = new Date(fileTime.toMillis());
 //        String pattern = "dd-MM-yyyy HH:mm:ss";
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
 //        return simpleDateFormat.format(fileDate);
+
 //    }
+
+    public static void sleep(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

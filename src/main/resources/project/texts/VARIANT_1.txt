@@ -1,0 +1,8 @@
+The number of cards is based on the amount of characters in the game.
+
+The amount of cards will be calculated by the following formula:
+Number of characters * 10 + 4.
+
+Example:
+3 Characters : 34 cards from 1 to 34.
+5 Characters : 54 cards from 1 to 54.

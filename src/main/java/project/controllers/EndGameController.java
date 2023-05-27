@@ -19,7 +19,6 @@ import java.util.ResourceBundle;
 
 import static project.controllers.BoardController.characters;
 import static project.controllers.MainMenuController.mainMenuScene;
-import static project.controllers.MainMenuController.onExitKeyPressed;
 import static project.functions.JavaFxFunctions.*;
 
 public class EndGameController implements Initializable {

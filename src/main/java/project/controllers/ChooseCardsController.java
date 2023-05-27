@@ -2,6 +2,7 @@ package project.controllers;
 
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,8 +18,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import project.abstractClasses.AbstractCharacter;
+import project.classes.Card;
 import project.classes.Characters;
 import project.classes.Deck;
+import project.classes.Npc;
+import project.enums.Difficulty;
+import project.enums.Variant;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,12 +32,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static project.controllers.BoardController.boardScene;
 import static project.controllers.MainMenuController.mainMenuScene;
+import static project.functions.GeneralFunctions.sleep;
 import static project.functions.JavaFxFunctions.*;
 
 public class ChooseCardsController implements Initializable {
     private static Stage stage;
     private static Characters characters;
     private static Deck deck;
+    private static Difficulty difficulty;
     private static AbstractCharacter currentCharacter;
     private static GridPane chooseCardGridPane;
     private static int roundNumber;
@@ -42,11 +49,12 @@ public class ChooseCardsController implements Initializable {
     private Text characterTurnT;
 
     public static void chooseCardsScene(MouseEvent event,
-                                        int playersNumber, int npcNumber, int variantNumber,
-                                        int roundNumberParam, int startingPoints) {
-        deck = new Deck(variantNumber, playersNumber, npcNumber);
+                                        int playersNumber, int npcNumber, Variant variant,
+                                        int roundNumberParam, int startingPoints, Difficulty difficultyParam) {
+        deck = new Deck(variant, playersNumber, npcNumber);
         characters = new Characters(playersNumber, npcNumber, startingPoints);
         roundNumber = roundNumberParam;
+        difficulty = difficultyParam;
 
         FXMLLoader fxmlLoader = new FXMLLoader(returnFXMLURL("ChooseCards.fxml"));
         ActionEvent actionEvent = new ActionEvent(event.getSource(), event.getTarget());
@@ -92,22 +100,24 @@ public class ChooseCardsController implements Initializable {
         AtomicInteger row = new AtomicInteger(0);
         AtomicInteger column = new AtomicInteger(0);
 
-        int maxRows = 8;
         int maxColumns = 17;
 
         deck.getCardsList().forEach(card -> {
-            Rectangle cardRectangle = returnImageRectangle(80, 120,
-                    10, 10, "cards/" + card.getCardImage());
+            String imagePath = returnImagePath("cards/" + card.getCardImage());
+            Rectangle cardRectangle = returnImageRectangle(80, 120, 10, 10, imagePath);
             cardRectangle.setId(String.valueOf(card.getCardNumber()));
             cardRectangle.getStyleClass().add("clickableNode");
 
-            cardRectangle.setOnMouseClicked(e -> {
+            cardRectangle.setOnMouseReleased(e -> {
                 currentCharacter.getCardsList().add(card);
                 deck.getCardsList().remove(card);
-                fadeOutEffect(cardRectangle, 1, 0.2);
-
+                fadeOutEffect(cardRectangle, 0.1, 0.2).setOnFinished(event -> {
+                    checkCharactersCards();
+                    characterTurn(characters.getCharactersList().indexOf(currentCharacter) + 1);
+                });
                 cardRectangle.setDisable(true);
-                characterTurn(characters.getCharactersList().indexOf(currentCharacter) + 1);
+                cardRectangle.getStyleClass().remove("clickableNode");
+                cardRectangle.getStyleClass().add("clickableNodePressed");
             });
 
             if(column.get() > maxColumns) {
@@ -128,22 +138,48 @@ public class ChooseCardsController implements Initializable {
         currentCharacter = characters.getCharactersList().get(characterIndex);
         characterTurnT.setText(currentCharacter.getCharacterName() + "'s Turn To Choose A Card");
 
-        checkCharactersCards();
+        if(!isCharacterCardsListFull(currentCharacter)) {
+
+            sleep(10);
+
+            if(currentCharacter instanceof Npc) {
+                disableAllGridPaneButtons(chooseCardGridPane);
+                Card chosenCard = deck.returnHighestCard();
+
+                if(difficulty.equals(Difficulty.EASY) || difficulty.equals(Difficulty.MEDIUM)) {
+                    chosenCard = deck.returnRandomCard();
+                }
+
+                System.out.println(currentCharacter.getCharacterName() + " chose " + chosenCard.getCardNumber());
+
+                Rectangle highestCardRectangle = (Rectangle) chooseCardInfoGridPane.lookup("#" + chosenCard.getCardNumber());
+
+                Event.fireEvent(highestCardRectangle, new MouseEvent(MouseEvent.MOUSE_RELEASED,
+                        highestCardRectangle.getLayoutX(), highestCardRectangle.getLayoutY(),
+                        highestCardRectangle.getLayoutX(), highestCardRectangle.getLayoutY(),
+                        null, 0, false, false, false,
+                        false, false, false, false,
+                        false, false, false, null));
+
+                enableAllGridPaneButtons(chooseCardGridPane);
+            }
+        }
     }
 
     private void checkCharactersCards() {
         boolean allCharactersHaveCards = false;
 
         for(AbstractCharacter character : characters.getCharactersList()) {
-            if(character.getCardsList().size() < 10) {
-                allCharactersHaveCards = false;
-                break;
-            }
-            allCharactersHaveCards = true;
+            allCharactersHaveCards = isCharacterCardsListFull(character);
         }
 
         if(allCharactersHaveCards) {
-            boardScene(stage, deck, characters, roundNumber);
+            System.out.println("sent to board");
+            boardScene(stage, deck, characters, roundNumber, difficulty);
         }
+    }
+
+    private boolean isCharacterCardsListFull(AbstractCharacter character) {
+        return character.getCardsList().size() == 10;
     }
 }

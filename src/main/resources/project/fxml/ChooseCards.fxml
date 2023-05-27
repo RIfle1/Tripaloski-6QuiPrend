@@ -31,7 +31,7 @@
                   <DropShadow height="53.04" offsetY="6.0" radius="44.8775" width="128.47" />
                </effect>
             </Rectangle>
-            <Text fx:id="characterTurnT" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="labelStyle" text="Player XXX Choose A Card" textAlignment="CENTER" translateY="-5.0" wrappingWidth="690.13671875">
+            <Text fx:id="characterTurnT" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Player XXX Choose A Card" textAlignment="CENTER" translateY="-5.0" wrappingWidth="690.13671875">
                <font>
                   <Font size="30.0" />
                </font>

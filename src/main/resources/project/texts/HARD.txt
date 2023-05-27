@@ -1,0 +1,10 @@
+The Npcs choose the card with the smallest difference between each of their card and every last card placed on each row.
+The chosen card will be greater than the last card placed on the row.
+
+If the chosen card will be placed on a row which already has 5 cards on it, the Npc will choose the second-best card with the smallest difference the card has to be greater than the last card placed on the row.
+
+If the Npc has no card greater than every last card placed on each row, they will choose the smallest card they have.
+
+The Npcs will choose the row with the least amount of heads when their card is too small to be placed on the board.
+
+On Variant 2 and 3 they will always try to choose a card with the highest number of heads.

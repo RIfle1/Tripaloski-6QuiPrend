@@ -41,15 +41,21 @@
 }
 
 .errorText {
-    -fx-font-family: "Bell MT", sans-serif;
+    -fx-font-family: "System", sans-serif;
     -fx-font-size: 20;
-    -fx-fill: darkred;
+    -fx-fill: #af71fb;
 }
 
-.labelStyle {
+.textStyle {
     -fx-font-family: "System", sans-serif;
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );
     -fx-fill: #422ff2;
+}
+
+.textStyle2 {
+    -fx-font-family: "System", sans-serif;
+    -fx-font-weight: bold;
+    -fx-fill: #ffffff;
 }
 
 .playerInfoTextStyle1 {
@@ -73,6 +79,11 @@
 }
 
 .clickableNode {
+    -fx-stroke: transparent;
+    -fx-stroke-width: 3;
+}
+
+.clickableNode2 {
     -fx-stroke: transparent;
     -fx-stroke-width: 3;
 }
@@ -133,5 +144,12 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );
     -fx-fill: #f64e4e;
     -fx-opacity: 0;
+}
+
+.infoTitle {
+    -fx-font-family: "System", sans-serif;
+    -fx-font-size: 20;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );
+    -fx-fill: #422ff2;
 }
 

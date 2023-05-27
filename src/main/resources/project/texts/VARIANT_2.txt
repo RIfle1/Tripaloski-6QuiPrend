@@ -1,0 +1,5 @@
+Each character can choose their cards.
+All the cards are placed visible side up on the table and by turn each player can choose one card until every character has 10 cards.
+
+Then 4 cards are placed on the table to make the start of each row.
+The game is played normally afterward.

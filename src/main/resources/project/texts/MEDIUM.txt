@@ -1,0 +1,7 @@
+The Npcs choose the card with the smallest difference between each of their card and every last card placed on each row.
+The chosen card will be greater than the last card placed on the row.
+
+They will choose the row with the least amount of heads when their card is too small to be placed on the board.
+
+On Variant 2 and 3 they will choose a random card from the table.
+

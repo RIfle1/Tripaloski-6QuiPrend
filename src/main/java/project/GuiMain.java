@@ -1,5 +1,7 @@
 package project;
 
+import static project.functions.GeneralFunctions.readFileAsString;
+
 /**
  * This class is used to launch the GUI
  */

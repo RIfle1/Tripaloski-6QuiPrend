@@ -4,21 +4,25 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import project.controllers.MainMenuController;
+import project.enums.Variant;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+
+import static project.functions.GeneralFunctions.generateDoubleBetween;
 
 @Getter
 @Setter
 public class Deck {
     private List<Card> cardsList;
-    private int variantNumber;
+    private Variant variant;
     private int playerNumber;
     private int npcNumber;
     private int maxCards;
     @Builder
-    public Deck(int variantNumber, int playerNumber, int npcNumber) {
-        this.variantNumber = variantNumber;
+    public Deck(Variant variant, int playerNumber, int npcNumber) {
+        this.variant = variant;
         this.playerNumber = playerNumber;
         this.npcNumber = npcNumber;
         this.maxCards = returnMaxCards();
@@ -45,7 +49,7 @@ public class Deck {
     }
 
     private int returnMaxCards() {
-        if (variantNumber == 1 || variantNumber == 3) {
+        if (variant.equals(Variant.VARIANT_1) || variant.equals(Variant.VARIANT_3)) {
             return (playerNumber + npcNumber) * 10 + 4;
         } else {
             return MainMenuController.maxCards;
@@ -81,5 +85,13 @@ public class Deck {
         } else {
             return 0;
         }
+    }
+
+    public Card returnHighestCard() {
+        return cardsList.stream().max(Comparator.comparingInt(Card::getCardNumber)).orElse(null);
+    }
+
+    public Card returnRandomCard() {
+        return cardsList.get((int) generateDoubleBetween(0, cardsList.size() - 1));
     }
 }
