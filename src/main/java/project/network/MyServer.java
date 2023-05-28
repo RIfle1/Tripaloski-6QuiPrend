@@ -45,7 +45,10 @@ public class MyServer {
         try {
             socket = serverSocket.accept();
             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-            return dataInputStream.readUTF();
+            String message = dataInputStream.readUTF();
+            System.out.println("Received From (" + socket.getInetAddress().getHostAddress() + ") :" + message);
+
+            return message;
         } catch (IOException e) {
             return "Error retrieving data from client";
         }
@@ -53,13 +56,15 @@ public class MyServer {
 
     public void send(String message, int port) {
         try {
-            socket = new Socket("localhost", port);
+            String ip = "192.168.1.69";
+            System.out.println("Sending: " + message + " to " + ip + ":" + port);
+            socket = new Socket(ip, port);
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
             dataOutputStream.writeUTF(message);
             dataOutputStream.flush();
             dataOutputStream.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Error sending data to client");
         }
     }
 

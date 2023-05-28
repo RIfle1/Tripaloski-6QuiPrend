@@ -10,15 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="472d48d6-d4be-419a-bee9-5c7e79b5e54f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/project/controllers/NetworkTestsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project/network/MyClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project/network/MyServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project/network/NetworkTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project/network/Server1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project/network/Server2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/NetworkTests.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/network/MyServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/network/MyServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/network/Server1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/network/Server1.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,25 +44,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "extract.method.default.visibility": "private",
-    "last_opened_file_path": "Z:/stuff2/Programming/Java Projects/Tripaloski-6QuiPrend/src/main/java/project/network",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;last_opened_file_path&quot;: &quot;Z:/stuff2/Programming/Java Projects/Tripaloski-6QuiPrend/src/main/java/project/network&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="Z:\stuff2\Programming\Java Projects\Tripaloski-6QuiPrend\src\main\java\project\network" />
@@ -87,7 +81,7 @@
       <recent name="project.controllers" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Server2">
+  <component name="RunManager" selected="Application.Server1">
     <configuration name="GuiMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="project.GuiMain" />
       <module name="Tripaloski-6QuiPrend" />
@@ -140,8 +134,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Server2" />
         <item itemvalue="Application.Server1" />
+        <item itemvalue="Application.Server2" />
         <item itemvalue="Application.GuiMain" />
         <item itemvalue="Batch.run" />
       </list>
@@ -166,7 +160,8 @@
       <workItem from="1685125955081" duration="6910000" />
       <workItem from="1685132963945" duration="28000" />
       <workItem from="1685132997764" duration="16598000" />
-      <workItem from="1685189204301" duration="30703000" />
+      <workItem from="1685189204301" duration="32707000" />
+      <workItem from="1685271100034" duration="905000" />
     </task>
     <servers />
   </component>

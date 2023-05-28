@@ -76,8 +76,6 @@ public class NetworkTestsController implements Initializable {
         String port = otherServerPortTf.getText();
         String message = messageTa.getText();
 
-        System.out.println("Sending: " + message + " to port: " + port);
-
         if(port.length() > 0) {
             server.send(message, Integer.parseInt(port));
         }
