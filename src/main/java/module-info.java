@@ -8,11 +8,13 @@ module project {
     requires lombok;
 
     opens project.controllers to javafx.fxml;
+
     opens project to javafx.fxml;
 
     exports project;
     exports project.classes;
     exports project.abstractClasses;
+    exports project.network;
 //    exports project.enums;
     exports project.controllers;
     exports project.enums;
