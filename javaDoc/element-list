@@ -3,4 +3,5 @@ project
 project.abstractClasses
 project.classes
 project.controllers
+project.enums
 project.functions
