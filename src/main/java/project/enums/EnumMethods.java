@@ -3,8 +3,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnumMethods {
+    /**
+     * Method to return a formatted enum
+     * @param object The enum
+     * @return The formatted enum
+     */
     public static String returnFormattedEnum(Object object) {
-
         String enumString = object.toString().toLowerCase();
         String[] enumArrRaw = enumString.split("_");
         int enumArrRawLength = enumArrRaw.length - 1;
@@ -24,6 +28,11 @@ public class EnumMethods {
         return newEnumWord.toString();
     }
 
+    /**
+     * Method to return a list of the enum values
+     * @param enumValues The enum values
+     * @return List of enum values
+     */
     public static List<String> getEnumList(Object[] enumValues){
         List<String> enumArray = new ArrayList<>();
         for(Object object:enumValues) {

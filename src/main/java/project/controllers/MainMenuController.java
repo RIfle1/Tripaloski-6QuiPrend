@@ -15,7 +15,6 @@ import project.enums.Difficulty;
 import project.enums.Variant;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -77,7 +76,7 @@ public class MainMenuController implements Initializable {
     private Text difficultyInfoT;
 
     /**
-     * Initialize the Main Menu
+     * Method to send to the main menu scene
      *
      * @param stage Stage
      */
@@ -119,36 +118,69 @@ public class MainMenuController implements Initializable {
 
     }
 
+    /**
+     * Update the Npc Number Text when the slider is moved
+     *
+     * @param event event
+     */
     @FXML
     void npcNumberOnChange(MouseEvent event) {
         updateSliderNumber(npcNumberS, botNumberT);
     }
 
+    /**
+     * Update the Player Number Text when the slider is moved
+     *
+     * @param event event
+     */
     @FXML
     void playerNumberOnChange(MouseEvent event) {
         updateSliderNumber(playerNumberS, playerNumberT);
     }
 
+    /**
+     * Update the Point Number Text when the slider is moved
+     *
+     * @param event event
+     */
     @FXML
     void pointNumberOnChange(MouseEvent event) {
         updateSliderNumber(pointNumberS, pointNumberT);
     }
 
+    /**
+     * Update the Round Number Text when the slider is moved
+     *
+     * @param event event
+     */
     @FXML
     void roundNumberOnChange(MouseEvent event) {
         updateSliderNumber(roundNumberS, roundNumberT);
     }
 
+    /**
+     * Update the Variant Number Text when the slider is moved
+     *
+     * @param event event
+     */
     @FXML
     void variantNumberOnAction(ActionEvent event) {
         updateVariantInfo();
     }
 
+    /**
+     * Update the Difficulty Number Text when the slider is moved
+     *
+     * @param event event
+     */
     @FXML
     void difficultyOnAction(ActionEvent event) {
         updateDifficultyInfo();
     }
 
+    /**
+     * Update the Difficulty Combo Box
+     */
     private void updateDifficultyInfo() {
         String difficultyString = difficultyCb.getValue();
         Difficulty difficulty = Difficulty.setDifficulty(difficultyString);
@@ -157,6 +189,9 @@ public class MainMenuController implements Initializable {
         difficultyInfoT.setText(readFileAsString(difficulty + ".txt"));
     }
 
+    /**
+     * Update the Variant Combo Box
+     */
     private void updateVariantInfo() {
         String variantString = variantNumberCb.getValue();
         Variant variant = Variant.setVariant(variantString);
@@ -165,16 +200,34 @@ public class MainMenuController implements Initializable {
         variantInfoT.setText(readFileAsString(variant + ".txt"));
     }
 
+    /**
+     * Set's the respective slider text to the slider's value on key pressed
+     *
+     * @param slider Slider
+     * @param text   Text
+     */
     private void setSliderOnKeyPressed(Slider slider, Text text) {
         slider.setOnKeyPressed(keyEvent -> {
             updateSliderNumber(slider, text);
         });
     }
 
+    /**
+     * General method to update each slider's respective text
+     *
+     * @param slider slider
+     * @param text   text
+     */
     private void updateSliderNumber(Slider slider, Text text) {
         text.setText(String.valueOf((int) slider.getValue()));
     }
 
+    /**
+     * Sets a slider's default value
+     *
+     * @param slider slider
+     * @param text text
+     */
     private void setSliderDefault(Slider slider, Text text) {
         text.setText(String.valueOf((int) slider.getValue()));
     }
@@ -187,14 +240,17 @@ public class MainMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setVariantNumberCb();
-        setDifficultyCb();
+        initializeVariantNumberCb();
+        initializeDifficultyCb();
         initializeSliders();
 
         updateVariantInfo();
         updateDifficultyInfo();
     }
 
+    /**
+     * Initialize the sliders
+     */
     private void initializeSliders() {
         HashMap<Slider, Text> slidersMap = new HashMap<>();
 
@@ -209,7 +265,10 @@ public class MainMenuController implements Initializable {
         });
     }
 
-
+    /**
+     * Check if the sum of players and npcs is between 2 and 10
+     * @return true if the sum is between 2 and 10, false otherwise
+     */
     private boolean isAllowedCharacterAmount() {
         int playersNumber = (int) playerNumberS.getValue();
         int npcNumber = (int) npcNumberS.getValue();
@@ -221,16 +280,19 @@ public class MainMenuController implements Initializable {
     }
 
     /**
-     * Set the variant number choice box
+     * Initializes the variant number choice box
      */
-    private void setVariantNumberCb() {
+    private void initializeVariantNumberCb() {
         List<String> variantsList = getVariantList();
 
         variantNumberCb.getItems().addAll(variantsList);
         variantNumberCb.setValue(variantsList.get(0));
     }
 
-    private void setDifficultyCb() {
+    /**
+     * Initializes the difficulty choice box
+     */
+    private void initializeDifficultyCb() {
         List<String> difficultyList = getDifficultyList();
 
         difficultyCb.getItems().addAll(difficultyList);

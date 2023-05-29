@@ -46,7 +46,7 @@
                </image>
             </ImageView>
             <Rectangle arcHeight="100.0" arcWidth="100.0" height="690.0" opacity="0.5" stroke="BLACK" strokeType="INSIDE" styleClass="rectangleShape" width="732.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <GridPane hgap="20.0" maxHeight="-Infinity" maxWidth="-Infinity" vgap="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane hgap="20.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="648.0" prefWidth="731.0" vgap="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="451.0" minWidth="396.0" prefWidth="448.0" />
@@ -104,20 +104,20 @@
                         <Font size="11.0" />
                      </font>
                   </Text>
-                  <GridPane prefHeight="184.0" prefWidth="740.0" vgap="30.0" GridPane.columnSpan="3" GridPane.rowIndex="4">
+                  <GridPane prefHeight="184.0" prefWidth="740.0" GridPane.columnSpan="3" GridPane.rowIndex="4">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="56.0" minHeight="56.0" prefHeight="56.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="56.0" minHeight="56.0" prefHeight="56.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="43.0" minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="77.0" minHeight="56.0" prefHeight="56.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="145.0" minHeight="56.0" prefHeight="56.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Text fx:id="errorT" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="errorText" text="Error Text" visible="false" GridPane.columnSpan="2" />
                   
-                                 <Button onMouseReleased="#playButtonOnClicked" prefHeight="39.0" prefWidth="364.0" styleClass="demarrerStyle" text="Play" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                 <Button onMouseReleased="#playButtonOnClicked" prefHeight="39.0" prefWidth="364.0" styleClass="startStyle" text="Play" GridPane.columnSpan="2" GridPane.rowIndex="2">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -187,7 +187,6 @@
     </children>
    <stylesheets>
       <URL value="@../styles/generalStyles.css" />
-      <URL value="@../styles/guillaumeStyles.css" />
    </stylesheets>
 
 </AnchorPane>

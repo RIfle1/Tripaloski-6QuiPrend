@@ -15,7 +15,6 @@ module project {
     exports project.classes;
     exports project.abstractClasses;
     exports project.network;
-//    exports project.enums;
     exports project.controllers;
     exports project.enums;
 }

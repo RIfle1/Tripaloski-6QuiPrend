@@ -31,6 +31,11 @@ public class EndGameController implements Initializable {
     @FXML
     private GridPane scoreBoardInfoGridPane;
 
+    /**
+     * This method is used to send the user to the EndGame scene
+     *
+     * @param mainGameStageParam The stage of the main game
+     */
     public static void endGameScene(Stage mainGameStageParam) {
         mainGameStage = mainGameStageParam;
         stage = new Stage();
@@ -44,6 +49,9 @@ public class EndGameController implements Initializable {
         scene.setOnKeyPressed(event -> onExitKeyPressed(event, EndGameController::exit));
     }
 
+    /**
+     * Exit method
+     */
     private static void exit() {
         if (checkConfirmationPopUp(stage, "Are you want to exit?")) {
             mainGameStage.close();
@@ -51,6 +59,12 @@ public class EndGameController implements Initializable {
         }
     }
 
+    /**
+     * This method is used to initialize the scene
+     *
+     * @param url            URL
+     * @param resourceBundle ResourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sortCharacterListByPoints();
@@ -60,11 +74,21 @@ public class EndGameController implements Initializable {
         displayScoreBoard(scoreBoardInfoGridPane, scoreBoardGridPane, characters, 0, 0, 5);
     }
 
+    /**
+     * On Exit Button Clicked
+     *
+     * @param event event
+     */
     @FXML
     void onExitClicked(MouseEvent event) {
         exit();
     }
 
+    /**
+     * On Play Again Button Clicked
+     *
+     * @param event event
+     */
     @FXML
     void onPlayAgainClicked(MouseEvent event) {
         if (checkConfirmationPopUp(stage, "Are you sure you want to return to the Game Menu?")) {
@@ -73,15 +97,26 @@ public class EndGameController implements Initializable {
         }
     }
 
+    /**
+     * Method to sort the character list by the points they have in descending order
+     */
     private void sortCharacterListByPoints() {
-        characters.getCharactersList().sort(Comparator.comparingInt(character -> - character.getPoints()));
+        characters.getCharactersList().sort(Comparator.comparingInt(character -> -character.getPoints()));
     }
 
+    /**
+     * Method to return the winners
+     *
+     * @return List of winners
+     */
     private List<AbstractCharacter> returnWinners() {
         int winningPoints = characters.getCharactersList().get(0).getPoints();
         return characters.getCharactersList().stream().filter(character -> character.getPoints() == winningPoints).toList();
     }
 
+    /**
+     * Method to display the winners
+     */
     private void displayWinners() {
         List<AbstractCharacter> winners = returnWinners();
         if (winners.size() == 1) {
@@ -99,6 +134,9 @@ public class EndGameController implements Initializable {
         }
     }
 
+    /**
+     * Method to initialize the score board
+     */
     public void initializeScoreBoard() {
         scoreBoardGridPane = new GridPane();
 

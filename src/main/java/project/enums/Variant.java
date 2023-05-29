@@ -11,11 +11,20 @@ public enum Variant {
     VARIANT_2,
     VARIANT_3;
 
+    /**
+     * Method to return a list of the enum values
+     * @return List of enum values
+     */
     public static List<String> getVariantList() {
         Variant[] variantValues = Variant.values();
         return EnumMethods.getEnumList(variantValues);
     }
 
+    /**
+     * Method that takes in parameter the enum as a string and returns in as an enum
+     * @param variant The enum as a string
+     * @return The enum
+     */
     public static Variant setVariant(String variant) {
         HashMap<String, Variant> variantHashMap = new HashMap<>();
         Variant[] variantValues = Variant.values();

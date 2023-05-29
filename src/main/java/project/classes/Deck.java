@@ -20,6 +20,15 @@ public class Deck {
     private int playerNumber;
     private int npcNumber;
     private int maxCards;
+
+    /**
+     * Constructor
+     * Automatically creates the cards list based on max Cards
+     *
+     * @param variant      Variant
+     * @param playerNumber Player Number
+     * @param npcNumber    Npc Number
+     */
     @Builder
     public Deck(Variant variant, int playerNumber, int npcNumber) {
         this.variant = variant;
@@ -29,6 +38,11 @@ public class Deck {
         this.cardsList = initializeCardsList();
     }
 
+    /**
+     * Creates a list of cards based on the max cards
+     *
+     * @return List of cards
+     */
     private List<Card> initializeCardsList() {
         List<Card> deck = new ArrayList<>();
 
@@ -36,18 +50,20 @@ public class Deck {
             int heads = 0;
             heads += endsWith(i, 5, 2);
             heads += endsWith(i, 0, 3);
-            heads += multipleOf(i, 11, 5);
+            heads += multipleOf11(i);
 
             if (heads == 0) heads = 1;
-
             Card card = Card.builder().cardNumber(i).cardHeads(heads).cardImage(i + ".png").build();
-
             deck.add(card);
         }
-
         return deck;
     }
 
+    /**
+     * Return the max amounts of cards based on the variant
+     *
+     * @return Max amount of cards
+     */
     private int returnMaxCards() {
         if (variant.equals(Variant.VARIANT_1) || variant.equals(Variant.VARIANT_3)) {
             return (playerNumber + npcNumber) * 10 + 4;
@@ -62,35 +78,41 @@ public class Deck {
      * @return Amount of heads to add
      */
 
-    private int endsWith(int number, int endNumber, int returnNumber) {
+    private int endsWith(int number, int endNumber, int heads) {
         if (String.valueOf(number).endsWith(String.valueOf(endNumber))) {
-            return returnNumber;
+            return heads;
         } else {
             return 0;
         }
     }
 
     /**
-     * Check if the number is a multiple of a specific number
+     * Check if the number is a multiple of 11
      *
-     * @param number       Input number
-     * @param multiple     Multiple number
-     * @param returnNumber Amount of heads to add
+     * @param number Input number
      * @return Amount of heads to add
      */
 
-    private int multipleOf(int number, int multiple, int returnNumber) {
-        if (number % multiple == 0) {
-            return returnNumber;
+    private int multipleOf11(int number) {
+        if (number % 11 == 0) {
+            return 5;
         } else {
             return 0;
         }
     }
 
+    /**
+     * Return the highest card from the deck
+     * @return Highest Card
+     */
     public Card returnHighestCard() {
         return cardsList.stream().max(Comparator.comparingInt(Card::getCardNumber)).orElse(null);
     }
 
+    /**
+     * Return a random card from the deck
+     * @return Random Card
+     */
     public Card returnRandomCard() {
         return cardsList.get((int) generateDoubleBetween(0, cardsList.size() - 1));
     }

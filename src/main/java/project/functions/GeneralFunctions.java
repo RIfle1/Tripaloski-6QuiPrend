@@ -3,16 +3,13 @@ package project.functions;
 import project.GuiLauncherMain;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Random;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 public class GeneralFunctions {
@@ -35,83 +32,11 @@ public class GeneralFunctions {
     }
 
     /**
-     * Chooses a random double in the given double array
+     * Returns the images in a folder
      *
-     * @param array input double array
-     * @return random double from the array
+     * @param folder The folder
+     * @return The images as strings in the folder
      */
-    public static double chooseRandomDouble(double[] array) {
-        return array[new Random().nextInt(array.length)];
-    }
-
-    /**
-     * Generates a random string with a given length
-     *
-     * @param length length of the string to generate
-     * @return random string with a given length
-     */
-    public static String generateRandomString(int length) {
-        UUID randomUUID = UUID.randomUUID();
-        return randomUUID.toString().replaceAll("_", "").substring(0, length);
-    }
-
-    /**
-     * Checks if a given string is empty
-     *
-     * @param input input string
-     * @return true if the string is not empty, false otherwise
-     */
-    public static boolean checkString(String input) {
-        return input.length() != 0;
-    }
-
-    /**
-     * Check if the given string is a positive integer
-     *
-     * @param input input string
-     * @return true if the string is a positive integer, false otherwise
-     */
-    public static boolean checkPositiveInt(String input) {
-        if (checkInt(input)) {
-            return Integer.parseInt(input) > 0;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Check if the given string is an integer
-     *
-     * @param input input string
-     * @return true if the string is an integer, false otherwise
-     */
-    public static boolean checkInt(String input) {
-        try {
-            Integer.parseInt(input);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-//    public static ArrayList<String> returnImageList(String imageDir) {
-//
-////        File[] images = new File[0];
-//        //            images = new File(Objects.requireNonNull(GuiLauncherMain.class.getResource(imageDir)).toURI()).listFiles();
-//        URI uri = returnURI(imageDir);
-//        File[] images = new File(uri).listFiles();
-//
-//        assert images != null;
-//        ArrayList<String> imageList = new ArrayList<>();
-//
-//        Stream.of(images)
-//                .filter(file -> !file.isDirectory())
-//                .map(File::getName)
-//                .forEach(imageList::add);
-//
-//        return imageList;
-//    }
-
     public static ArrayList<String> returnImageList(String folder) {
         File[] images = new File(folder).listFiles();
 
@@ -126,7 +51,12 @@ public class GeneralFunctions {
         return imageList;
     }
 
-
+    /**
+     * Returns the contents a txt file as a string
+     *
+     * @param fileName The name of the file
+     * @return The contents of the file as a string
+     */
     public static String readFileAsString(String fileName) {
         InputStream inputStream = GuiLauncherMain.class.getResourceAsStream("/project/texts/" + fileName);
         assert inputStream != null;
@@ -134,49 +64,27 @@ public class GeneralFunctions {
         return scanner.hasNext() ? scanner.next() : "";
     }
 
-    public static URI returnURI(String path) {
-        try {
-            return Objects.requireNonNull(GuiLauncherMain.class.getResource(path)).toURI();
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+    /**
+     * Returns the path of an object inside the resources folder
+     *
+     * @param objectName The name of the object
+     * @return The path of the object as a string
+     */
     public static String returnPath(String objectName) {
-        return Objects.requireNonNull(GuiLauncherMain.class.getClassLoader().getResource(objectName)).toString() ;
+        return Objects.requireNonNull(GuiLauncherMain.class.getClassLoader().getResource(objectName)).toString();
     }
 
+    /**
+     * Returns the path of an object inside the resources folder
+     *
+     * @param path       The path of the object
+     * @param objectName The name of the object
+     * @return The path of the object as a URL
+     */
     public static URL returnURL(String path, String objectName) {
         try {
             return new URL(returnPath(path) + objectName);
         } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-//    public static String returnFileAttribute(String dir, String filenameCompressed, String attribute) {
-//        List<String> saves = returnSaves(filenameCompressed);
-//
-//        File file = new File(dir + "/" + saves.get(0));
-//
-//        FileTime fileTime = null;
-//        try {
-//            fileTime = (FileTime) Files.getAttribute(file.toPath(), attribute);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        Date fileDate = new Date(fileTime.toMillis());
-//        String pattern = "dd-MM-yyyy HH:mm:ss";
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-//        return simpleDateFormat.format(fileDate);
-
-//    }
-
-    public static void sleep(int millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }

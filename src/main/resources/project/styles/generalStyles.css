@@ -52,6 +52,12 @@
     -fx-fill: #422ff2;
 }
 
+.textStyle2 {
+    -fx-font-family: "System", sans-serif;
+    -fx-font-weight: bold;
+    -fx-fill: #ffffff;
+}
+
 .serverInfoText {
     -fx-font-family: "System", sans-serif;
     -fx-font-weight: bold;
@@ -175,3 +181,37 @@
     -fx-fill: #422ff2;
 }
 
+.startStyle {
+    -fx-font-family: "System", sans-serif;
+    -fx-font-size: 25;
+    -fx-text-fill: #422ff2;
+    -fx-font-weight: bold;
+
+    -fx-border-color: lightgrey;
+    -fx-border-width: 2;
+    -fx-border-radius: 20;
+
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-background-radius: 20;
+
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );
+}
+
+.startStyle:hover {
+    -fx-text-fill: rgba(255, 255, 255, 0.8);
+    -fx-background-color: #b072fd;
+    -fx-background-radius: 20;
+}
+
+.labelStyle {
+    -fx-font-family: "System", sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.numberStyle {
+    -fx-font-family: "System", sans-serif;
+    -fx-font-size: 20;
+    -fx-fill: #ffffff;
+    -fx-font-weight: bold;
+}

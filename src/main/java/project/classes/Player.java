@@ -30,14 +30,14 @@ public class Player extends AbstractCharacter {
     /**
      * Initialize players
      *
-     * @param maxCharacters number of maximum players to initialize
+     * @param playersAmount number of maximum players to initialize
      * @return a list of players
      */
 
-    public static List<Player> initializePlayers(int maxCharacters, int startingPoints) {
+    public static List<Player> initializePlayers(int playersAmount, int startingPoints) {
         List<Player> playerList = new ArrayList<>();
 
-        for (int i = 1; i <= maxCharacters; i++) {
+        for (int i = 1; i <= playersAmount; i++) {
             Player player = Player.builder()
                     .characterName("Player-" + i)
                     .characterNumber(i)

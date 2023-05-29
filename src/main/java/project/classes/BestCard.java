@@ -12,6 +12,14 @@ public class BestCard {
     private int column;
     private int numberDifference;
 
+    /**
+     * Constructor
+     *
+     * @param card             Card
+     * @param row              Row
+     * @param column           Column
+     * @param numberDifference Number Difference
+     */
     @Builder
     public BestCard(Card card, int row, int column, int numberDifference) {
         this.card = card;

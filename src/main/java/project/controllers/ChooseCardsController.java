@@ -32,7 +32,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static project.controllers.BoardController.boardScene;
 import static project.controllers.MainMenuController.mainMenuScene;
-import static project.functions.GeneralFunctions.sleep;
 import static project.functions.JavaFxFunctions.*;
 
 public class ChooseCardsController implements Initializable {
@@ -48,6 +47,17 @@ public class ChooseCardsController implements Initializable {
     @FXML
     private Text characterTurnT;
 
+    /**
+     * This method is used to send the user to the ChooseCards scene
+     *
+     * @param event Since this method is called in a mouse event, this parameter is needed
+     * @param playersNumber The number of players
+     * @param npcNumber The number of NPCs
+     * @param variant The variant of the game
+     * @param roundNumberParam The number of rounds
+     * @param startingPoints The starting points
+     * @param difficultyParam The difficulty of the NPCs
+     */
     public static void chooseCardsScene(MouseEvent event,
                                         int playersNumber, int npcNumber, Variant variant,
                                         int roundNumberParam, int startingPoints, Difficulty difficultyParam) {
@@ -65,6 +75,12 @@ public class ChooseCardsController implements Initializable {
         scene.setOnKeyPressed(e -> onExitKeyPressed(e, ChooseCardsController::exit));
     }
 
+    /**
+     * Initializes the ChooseCards scene
+     *
+     * @param url URL
+     * @param resourceBundle ResourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeChooseCardGridPane();
@@ -73,17 +89,29 @@ public class ChooseCardsController implements Initializable {
         characterTurn(0);
     }
 
+    /**
+     * Exit Method
+     */
     static void exit() {
         String msg = "Are you sure you want to return to the Game Menu?";
         if (checkConfirmationPopUp(stage, msg)) mainMenuScene(stage);
     }
 
+    /**
+     * Exit when the escape key is pressed
+     *
+     * @param event KeyEvent
+     * @param runnableFunc Runnable
+     */
     public static void onExitKeyPressed(KeyEvent event, Runnable runnableFunc) {
         if (event.getCode().equals(KeyCode.ESCAPE)) {
             runnableFunc.run();
         }
     }
 
+    /**
+     * Initialize ChooseCardGridPane
+     */
     private void initializeChooseCardGridPane() {
         chooseCardGridPane = new GridPane();
         chooseCardGridPane.setAlignment(Pos.CENTER);
@@ -96,6 +124,9 @@ public class ChooseCardsController implements Initializable {
         chooseCardInfoGridPane.add(chooseCardGridPane, 0, 1);
     }
 
+    /**
+     * Display the cards from the deck on the screen
+     */
     private void displayChooseCardsGridPane() {
         AtomicInteger row = new AtomicInteger(0);
         AtomicInteger column = new AtomicInteger(0);
@@ -130,6 +161,10 @@ public class ChooseCardsController implements Initializable {
         });
     }
 
+    /**
+     * Method for each character to choose a card
+     * @param characterIndex The index of the character
+     */
     private void characterTurn(int characterIndex) {
         if(characterIndex > characters.getCharactersList().size() - 1) {
             characterIndex = 0;
@@ -139,9 +174,6 @@ public class ChooseCardsController implements Initializable {
         characterTurnT.setText(currentCharacter.getCharacterName() + "'s Turn To Choose A Card");
 
         if(!isCharacterCardsListFull(currentCharacter)) {
-
-            sleep(10);
-
             if(currentCharacter instanceof Npc) {
                 disableAllGridPaneButtons(chooseCardGridPane);
                 Card chosenCard = deck.returnHighestCard();
@@ -166,6 +198,9 @@ public class ChooseCardsController implements Initializable {
         }
     }
 
+    /**
+     * Check if all characters have max amount of cards
+     */
     private void checkCharactersCards() {
         boolean allCharactersHaveCards = false;
 
@@ -179,6 +214,12 @@ public class ChooseCardsController implements Initializable {
         }
     }
 
+    /**
+     * Checks if the character has 10 cards
+     *
+     * @param character The character
+     * @return True if the character has 10 cards, false otherwise
+     */
     private boolean isCharacterCardsListFull(AbstractCharacter character) {
         return character.getCardsList().size() == 10;
     }

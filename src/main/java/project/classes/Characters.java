@@ -15,6 +15,15 @@ public class Characters {
     private int playerNumber;
     private int npcNumber;
     private int startingPoints;
+
+    /**
+     * Constructor
+     * Characters List is set automatically
+     *
+     * @param playerNumber Number of Players
+     * @param npcNumber Number of Npcs
+     * @param startingPoints Starting Points
+     */
     @Builder
     public Characters(int playerNumber, int npcNumber, int startingPoints) {
         this.playerNumber = playerNumber;
@@ -23,6 +32,9 @@ public class Characters {
         setCharacterList();
     }
 
+    /**
+     * Sets the character list
+     */
     public void setCharacterList() {
         List<Player> playerList = Player.initializePlayers(playerNumber, startingPoints);
         List<Npc> npcList = Npc.initializeNpcs(npcNumber, startingPoints);

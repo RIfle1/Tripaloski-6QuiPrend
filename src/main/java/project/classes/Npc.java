@@ -29,14 +29,14 @@ public class Npc extends AbstractCharacter {
     /**
      * Initialize npcs
      *
-     * @param maxCharacters Number of maximum npcs to initialize
+     * @param npcsAmount Number of npcs to initialize
      * @return List of npcs
      */
 
-    public static List<Npc> initializeNpcs(int maxCharacters, int startingPoints) {
+    public static List<Npc> initializeNpcs(int npcsAmount, int startingPoints) {
         List<Npc> npcList = new ArrayList<>();
 
-        for (int i = 1; i <= maxCharacters; i++) {
+        for (int i = 1; i <= npcsAmount; i++) {
             Npc npc = Npc.builder()
                     .characterName("Npc-" + i)
                     .characterNumber(i)

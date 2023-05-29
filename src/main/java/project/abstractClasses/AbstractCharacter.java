@@ -21,10 +21,14 @@ public abstract class AbstractCharacter {
     private List<Card> takenCardsList;
 
     /**
-     * @param characterName Character Name
+     * Constructor
+     *
+     * @param characterName   Character Name
+     * @param characterImage  Character Image
      * @param characterNumber Character Number
-     * @param cardsList Cards List
-     * @param takenCardsList Taken Cards List
+     * @param points          Points
+     * @param cardsList       Cards List
+     * @param takenCardsList  Taken Cards List
      */
 
     public AbstractCharacter(String characterName, String characterImage, int characterNumber, int points, List<Card> cardsList, List<Card> takenCardsList) {
@@ -36,18 +40,24 @@ public abstract class AbstractCharacter {
         this.takenCardsList = takenCardsList;
     }
 
+    /**
+     * Return the smallest card from the character's cards list
+     *
+     * @return Smallest Card
+     */
+
     public Card returnSmallestCard() {
-        if(!cardsList.isEmpty()) {
+        if (!cardsList.isEmpty()) {
             return cardsList.stream().max(Comparator.comparingInt(Card::getCardNumber)).orElseThrow(RuntimeException::new);
         }
         return null;
     }
 
+    /**
+     * Sort the character's card by increasing order
+     */
     public void sortCardsIncreasing() {
         cardsList.sort(Comparator.comparingInt(Card::getCardNumber));
     }
 
-    public void sortCardsDecreasing() {
-        cardsList.sort(Comparator.comparingInt(Card::getCardNumber).reversed());
-    }
 }
