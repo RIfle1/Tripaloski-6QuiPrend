@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -14,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import project.network.MyServer;
 
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,6 +33,10 @@ public class NetworkTestsController implements Initializable {
 
     @FXML
     private TextField otherServerPortTf;
+    @FXML
+    private TextField otherServerIPTf;
+    @FXML
+    private ComboBox<String> OtherServerIPHistoryCb;
 
     public static void networkTestsScene(Stage stageParam, String title, int port) {
         stage = stageParam;
@@ -54,15 +58,13 @@ public class NetworkTestsController implements Initializable {
             isRetrieve = true;
             retrieveThread = retrieveThread(messageTa);
             retrieveThread.start();
-        }
-        else if(modeCb.getValue().equals("Sender")) {
+        } else if (modeCb.getValue().equals("Sender")) {
             try {
                 isRetrieve = false;
                 server.getSocket().close();
                 retrieveThread.interrupt();
                 System.out.printf("Thread is alive" + retrieveThread.isAlive());
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("No thread to interrupt");
             }
 
@@ -74,12 +76,12 @@ public class NetworkTestsController implements Initializable {
     @FXML
     void sendOnClick(MouseEvent event) {
         String port = otherServerPortTf.getText();
+        String ip = otherServerIPTf.getText();
         String message = messageTa.getText();
 
-        if(port.length() > 0) {
-            server.send(message, Integer.parseInt(port));
-        }
-        else {
+        if (port.length() > 0) {
+            server.send(message, ip, Integer.parseInt(port));
+        } else {
             createPopup(stage, Alert.AlertType.ERROR, "Need a port pls");
         }
     }
@@ -91,10 +93,19 @@ public class NetworkTestsController implements Initializable {
 
     public Thread retrieveThread(TextArea nodeToDisplayMessage) {
         return new Thread(() -> {
-            while(isRetrieve) {
+            while (isRetrieve) {
                 nodeToDisplayMessage.setText(server.retrieve());
+                Socket socket = server.getSocket();
+
+                otherServerIPTf.setText(socket.getInetAddress().getHostAddress());
+                OtherServerIPHistoryCb.getItems().add(socket.getInetAddress().getHostAddress());
             }
         });
+    }
+
+    @FXML
+    public void otherServerIPHistoryCbOnAction(ActionEvent event) {
+        otherServerIPTf.setText(OtherServerIPHistoryCb.getValue());
     }
 
     @FXML

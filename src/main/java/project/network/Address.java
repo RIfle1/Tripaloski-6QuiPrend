@@ -1,21 +1,23 @@
 package project.network;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NetworkTest {
-    private static final List<String> availableDevices = new ArrayList<>();
+public class Address {
+    private static List<InetAddress> availableDevices;
     private static String myNetworkIp;
     private static String deviceIpv4;
 
-    public static List<String> returnAvailableDevices() {
+    public static List<InetAddress> returnAddresses(int port) {
         getDeviceIpv4();
         getMyNetworkIp();
 
-        Thread thread = createScanningThreads(255);
+        Thread thread = createScanningThreads(255, port);
 
         while (thread.isAlive()) {
             try {
@@ -26,15 +28,6 @@ public class NetworkTest {
         }
 
         return availableDevices;
-    }
-
-    public static void scanDevices(int start, int end) {
-        for (int i = start; i <= end; ++i) {
-            try {
-                InetAddress addr = InetAddress.getByName(myNetworkIp + i);
-                if (addr.isReachable(1000)) availableDevices.add(addr.getHostAddress());
-            } catch (IOException ignored) {}
-        }
     }
 
     public static void getMyNetworkIp() {
@@ -59,23 +52,38 @@ public class NetworkTest {
         }
     }
 
-    public static Thread createScanningThreads(int threads) {
+    public static Thread createScanningThreads(int threads, int port) {
         Thread thread = null;
+        availableDevices = new ArrayList<>();
 
         for (int i = 0; i < threads; ++i) {
             int start = i * 256 / threads;
             int end = (i + 1) * 256 / threads - 1;
 
-            thread = new Thread(() -> scanDevices(start, end));
+            thread = new Thread(() -> scanDevices(start, end, port));
             thread.start();
         }
 
         return thread;
     }
 
-    public static void printAvailableDevices() {
-        System.out.println("\nAll Connected devices(" + availableDevices.size() + "):");
-        for (String availableDevice : availableDevices) System.out.println(availableDevice);
+    public static void scanDevices(int start, int end, int port) {
+
+        for (int i = start; i <= end; ++i) {
+            try {
+                InetAddress addr = InetAddress.getByName(myNetworkIp + i);
+                if (addr.isReachable(1000)) {
+                    try {
+                        Socket socket = new Socket(addr.getHostAddress(), port);
+                        socket.close();
+                        availableDevices.add(addr);
+                    } catch (IOException e) {
+                        System.out.println("No server on " + addr.getHostAddress() + ":" + port);
+                    }
+                }
+
+            } catch (IOException ignored) {}
+        }
     }
 
 }

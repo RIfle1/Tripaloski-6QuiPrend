@@ -13,6 +13,6 @@ public class Server1 extends Application {
 
     @Override
     public void start(Stage stage) {
-        networkTestsScene(stage, "Server 1", 2456);
+        networkTestsScene(stage, "Server 1", 6666);
     }
 }

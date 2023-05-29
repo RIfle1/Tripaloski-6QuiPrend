@@ -10,9 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="472d48d6-d4be-419a-bee9-5c7e79b5e54f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/project/controllers/JoinGameController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/JoinGame.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/GuiLauncherMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/GuiLauncherMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/NetworkTestsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/NetworkTestsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project/network/MyServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/network/MyServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/network/NetworkTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/network/Address.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project/network/Server1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/network/Server1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/project/fxml/NetworkTests.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/NetworkTests.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/project/styles/generalStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/styles/generalStyles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,8 +142,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Server1" />
-        <item itemvalue="Application.Server2" />
         <item itemvalue="Application.GuiMain" />
+        <item itemvalue="Application.Server2" />
         <item itemvalue="Batch.run" />
       </list>
     </recent_temporary>
@@ -161,7 +168,7 @@
       <workItem from="1685132963945" duration="28000" />
       <workItem from="1685132997764" duration="16598000" />
       <workItem from="1685189204301" duration="32707000" />
-      <workItem from="1685271100034" duration="905000" />
+      <workItem from="1685271100034" duration="15624000" />
     </task>
     <servers />
   </component>

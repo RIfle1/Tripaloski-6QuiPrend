@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/generalStyles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.NetworkTestsController">
    <styleClass>
@@ -14,11 +14,17 @@
       <String fx:value="background" />
    </styleClass>
    <children>
-      <TextArea fx:id="messageTa" layoutX="203.0" layoutY="264.0" prefHeight="122.0" prefWidth="394.0" />
-      <Button layoutX="349.0" layoutY="480.0" mnemonicParsing="false" onMouseReleased="#sendOnClick" prefHeight="25.0" prefWidth="102.0" text="Send" />
+      <TextArea fx:id="messageTa" layoutX="113.0" layoutY="264.0" prefHeight="122.0" prefWidth="575.0" />
+      <Button layoutX="338.0" layoutY="539.0" mnemonicParsing="false" onMouseReleased="#sendOnClick" prefHeight="25.0" prefWidth="102.0" text="Send" />
       <ComboBox fx:id="modeCb" layoutX="325.0" layoutY="179.0" onAction="#modeOnAction" prefWidth="150.0" />
-      <TextField fx:id="otherServerPortTf" layoutX="326.0" layoutY="422.0" />
-      <Button layoutX="285.0" layoutY="557.0" mnemonicParsing="false" onMouseReleased="#openServerOnClick" text="Open Server" />
-      <Button layoutX="423.0" layoutY="557.0" mnemonicParsing="false" onMouseReleased="#stopServerOnClick" text="Close server" />
+      <TextField fx:id="otherServerPortTf" layoutX="478.0" layoutY="435.0" prefHeight="25.0" prefWidth="210.0" />
+      <Button layoutX="281.0" layoutY="582.0" mnemonicParsing="false" onMouseReleased="#openServerOnClick" text="Open Server" />
+      <Button layoutX="423.0" layoutY="582.0" mnemonicParsing="false" onMouseReleased="#stopServerOnClick" text="Close server" />
+      <TextField fx:id="otherServerIPTf" layoutX="111.0" layoutY="435.0" prefHeight="25.0" prefWidth="312.0" />
+      <Text layoutX="226.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Public / Local IP" wrappingWidth="110.13671875" />
+      <Text layoutX="572.0" layoutY="431.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Port" />
+      <Text layoutX="389.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mode" />
+      <ComboBox fx:id="OtherServerIPHistoryCb" layoutX="111.0" layoutY="489.0" onAction="#otherServerIPHistoryCbOnAction" prefHeight="25.0" prefWidth="312.0" />
+      <Text layoutX="247.0" layoutY="485.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Received Ip's" />
    </children>
 </AnchorPane>

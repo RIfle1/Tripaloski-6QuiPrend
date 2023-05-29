@@ -52,7 +52,21 @@
     -fx-fill: #422ff2;
 }
 
-.textStyle2 {
+.serverInfoText {
+    -fx-font-family: "System", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+    -fx-fill: #3d7211;
+}
+
+.serverMessageText {
+    -fx-font-family: "System", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+    -fx-fill: #2d3822;
+}
+
+.textStyle3 {
     -fx-font-family: "System", sans-serif;
     -fx-font-weight: bold;
     -fx-fill: #ffffff;
@@ -79,6 +93,10 @@
 }
 
 .clickableNode {
+    -fx-border-color: transparent;
+    -fx-border-width: 3;
+    -fx-border-radius: 15;
+
     -fx-stroke: transparent;
     -fx-stroke-width: 3;
 }
@@ -94,6 +112,10 @@
 }
 
 .clickableNode:hover {
+    -fx-border-color: #3d7211;
+    -fx-border-width: 3;
+    -fx-border-radius: 15;
+
     -fx-stroke: #3d7211;
     -fx-stroke-width: 3;
 }

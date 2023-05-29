@@ -54,9 +54,8 @@ public class MyServer {
         }
     }
 
-    public void send(String message, int port) {
+    public void send(String message, String ip, int port) {
         try {
-            String ip = "192.168.1.69";
             System.out.println("Sending: " + message + " to " + ip + ":" + port);
             socket = new Socket(ip, port);
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
