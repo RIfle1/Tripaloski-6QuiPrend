@@ -9,7 +9,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="472d48d6-d4be-419a-bee9-5c7e79b5e54f" name="Changes" comment="" />
+    <list default="true" id="472d48d6-d4be-419a-bee9-5c7e79b5e54f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/project/abstractClasses/AbstractCharacterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/project/classes/BoardTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/project/classes/CardTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/project/classes/CharactersTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/project/classes/DeckTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/project/classes/NpcTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/project/classes/PlayerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/GuiMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/GuiMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/abstractClasses/AbstractCharacter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/abstractClasses/AbstractCharacter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/classes/BestCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/classes/BestCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/classes/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/classes/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/classes/Characters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/classes/Characters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/classes/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/classes/Deck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/ChooseCardsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/ChooseCardsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/EndGameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/EndGameController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +38,7 @@
       <list>
         <option value="FxmlFile" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -31,6 +50,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectId" id="2QFntFYw3YmDRIgA4jFMfXco0ep" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -46,6 +68,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "extract.method.default.visibility": "private",
     "last_opened_file_path": "Z:/stuff2/Programming/Java Projects/Tripaloski-6QuiPrend",
     "node.js.detected.package.eslint": "true",
@@ -72,6 +96,13 @@
       <recent name="Z:\stuff2\Programming\Java Projects\Tripaloski-6QuiPrend\src\main\resources\project\images" />
       <recent name="Z:\stuff2\Programming\Java Projects\Tripaloski-6QuiPrend\src\main\resources\project\images\game" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="project.classes" />
+      <recent name="project.abstractClasses" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="project.enums" />
       <recent name="project.controllers" />
@@ -91,39 +122,64 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Server1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="project.network.Server1" />
+    <configuration name="AbstractCharacterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Tripaloski-6QuiPrend" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="project.network.*" />
+          <option name="PATTERN" value="project.abstractClasses.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="project.abstractClasses" />
+      <option name="MAIN_CLASS_NAME" value="project.abstractClasses.AbstractCharacterTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Server2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="project.network.Server2" />
+    <configuration name="BoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Tripaloski-6QuiPrend" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="project.network.*" />
+          <option name="PATTERN" value="project.classes.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="project.classes" />
+      <option name="MAIN_CLASS_NAME" value="project.classes.BoardTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="run" type="BatchConfigurationType" factoryName="Batch" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="WORKING_DIRECTORY" value="./out/artifacts/Tripaloski_6QuiPrend_jar" />
-      <option name="PARENT_ENVS" value="true" />
-      <module name="" />
-      <option name="SCRIPT_NAME" value="run.bat" />
-      <option name="PARAMETERS" value="" />
+    <configuration name="BoardTest.returnCardsOnBoardRow" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Tripaloski-6QuiPrend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="project.classes.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="project.classes" />
+      <option name="MAIN_CLASS_NAME" value="project.classes.BoardTest" />
+      <option name="METHOD_NAME" value="returnCardsOnBoardRow" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CharactersTest.findCharacterByCard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Tripaloski-6QuiPrend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="project.classes.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="project.classes" />
+      <option name="MAIN_CLASS_NAME" value="project.classes.CharactersTest" />
+      <option name="METHOD_NAME" value="findCharacterByCard" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -131,9 +187,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.GuiMain" />
-        <item itemvalue="Batch.run" />
-        <item itemvalue="Application.Server1" />
-        <item itemvalue="Application.Server2" />
+        <item itemvalue="JUnit.AbstractCharacterTest" />
+        <item itemvalue="JUnit.BoardTest" />
+        <item itemvalue="JUnit.BoardTest.returnCardsOnBoardRow" />
+        <item itemvalue="JUnit.CharactersTest.findCharacterByCard" />
       </list>
     </recent_temporary>
   </component>
@@ -159,6 +216,8 @@
       <workItem from="1685189204301" duration="32707000" />
       <workItem from="1685271100034" duration="16424000" />
       <workItem from="1685363393888" duration="17569000" />
+      <workItem from="1685454187935" duration="190000" />
+      <workItem from="1685454444797" duration="11704000" />
     </task>
     <servers />
   </component>

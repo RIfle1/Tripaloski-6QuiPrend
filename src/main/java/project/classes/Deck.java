@@ -64,7 +64,7 @@ public class Deck {
      *
      * @return Max amount of cards
      */
-    private int returnMaxCards() {
+    public int returnMaxCards() {
         if (variant.equals(Variant.VARIANT_1) || variant.equals(Variant.VARIANT_3)) {
             return (playerNumber + npcNumber) * 10 + 4;
         } else {
@@ -78,7 +78,7 @@ public class Deck {
      * @return Amount of heads to add
      */
 
-    private int endsWith(int number, int endNumber, int heads) {
+    public static int endsWith(int number, int endNumber, int heads) {
         if (String.valueOf(number).endsWith(String.valueOf(endNumber))) {
             return heads;
         } else {
@@ -93,7 +93,7 @@ public class Deck {
      * @return Amount of heads to add
      */
 
-    private int multipleOf11(int number) {
+    public static int multipleOf11(int number) {
         if (number % 11 == 0) {
             return 5;
         } else {

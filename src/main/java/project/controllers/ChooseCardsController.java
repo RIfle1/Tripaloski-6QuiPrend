@@ -92,21 +92,9 @@ public class ChooseCardsController implements Initializable {
     /**
      * Exit Method
      */
-    static void exit() {
+    private static void exit() {
         String msg = "Are you sure you want to return to the Game Menu?";
         if (checkConfirmationPopUp(stage, msg)) mainMenuScene(stage);
-    }
-
-    /**
-     * Exit when the escape key is pressed
-     *
-     * @param event KeyEvent
-     * @param runnableFunc Runnable
-     */
-    public static void onExitKeyPressed(KeyEvent event, Runnable runnableFunc) {
-        if (event.getCode().equals(KeyCode.ESCAPE)) {
-            runnableFunc.run();
-        }
     }
 
     /**

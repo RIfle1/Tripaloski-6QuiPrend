@@ -27,6 +27,4 @@ public class BestCard {
         this.column = column;
         this.numberDifference = numberDifference;
     }
-
-
 }

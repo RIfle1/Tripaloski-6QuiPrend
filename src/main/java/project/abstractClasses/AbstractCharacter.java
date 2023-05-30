@@ -3,9 +3,12 @@ package project.abstractClasses;
 import lombok.Getter;
 import lombok.Setter;
 import project.classes.Card;
+import project.classes.Deck;
 
 import java.util.Comparator;
 import java.util.List;
+
+import static project.classes.Card.returnRandomCard;
 
 /**
  * Abstract Character Class
@@ -48,7 +51,7 @@ public abstract class AbstractCharacter {
 
     public Card returnSmallestCard() {
         if (!cardsList.isEmpty()) {
-            return cardsList.stream().max(Comparator.comparingInt(Card::getCardNumber)).orElseThrow(RuntimeException::new);
+            return cardsList.stream().min(Comparator.comparingInt(Card::getCardNumber)).orElseThrow(RuntimeException::new);
         }
         return null;
     }
@@ -60,4 +63,23 @@ public abstract class AbstractCharacter {
         cardsList.sort(Comparator.comparingInt(Card::getCardNumber));
     }
 
+    /**
+     * Gives a card to a character and removes it from the deck
+     *
+     */
+    public void giveCard(Deck deck) {
+        Card randomCard = returnRandomCard(deck);
+        cardsList.add(randomCard);
+        deck.getCardsList().remove(randomCard);
+    }
+
+    /**
+     * Function that returns a card from a character's card list by card number
+     *
+     * @param cardNumber        Card's number
+     * @return Card
+     */
+    public Card returnCharacterCardByNumber(String cardNumber) {
+        return this.getCardsList().stream().filter(card -> card.getCardNumber() == Integer.parseInt(cardNumber)).findFirst().orElse(null);
+    }
 }

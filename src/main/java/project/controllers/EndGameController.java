@@ -80,7 +80,7 @@ public class EndGameController implements Initializable {
      * @param event event
      */
     @FXML
-    void onExitClicked(MouseEvent event) {
+    private void onExitClicked(MouseEvent event) {
         exit();
     }
 
@@ -90,7 +90,7 @@ public class EndGameController implements Initializable {
      * @param event event
      */
     @FXML
-    void onPlayAgainClicked(MouseEvent event) {
+    private void onPlayAgainClicked(MouseEvent event) {
         if (checkConfirmationPopUp(stage, "Are you sure you want to return to the Game Menu?")) {
             stage.close();
             mainMenuScene(mainGameStage);
@@ -137,7 +137,7 @@ public class EndGameController implements Initializable {
     /**
      * Method to initialize the score board
      */
-    public void initializeScoreBoard() {
+    private void initializeScoreBoard() {
         scoreBoardGridPane = new GridPane();
 
         scoreBoardGridPane.setAlignment(Pos.CENTER);

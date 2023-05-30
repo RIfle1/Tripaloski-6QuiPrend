@@ -21,7 +21,6 @@ import project.abstractClasses.AbstractCharacter;
 import project.classes.*;
 import project.enums.Difficulty;
 import project.enums.Variant;
-import project.functions.JavaFxFunctions;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -135,7 +134,7 @@ public class BoardController implements Initializable {
     /**
      * Exit Function
      */
-    static void exit() {
+    private static void exit() {
         String msg = "Are you sure you want to return to the Game Menu? All progress will be lost.";
         if (checkConfirmationPopUp(stage, msg)) {
             mainMenuScene(stage);
@@ -150,7 +149,7 @@ public class BoardController implements Initializable {
      * @param newBestCard New best card
      * @return boolean
      */
-    public static boolean replaceBestCard(List<BestCard> bestCardsList, BestCard newBestCard) {
+    private static boolean replaceBestCard(List<BestCard> bestCardsList, BestCard newBestCard) {
         boolean doesCardExist = bestCardsList.stream().anyMatch(bestCard -> bestCard.getCard().equals(newBestCard.getCard()));
         if (doesCardExist) {
             BestCard oldBestCard = bestCardsList
@@ -217,7 +216,7 @@ public class BoardController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeCharacterCards();
+        characters.initializeCards(deck);
 
         initializeScoreBoard();
         initializeChosenCardsInfoGridPane();
@@ -234,22 +233,7 @@ public class BoardController implements Initializable {
         characterTurn(0);
     }
 
-    /**
-     * Finds which Character owns a card
-     *
-     * @param card Card
-     * @return Character
-     */
-    public AbstractCharacter findCharacterByCard(Card card) {
-        for (AbstractCharacter character : characters.getCharactersList()) {
-            for (Card c : character.getCardsList()) {
-                if (c.getCardNumber() == card.getCardNumber()) {
-                    return character;
-                }
-            }
-        }
-        return null;
-    }
+
 
     /**
      * Resolves the cards in the chosen cards list and calls the function
@@ -263,7 +247,7 @@ public class BoardController implements Initializable {
             Card[][] localBoard = board.getBoard();
 
             currentCard = chosenCardsList.get(0);
-            currentCharacter = findCharacterByCard(currentCard);
+            currentCharacter = characters.findCharacterByCard(currentCard);
 
             int bestCardNumberDifference = currentCard.getCardNumber();
             int cardNumber = currentCard.getCardNumber();
@@ -421,7 +405,7 @@ public class BoardController implements Initializable {
     private void resolveChosenCard(int bestRow, int bestColumn) {
         board.getBoard()[bestRow][bestColumn] = currentCard;
 
-        currentCharacter = findCharacterByCard(currentCard);
+        currentCharacter = characters.findCharacterByCard(currentCard);
         currentCharacter.getCardsList().remove(currentCard);
         chosenCardsList.remove(currentCard);
 
@@ -470,7 +454,7 @@ public class BoardController implements Initializable {
     /**
      * Function that selects the whole row when the mouse hover over one card in the row
      */
-    public void setBoardRowsOnHover() {
+    private void setBoardRowsOnHover() {
         gameBoardGridPane.getChildren().forEach(node -> {
             if (node instanceof Rectangle) {
 
@@ -560,7 +544,7 @@ public class BoardController implements Initializable {
      * @param cardsList The list of cards to be sorted
      * @return The sorted list of cards
      */
-    public ArrayList<Card> sortCardsByIncreasingOrder(List<Card> cardsList) {
+    private static ArrayList<Card> sortCardsByIncreasingOrder(List<Card> cardsList) {
         return cardsList.stream().sorted(Comparator.comparingInt(Card::getCardNumber)).collect(Collectors.toCollection(ArrayList::new));
     }
 
@@ -569,10 +553,10 @@ public class BoardController implements Initializable {
      *
      * @param cardNumber The number of the selected card
      */
-    void chooseCardOnClick(String cardNumber) {
+    private void chooseCardOnClick(String cardNumber) {
         try {
             Rectangle selectedCardRectangle = (Rectangle) returnChildNodeById(characterCardsGridPane, cardNumber);
-            Card selectedCard = returnCharacterCardByNumber(currentCharacter, selectedCardRectangle.getId());
+            Card selectedCard = currentCharacter.returnCharacterCardByNumber(selectedCardRectangle.getId());
             disableAllGridPaneButtons(characterCardsGridPane);
 
             // ADD THE CARD TO THE CHOSEN CARDS LIST
@@ -629,7 +613,7 @@ public class BoardController implements Initializable {
      * @param selectedRowRectangle One of the rectangles in the row that was selected
      */
     @FXML
-    void takeRowOnClick(Rectangle selectedRowRectangle) {
+    private void takeRowOnClick(Rectangle selectedRowRectangle) {
         int selectedRow = 0;
 
         try {
@@ -651,10 +635,10 @@ public class BoardController implements Initializable {
     private void removeCardsFromBoard(int selectedRow) {
         if (notExited) {
             try {
-                List<Card> cardsOnBoardRow = returnCardsOnBoardRow(selectedRow);
+                List<Card> cardsOnBoardRow = board.returnCardsOnBoardRow(selectedRow);
                 // GAME LOGIC STUFF
                 currentCharacter.getTakenCardsList().addAll(cardsOnBoardRow);
-                deleteCardsOnBoardRow(selectedRow);
+                board.deleteCardsOnBoardRow(selectedRow);
                 calculateCharactersPoints();
 
                 // VISUAL AND ANIMATION STUFF
@@ -707,43 +691,6 @@ public class BoardController implements Initializable {
     }
 
     /**
-     * Returns the cards on the board on the selected row
-     *
-     * @param rowParam the row to get the cards from
-     * @return A list of cards
-     */
-    private List<Card> returnCardsOnBoardRow(int rowParam) {
-        List<Card> cardsOnBoardRow = new ArrayList<>();
-        Card[][] localBoard = board.getBoard();
-
-        for (int row = 0; row < localBoard.length; row++) {
-            for (int column = 0; column < localBoard[row].length; column++) {
-                if (row == rowParam && localBoard[row][column] != null) {
-                    cardsOnBoardRow.add(localBoard[row][column]);
-                }
-            }
-        }
-        return cardsOnBoardRow;
-    }
-
-    /**
-     * Deletes the cards on the board on the selected row
-     *
-     * @param rowParam the row to delete the cards from
-     */
-    private void deleteCardsOnBoardRow(int rowParam) {
-        Card[][] localBoard = board.getBoard();
-
-        for (int row = 0; row < localBoard.length; row++) {
-            for (int column = 0; column < localBoard[row].length; column++) {
-                if (row == rowParam && localBoard[row][column] != null) {
-                    localBoard[row][column] = null;
-                }
-            }
-        }
-    }
-
-    /**
      * Calculates the points of each character based on the heads of the cards they have taken
      */
     private void calculateCharactersPoints() {
@@ -789,17 +736,6 @@ public class BoardController implements Initializable {
             });
         });
 
-    }
-
-    /**
-     * Function that returns a card from a character's card list by card number
-     *
-     * @param abstractCharacter Character
-     * @param cardNumber        Card's number
-     * @return Card
-     */
-    private Card returnCharacterCardByNumber(AbstractCharacter abstractCharacter, String cardNumber) {
-        return abstractCharacter.getCardsList().stream().filter(card -> card.getCardNumber() == Integer.parseInt(cardNumber)).findFirst().orElse(null);
     }
 
     /**
@@ -985,32 +921,6 @@ public class BoardController implements Initializable {
 
             }
         }
-    }
-
-    /**
-     * Initialize the characters cards
-     */
-
-    public void initializeCharacterCards() {
-        if (deck.getVariant().equals(Variant.VARIANT_0) || deck.getVariant().equals(Variant.VARIANT_1)) {
-            characters.getCharactersList().forEach(character -> {
-                for (int i = 1; i <= 10; i++) {
-                    giveCard(character.getCardsList());
-                }
-            });
-        }
-        characters.getCharactersList().forEach(AbstractCharacter::sortCardsIncreasing);
-    }
-
-    /**
-     * Gives a card to a character and removes it from the deck
-     *
-     * @param abstractCharacterCardList The character's card list
-     */
-    private void giveCard(List<Card> abstractCharacterCardList) {
-        Card randomCard = returnRandomCard(deck);
-        abstractCharacterCardList.add(randomCard);
-        deck.getCardsList().remove(randomCard);
     }
 
     /**
