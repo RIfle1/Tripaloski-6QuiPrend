@@ -2,8 +2,6 @@ package project.controllers;
 
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,7 +11,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -755,22 +752,13 @@ public class BoardController implements Initializable {
 
             Platform.runLater(() -> {
                 if (currentCharacter instanceof Npc) {
-//                System.out.println(currentCharacter.getCharacterName() + "'s TURN");
-//                System.out.println("NPC CARDS: ");
-//                currentCharacter.getCardsList().forEach(card -> System.out.print(card.getCardNumber() + ", "));
-//                System.out.println();
+                    System.out.println(currentCharacter.getCharacterName() + "'s TURN");
+                    System.out.println("NPC CARDS: ");
+                    currentCharacter.getCardsList().forEach(card -> System.out.print(card.getCardNumber() + ", "));
+                    System.out.println();
                     Card chosenCard = returnBestCard();
-                    Rectangle chosenCardRectangle = (Rectangle) returnChildNodeById(characterCardsGridPane, String.valueOf(chosenCard.getCardNumber()));
 
-                chooseCardOnClick(String.valueOf(chosenCard.getCardNumber()));
-
-//                    Event.fireEvent(chosenCardRectangle, new MouseEvent(MouseEvent.MOUSE_RELEASED,
-//                            chosenCardRectangle.getLayoutX(), chosenCardRectangle.getLayoutY(),
-//                            chosenCardRectangle.getLayoutX(), chosenCardRectangle.getLayoutY(),
-//                            MouseButton.PRIMARY, 1, false, false, false,
-//                            false, true, false, false,
-//                            false, false, false, null));
-
+                    chooseCardOnClick(String.valueOf(chosenCard.getCardNumber()));
                     System.out.println("------------------");
                 }
             });

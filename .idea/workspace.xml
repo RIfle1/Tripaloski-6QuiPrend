@@ -11,8 +11,10 @@
   <component name="ChangeListManager">
     <list default="true" id="472d48d6-d4be-419a-bee9-5c7e79b5e54f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project/functions/JavaFxFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/functions/JavaFxFunctions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/MainMenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/project/fxml/Board.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/Board.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/project/fxml/MainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/MainMenu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/project/styles/generalStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/styles/generalStyles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

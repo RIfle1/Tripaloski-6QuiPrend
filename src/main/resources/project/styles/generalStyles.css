@@ -215,3 +215,14 @@
     -fx-fill: #ffffff;
     -fx-font-weight: bold;
 }
+
+.sliderStyle .track{
+    -fx-pref-height: 15;
+    -fx-background-radius: 8;
+    -fx-background-color: #b7b7b7;
+}
+
+.sliderStyle .thumb{
+    -fx-pref-height: 20;
+    -fx-pref-width: 20;
+}

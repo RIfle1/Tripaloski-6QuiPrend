@@ -213,6 +213,17 @@ public class MainMenuController implements Initializable {
     }
 
     /**
+     * Set's the respective slider text to the slider's value on mouse released
+     * @param slider Slider
+     * @param text Text
+     */
+    private void setSliderOnMouseReleased(Slider slider, Text text) {
+        slider.setOnMouseReleased(keyEvent -> {
+            updateSliderNumber(slider, text);
+        });
+    }
+
+    /**
      * General method to update each slider's respective text
      *
      * @param slider slider
@@ -261,9 +272,12 @@ public class MainMenuController implements Initializable {
 
         slidersMap.forEach((slider, text) -> {
             setSliderOnKeyPressed(slider, text);
+            setSliderOnMouseReleased(slider, text);
             setSliderDefault(slider, text);
         });
     }
+
+
 
     /**
      * Check if the sum of players and npcs is between 2 and 10
