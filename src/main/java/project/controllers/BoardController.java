@@ -1,6 +1,7 @@
 package project.controllers;
 
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -56,13 +57,11 @@ public class BoardController implements Initializable {
     private static GridPane scoreBoardGridPane;
     private static GridPane characterCardsGridPane;
     private static GridPane takenCardsGridPane;
-//    private static GridPane chosenCardsGridPane;
+    private static GridPane chosenCardsGridPane;
     private static ArrayList<Card> chosenCardsList;
     private static AbstractCharacter currentCharacter;
     private static Card currentCard;
     private static boolean notExited = true;
-    @FXML
-    private GridPane chosenCardsGridPane;
     @FXML
     private GridPane cardsInfoGridPane;
     @FXML
@@ -134,10 +133,6 @@ public class BoardController implements Initializable {
         Scene scene = sendToScene(stage, fxmlLoader);
 
         scene.setOnKeyPressed(e -> onExitKeyPressed(e, BoardController::exit));
-    }
-    @FXML
-    void startOnAction(ActionEvent event) {
-        characterTurn(0);
     }
 
     /**
@@ -236,7 +231,7 @@ public class BoardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         characters.initializeCards(deck);
-
+        initializeChosenCardsGridPane();
         initializeScoreBoard();
         initializeChosenCardsInfoGridPane();
         initializeCharacterCardsGridPane();
@@ -248,8 +243,9 @@ public class BoardController implements Initializable {
         displayBoard();
         setBoardRowsOnHover();
 
-//        characterTurn(0);
-
+        Platform.runLater(() -> {
+            characterTurn(0);
+        });
     }
 
     /**
@@ -576,7 +572,7 @@ public class BoardController implements Initializable {
             selectedCardRectangle2.setId(selectedCardRectangle.getId());
 
             assert selectedCard != null;
-            int cardsPlaced = chosenCardsGridPane.getChildren().size() - 10;
+            int cardsPlaced = chosenCardsGridPane.getChildren().size();
 
             int columnIndex = cardsPlaced;
             int rowIndex = (int) ((double) columnIndex / 5);
@@ -584,12 +580,7 @@ public class BoardController implements Initializable {
 
             int finalColumnIndex = columnIndex;
 
-            printGridPaneChildrenPositions(chosenCardsGridPane);
-            System.out.println("----------------------");
-
-            Rectangle targetRectangle = (Rectangle) getNullIdNodeByRowColumnIndex(rowIndex, finalColumnIndex, chosenCardsGridPane);
-
-            List<Timeline> timelineList = animateCardTranslation(selectedCardRectangle, targetRectangle);
+            List<Timeline> timelineList = animateCardTranslation(selectedCardRectangle, chosenCardsGridPane);
             timelineList.get(0).setOnFinished((actionEvent1) -> {
                 characterCardsGridPane.getChildren().remove(selectedCardRectangle);
                 chosenCardsGridPane.add(selectedCardRectangle2, finalColumnIndex, rowIndex);
@@ -761,32 +752,28 @@ public class BoardController implements Initializable {
 
             displayCharacterCards(currentCharacter);
             displayCharacterInfo(currentCharacter);
-            
-            if (currentCharacter instanceof Npc) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
 
+            Platform.runLater(() -> {
+                if (currentCharacter instanceof Npc) {
 //                System.out.println(currentCharacter.getCharacterName() + "'s TURN");
 //                System.out.println("NPC CARDS: ");
 //                currentCharacter.getCardsList().forEach(card -> System.out.print(card.getCardNumber() + ", "));
 //                System.out.println();
-                Card chosenCard = returnBestCard();
-                Rectangle chosenCardRectangle = (Rectangle) returnChildNodeById(characterCardsGridPane, String.valueOf(chosenCard.getCardNumber()));
+                    Card chosenCard = returnBestCard();
+                    Rectangle chosenCardRectangle = (Rectangle) returnChildNodeById(characterCardsGridPane, String.valueOf(chosenCard.getCardNumber()));
 
-//                chooseCardOnClick(String.valueOf(chosenCard.getCardNumber()));
+                chooseCardOnClick(String.valueOf(chosenCard.getCardNumber()));
 
-                Event.fireEvent(chosenCardRectangle, new MouseEvent(MouseEvent.MOUSE_RELEASED,
-                        chosenCardRectangle.getLayoutX(), chosenCardRectangle.getLayoutY(),
-                        chosenCardRectangle.getLayoutX(), chosenCardRectangle.getLayoutY(),
-                        MouseButton.PRIMARY, 1, false, false, false,
-                        false, true, false, false,
-                        false, false, false, null));
+//                    Event.fireEvent(chosenCardRectangle, new MouseEvent(MouseEvent.MOUSE_RELEASED,
+//                            chosenCardRectangle.getLayoutX(), chosenCardRectangle.getLayoutY(),
+//                            chosenCardRectangle.getLayoutX(), chosenCardRectangle.getLayoutY(),
+//                            MouseButton.PRIMARY, 1, false, false, false,
+//                            false, true, false, false,
+//                            false, false, false, null));
 
-                System.out.println("------------------");
-            }
+                    System.out.println("------------------");
+                }
+            });
         }
     }
 
@@ -890,8 +877,8 @@ public class BoardController implements Initializable {
             }
 
 
-            characterCardsGridPane.add(imageRectangle, i, 0);
             imageRectangle.setOnMouseReleased(event -> chooseCardOnClick(imageRectangle.getId()));
+            characterCardsGridPane.add(imageRectangle, i, 0);
 
 //            imageRectangle.setX(10 + (i + 1) * 5 + i * imageRectangle.getWidth());
         }

@@ -424,14 +424,14 @@ public class JavaFxFunctions {
             double boundsXDiff = endingBoundsX - startingBoundsX;
             double boundsYDiff = endingBoundsY - startingBoundsY;
 
-            System.out.println("Ending Bounds X: " + endingBoundsX);
-            System.out.println("Ending Bounds Y: " + endingBoundsY);
-
-            System.out.println("Starting Bounds X: " + startingBoundsX);
-            System.out.println("Starting Bounds Y: " + startingBoundsY);
-
-            System.out.println("boundsXDiff: " + " " + boundsXDiff);
-            System.out.println("boundsYDiff: " + " " + boundsYDiff);
+//            System.out.println("Ending Bounds X: " + endingBoundsX);
+//            System.out.println("Ending Bounds Y: " + endingBoundsY);
+//
+//            System.out.println("Starting Bounds X: " + startingBoundsX);
+//            System.out.println("Starting Bounds Y: " + startingBoundsY);
+//
+//            System.out.println("boundsXDiff: " + " " + boundsXDiff);
+//            System.out.println("boundsYDiff: " + " " + boundsYDiff);
 
             return translationEffect(attackingNode, boundsXDiff, boundsYDiff,
                     0.3, () -> {
