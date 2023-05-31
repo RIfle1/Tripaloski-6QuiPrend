@@ -1,6 +1,8 @@
 package project.controllers;
 
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -53,11 +56,13 @@ public class BoardController implements Initializable {
     private static GridPane scoreBoardGridPane;
     private static GridPane characterCardsGridPane;
     private static GridPane takenCardsGridPane;
-    private static GridPane chosenCardsGridPane;
+//    private static GridPane chosenCardsGridPane;
     private static ArrayList<Card> chosenCardsList;
     private static AbstractCharacter currentCharacter;
     private static Card currentCard;
     private static boolean notExited = true;
+    @FXML
+    private GridPane chosenCardsGridPane;
     @FXML
     private GridPane cardsInfoGridPane;
     @FXML
@@ -96,11 +101,11 @@ public class BoardController implements Initializable {
     /**
      * Function used by the choose card controller to send to the board scene
      *
-     * @param stageParam Stage
-     * @param deckParam Deck
-     * @param charactersParam Characters
+     * @param stageParam       Stage
+     * @param deckParam        Deck
+     * @param charactersParam  Characters
      * @param roundNumberParam Number of rounds
-     * @param difficultyParam Difficulty
+     * @param difficultyParam  Difficulty
      */
     public static void boardScene(Stage stageParam, Deck deckParam, Characters charactersParam, int roundNumberParam, Difficulty difficultyParam) {
         roundNumber = roundNumberParam;
@@ -115,9 +120,9 @@ public class BoardController implements Initializable {
     /**
      * Common board scene sub function
      *
-     * @param stage Stage
+     * @param stage            Stage
      * @param roundNumberParam Number of Rounds
-     * @param difficultyParam Difficulty
+     * @param difficultyParam  Difficulty
      */
     private static void boardSceneSub(Stage stage, int roundNumberParam, Difficulty difficultyParam) {
         roundNumber = roundNumberParam;
@@ -129,6 +134,10 @@ public class BoardController implements Initializable {
         Scene scene = sendToScene(stage, fxmlLoader);
 
         scene.setOnKeyPressed(e -> onExitKeyPressed(e, BoardController::exit));
+    }
+    @FXML
+    void startOnAction(ActionEvent event) {
+        characterTurn(0);
     }
 
     /**
@@ -146,7 +155,7 @@ public class BoardController implements Initializable {
      * Checks if the newBestCard is better than the old best card
      *
      * @param bestCardsList List of best cards
-     * @param newBestCard New best card
+     * @param newBestCard   New best card
      * @return boolean
      */
     private static boolean replaceBestCard(List<BestCard> bestCardsList, BestCard newBestCard) {
@@ -168,11 +177,21 @@ public class BoardController implements Initializable {
     }
 
     /**
+     * Sorts cards by their number in an increasing order
+     *
+     * @param cardsList The list of cards to be sorted
+     * @return The sorted list of cards
+     */
+    private static ArrayList<Card> sortCardsByIncreasingOrder(List<Card> cardsList) {
+        return cardsList.stream().sorted(Comparator.comparingInt(Card::getCardNumber)).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
      * Calculates the number difference between a staticCard and a new Card
      *
      * @param bestCardNumberDifference Previous best card number difference
-     * @param newCardNumber New card number
-     * @param staticCardNumber Static card number
+     * @param newCardNumber            New card number
+     * @param staticCardNumber         Static card number
      * @return RowCalculations
      */
     private RowCalculations getRowCalculations(int bestCardNumberDifference, int newCardNumber, int staticCardNumber) {
@@ -187,7 +206,7 @@ public class BoardController implements Initializable {
      * Calculates how long each row is and which card has been placed last
      *
      * @param localBoard Board
-     * @param row Row
+     * @param row        Row
      * @return RowResults
      */
     private RowResults getRowResults(Card[][] localBoard, int row) {
@@ -220,7 +239,6 @@ public class BoardController implements Initializable {
 
         initializeScoreBoard();
         initializeChosenCardsInfoGridPane();
-        initializeChosenCardsGridPane();
         initializeCharacterCardsGridPane();
         initializeTakenCardsGridPane();
 
@@ -230,10 +248,9 @@ public class BoardController implements Initializable {
         displayBoard();
         setBoardRowsOnHover();
 
-        characterTurn(0);
+//        characterTurn(0);
+
     }
-
-
 
     /**
      * Resolves the cards in the chosen cards list and calls the function
@@ -539,16 +556,6 @@ public class BoardController implements Initializable {
     }
 
     /**
-     * Sorts cards by their number in an increasing order
-     *
-     * @param cardsList The list of cards to be sorted
-     * @return The sorted list of cards
-     */
-    private static ArrayList<Card> sortCardsByIncreasingOrder(List<Card> cardsList) {
-        return cardsList.stream().sorted(Comparator.comparingInt(Card::getCardNumber)).collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    /**
      * Chooses a card from the character's cards list and adds it to the chosen cards list
      *
      * @param cardNumber The number of the selected card
@@ -556,6 +563,7 @@ public class BoardController implements Initializable {
     private void chooseCardOnClick(String cardNumber) {
         try {
             Rectangle selectedCardRectangle = (Rectangle) returnChildNodeById(characterCardsGridPane, cardNumber);
+
             Card selectedCard = currentCharacter.returnCharacterCardByNumber(selectedCardRectangle.getId());
             disableAllGridPaneButtons(characterCardsGridPane);
 
@@ -568,7 +576,7 @@ public class BoardController implements Initializable {
             selectedCardRectangle2.setId(selectedCardRectangle.getId());
 
             assert selectedCard != null;
-            int cardsPlaced = chosenCardsGridPane.getChildren().size();
+            int cardsPlaced = chosenCardsGridPane.getChildren().size() - 10;
 
             int columnIndex = cardsPlaced;
             int rowIndex = (int) ((double) columnIndex / 5);
@@ -576,8 +584,12 @@ public class BoardController implements Initializable {
 
             int finalColumnIndex = columnIndex;
 
+            printGridPaneChildrenPositions(chosenCardsGridPane);
+            System.out.println("----------------------");
 
-            List<Timeline> timelineList = animateCardTranslation(selectedCardRectangle, chosenCardsGridPane);
+            Rectangle targetRectangle = (Rectangle) getNullIdNodeByRowColumnIndex(rowIndex, finalColumnIndex, chosenCardsGridPane);
+
+            List<Timeline> timelineList = animateCardTranslation(selectedCardRectangle, targetRectangle);
             timelineList.get(0).setOnFinished((actionEvent1) -> {
                 characterCardsGridPane.getChildren().remove(selectedCardRectangle);
                 chosenCardsGridPane.add(selectedCardRectangle2, finalColumnIndex, rowIndex);
@@ -749,16 +761,30 @@ public class BoardController implements Initializable {
 
             displayCharacterCards(currentCharacter);
             displayCharacterInfo(currentCharacter);
-
+            
             if (currentCharacter instanceof Npc) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
 
-                System.out.println(currentCharacter.getCharacterName() + "'s TURN");
-                System.out.println("NPC CARDS: ");
-                currentCharacter.getCardsList().forEach(card -> System.out.print(card.getCardNumber() + ", "));
-                System.out.println();
+//                System.out.println(currentCharacter.getCharacterName() + "'s TURN");
+//                System.out.println("NPC CARDS: ");
+//                currentCharacter.getCardsList().forEach(card -> System.out.print(card.getCardNumber() + ", "));
+//                System.out.println();
                 Card chosenCard = returnBestCard();
+                Rectangle chosenCardRectangle = (Rectangle) returnChildNodeById(characterCardsGridPane, String.valueOf(chosenCard.getCardNumber()));
 
-                chooseCardOnClick(String.valueOf(chosenCard.getCardNumber()));
+//                chooseCardOnClick(String.valueOf(chosenCard.getCardNumber()));
+
+                Event.fireEvent(chosenCardRectangle, new MouseEvent(MouseEvent.MOUSE_RELEASED,
+                        chosenCardRectangle.getLayoutX(), chosenCardRectangle.getLayoutY(),
+                        chosenCardRectangle.getLayoutX(), chosenCardRectangle.getLayoutY(),
+                        MouseButton.PRIMARY, 1, false, false, false,
+                        false, true, false, false,
+                        false, false, false, null));
+
                 System.out.println("------------------");
             }
         }
@@ -863,8 +889,11 @@ public class BoardController implements Initializable {
                 imageRectangle.getStyleClass().add("clickableNode2");
             }
 
+
             characterCardsGridPane.add(imageRectangle, i, 0);
             imageRectangle.setOnMouseReleased(event -> chooseCardOnClick(imageRectangle.getId()));
+
+//            imageRectangle.setX(10 + (i + 1) * 5 + i * imageRectangle.getWidth());
         }
     }
 
@@ -967,6 +996,7 @@ public class BoardController implements Initializable {
      */
     private void initializeCharacterCardsGridPane() {
         characterCardsGridPane = new GridPane();
+        characterCardsGridPane.setId("characterCardsGridPane");
 
         characterCardsGridPane.setAlignment(Pos.TOP_LEFT);
         GridPane.setMargin(characterCardsGridPane, new Insets(5, 5, 5, 5));
@@ -974,6 +1004,7 @@ public class BoardController implements Initializable {
         characterCardsGridPane.setHgap(5);
 
         characterCardsInfoGridPane.add(characterCardsGridPane, 0, 1);
+
     }
 
     /**
@@ -985,7 +1016,7 @@ public class BoardController implements Initializable {
         takenCardsGridPane.setAlignment(Pos.CENTER);
         GridPane.setMargin(takenCardsGridPane, new Insets(10, 5, 10, 5));
 
-        takenCardsGridPane.setVgap(20);
+        takenCardsGridPane.setVgap(10);
 
         takenCardsInfoGridPane.add(takenCardsGridPane, 0, 0);
     }

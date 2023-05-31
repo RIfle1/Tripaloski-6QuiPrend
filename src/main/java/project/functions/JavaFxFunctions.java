@@ -411,11 +411,27 @@ public class JavaFxFunctions {
      */
     public static List<Timeline> animateCardTranslation(Node attackingNode, Node attackedNode) {
         try {
+
             Bounds startingBounds = attackingNode.localToScene(attackingNode.getBoundsInLocal());
             Bounds endingBounds = attackedNode.localToScene(attackedNode.getBoundsInLocal());
 
-            double boundsXDiff = endingBounds.getCenterX() - startingBounds.getCenterX();
-            double boundsYDiff = endingBounds.getCenterY() - startingBounds.getCenterY();
+            double endingBoundsX = endingBounds.getCenterX();
+            double endingBoundsY = endingBounds.getCenterY();
+
+            double startingBoundsX = startingBounds.getCenterX();
+            double startingBoundsY = startingBounds.getCenterY();
+
+            double boundsXDiff = endingBoundsX - startingBoundsX;
+            double boundsYDiff = endingBoundsY - startingBoundsY;
+
+            System.out.println("Ending Bounds X: " + endingBoundsX);
+            System.out.println("Ending Bounds Y: " + endingBoundsY);
+
+            System.out.println("Starting Bounds X: " + startingBoundsX);
+            System.out.println("Starting Bounds Y: " + startingBoundsY);
+
+            System.out.println("boundsXDiff: " + " " + boundsXDiff);
+            System.out.println("boundsYDiff: " + " " + boundsYDiff);
 
             return translationEffect(attackingNode, boundsXDiff, boundsYDiff,
                     0.3, () -> {
@@ -614,6 +630,11 @@ public class JavaFxFunctions {
         System.out.println("X: " + startingBounds.getCenterX());
         System.out.println("Y: " + startingBounds.getCenterY());
         System.out.println("-----");
+    }
+
+    public static void printGridPaneChildrenPositions(GridPane parentGridPane) {
+        parentGridPane.getChildren().forEach(JavaFxFunctions::printPosition);
+
     }
 
 }
