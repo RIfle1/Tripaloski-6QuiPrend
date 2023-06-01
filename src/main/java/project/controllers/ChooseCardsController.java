@@ -168,6 +168,12 @@ public class ChooseCardsController implements Initializable {
         });
     }
 
+    /**
+     * Choose card function
+     *
+     * @param card The card that is chosen
+     * @param cardRectangle The rectangle of the card
+     */
     private void chooseCardOnClick(Card card, Rectangle cardRectangle) {
         currentCharacter.getCardsList().add(card);
         deck.getCardsList().remove(card);
