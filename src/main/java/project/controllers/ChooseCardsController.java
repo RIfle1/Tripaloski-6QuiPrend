@@ -42,6 +42,8 @@ public class ChooseCardsController implements Initializable {
     private static AbstractCharacter currentCharacter;
     private static GridPane chooseCardGridPane;
     private static int roundNumber;
+    private static int roundNumberCap;
+    private static boolean sentToBoard;
     @FXML
     private GridPane chooseCardInfoGridPane;
     @FXML
@@ -65,13 +67,37 @@ public class ChooseCardsController implements Initializable {
         characters = new Characters(playersNumber, npcNumber, startingPoints);
         roundNumber = roundNumberParam;
         difficulty = difficultyParam;
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        chooseCardsSceneSub(stage, roundNumber);
+    }
+
+    /**
+     * This method is used to let the players choose their cards again when a round is over in the main game
+     *
+     * @param stageParam The stage
+     * @param deckParam The deck
+     * @param charactersParam The characters
+     */
+    public static void chooseCardsScene(Stage stageParam, Deck deckParam, Characters charactersParam,
+                                        int roundNumberParam, int roundNumberCapParam, Difficulty difficultyParam) {
+        deck = deckParam;
+        characters = charactersParam;
+        roundNumber = roundNumberParam;
+        difficulty = difficultyParam;
+        stage = stageParam;
+
+        chooseCardsSceneSub(stageParam, roundNumberCapParam);
+    }
+
+    /**
+     * Sub method for chooseCardsScene
+     */
+    private static void chooseCardsSceneSub(Stage stage, int roundNumberCapParam) {
+        roundNumberCap = roundNumberCapParam;
 
         FXMLLoader fxmlLoader = new FXMLLoader(returnFXMLURL("ChooseCards.fxml"));
-        ActionEvent actionEvent = new ActionEvent(event.getSource(), event.getTarget());
-
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = sendToScene(actionEvent, fxmlLoader);
-
+        Scene scene = sendToScene(stage, fxmlLoader);
         scene.setOnKeyPressed(e -> onExitKeyPressed(e, ChooseCardsController::exit));
     }
 
@@ -86,6 +112,7 @@ public class ChooseCardsController implements Initializable {
         initializeChooseCardGridPane();
         displayChooseCardsGridPane();
 
+        sentToBoard = false;
         characterTurn(0);
     }
 
@@ -128,15 +155,7 @@ public class ChooseCardsController implements Initializable {
             cardRectangle.getStyleClass().add("clickableNode");
 
             cardRectangle.setOnMouseReleased(e -> {
-                currentCharacter.getCardsList().add(card);
-                deck.getCardsList().remove(card);
-                fadeOutEffect(cardRectangle, 0.1, 0.2).setOnFinished(event -> {
-                    checkCharactersCards();
-                    characterTurn(characters.getCharactersList().indexOf(currentCharacter) + 1);
-                });
-                cardRectangle.setDisable(true);
-                cardRectangle.getStyleClass().remove("clickableNode");
-                cardRectangle.getStyleClass().add("clickableNodePressed");
+                chooseCardOnClick(card, cardRectangle);
             });
 
             if(column.get() > maxColumns) {
@@ -147,6 +166,18 @@ public class ChooseCardsController implements Initializable {
             chooseCardGridPane.add(cardRectangle, column.get(), row.get());
             column.getAndIncrement();
         });
+    }
+
+    private void chooseCardOnClick(Card card, Rectangle cardRectangle) {
+        currentCharacter.getCardsList().add(card);
+        deck.getCardsList().remove(card);
+        fadeOutEffect(cardRectangle, 0.1, 0.2).setOnFinished(event -> {
+            checkCharactersCards();
+            if(!sentToBoard) characterTurn(characters.getCharactersList().indexOf(currentCharacter) + 1);
+        });
+        cardRectangle.setDisable(true);
+        cardRectangle.getStyleClass().remove("clickableNode");
+        cardRectangle.getStyleClass().add("clickableNodePressed");
     }
 
     /**
@@ -161,44 +192,32 @@ public class ChooseCardsController implements Initializable {
         currentCharacter = characters.getCharactersList().get(characterIndex);
         characterTurnT.setText(currentCharacter.getCharacterName() + "'s Turn To Choose A Card");
 
-        if(!isCharacterCardsListFull(currentCharacter)) {
-            if(currentCharacter instanceof Npc) {
-                disableAllGridPaneButtons(chooseCardGridPane);
-                Card chosenCard = deck.returnHighestCard();
+        if(currentCharacter instanceof Npc) {
+            disableAllGridPaneButtons(chooseCardGridPane);
+            Card chosenCard = deck.returnHighestCard();
 
-                if(difficulty.equals(Difficulty.EASY) || difficulty.equals(Difficulty.MEDIUM)) {
-                    chosenCard = deck.returnRandomCard();
-                }
-
-                System.out.println(currentCharacter.getCharacterName() + " chose " + chosenCard.getCardNumber());
-
-                Rectangle highestCardRectangle = (Rectangle) chooseCardInfoGridPane.lookup("#" + chosenCard.getCardNumber());
-
-                Event.fireEvent(highestCardRectangle, new MouseEvent(MouseEvent.MOUSE_RELEASED,
-                        highestCardRectangle.getLayoutX(), highestCardRectangle.getLayoutY(),
-                        highestCardRectangle.getLayoutX(), highestCardRectangle.getLayoutY(),
-                        null, 0, false, false, false,
-                        false, false, false, false,
-                        false, false, false, null));
-
-                enableAllGridPaneButtons(chooseCardGridPane);
+            if(difficulty.equals(Difficulty.EASY) || difficulty.equals(Difficulty.MEDIUM)) {
+                chosenCard = deck.returnRandomCard();
             }
+
+            Rectangle highestCardRectangle = (Rectangle) chooseCardInfoGridPane.lookup("#" + chosenCard.getCardNumber());
+
+            chooseCardOnClick(chosenCard, highestCardRectangle);
+
+            enableAllGridPaneButtons(chooseCardGridPane);
         }
+
     }
 
     /**
      * Check if all characters have max amount of cards
      */
     private void checkCharactersCards() {
-        boolean allCharactersHaveCards = false;
 
-        for(AbstractCharacter character : characters.getCharactersList()) {
-            allCharactersHaveCards = isCharacterCardsListFull(character);
-        }
-
-        if(allCharactersHaveCards) {
+        if(allCharactersHaveCards()) {
+            sentToBoard = true;
             System.out.println("sent to board");
-            boardScene(stage, deck, characters, roundNumber, difficulty);
+            boardScene(stage, deck, characters, roundNumber, roundNumberCap, difficulty);
         }
     }
 
@@ -210,5 +229,15 @@ public class ChooseCardsController implements Initializable {
      */
     private boolean isCharacterCardsListFull(AbstractCharacter character) {
         return character.getCardsList().size() == 10;
+    }
+
+    private boolean allCharactersHaveCards() {
+        boolean allCharactersHaveCards = false;
+
+        for(AbstractCharacter character : characters.getCharactersList()) {
+            allCharactersHaveCards = isCharacterCardsListFull(character);
+        }
+
+        return allCharactersHaveCards;
     }
 }

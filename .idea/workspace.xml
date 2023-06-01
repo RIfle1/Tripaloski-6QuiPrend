@@ -11,10 +11,12 @@
   <component name="ChangeListManager">
     <list default="true" id="472d48d6-d4be-419a-bee9-5c7e79b5e54f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/MainMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/project/fxml/Board.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/Board.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/classes/Characters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/classes/Characters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/controllers/ChooseCardsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/controllers/ChooseCardsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/functions/JavaFxFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/functions/JavaFxFunctions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/project/fxml/MainMenu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/fxml/MainMenu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/project/styles/generalStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/styles/generalStyles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/project/texts/HARD.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project/texts/HARD.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +36,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/21-ea+17/javafx-graphics-21-ea+17-sources.jar!/javafx/animation/Animation.java" root0="SKIP_INSPECTION" />
     <setting file="jar://E:/Program Files/Java/openjdk-19.0.2/lib/src.zip!/java.base/java/io/File.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -59,7 +62,7 @@
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;last_opened_file_path&quot;: &quot;Z:/stuff2/Programming/Java Projects/Tripaloski-6QuiPrend&quot;,
+    &quot;last_opened_file_path&quot;: &quot;Z:/stuff2/Programming/Java Projects/HarryPotter&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
@@ -96,7 +99,7 @@
       <recent name="project.controllers" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.GuiMain">
+  <component name="RunManager" selected="JavaScript Debug.index.html">
     <configuration name="GuiMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="project.GuiMain" />
       <module name="Tripaloski-6QuiPrend" />
@@ -156,29 +159,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CharactersTest.findCharacterByCard" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Tripaloski-6QuiPrend" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="project.classes.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="project.classes" />
-      <option name="MAIN_CLASS_NAME" value="project.classes.CharactersTest" />
-      <option name="METHOD_NAME" value="findCharacterByCard" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Tripaloski-6QuiPrend/javaDoc/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.index.html" />
         <item itemvalue="Application.GuiMain" />
         <item itemvalue="JUnit.AbstractCharacterTest" />
         <item itemvalue="JUnit.BoardTest" />
         <item itemvalue="JUnit.BoardTest.returnCardsOnBoardRow" />
-        <item itemvalue="JUnit.CharactersTest.findCharacterByCard" />
       </list>
     </recent_temporary>
   </component>
@@ -208,6 +198,8 @@
       <workItem from="1685454444797" duration="11863000" />
       <workItem from="1685530571603" duration="6973000" />
       <workItem from="1685546840133" duration="708000" />
+      <workItem from="1685620734131" duration="6772000" />
+      <workItem from="1685627809441" duration="6206000" />
     </task>
     <servers />
   </component>
@@ -227,16 +219,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/project/controllers/BoardController.java</url>
-          <line>593</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

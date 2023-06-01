@@ -32,6 +32,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static project.classes.Card.returnRandomCard;
+import static project.controllers.ChooseCardsController.chooseCardsScene;
 import static project.controllers.EndGameController.endGameScene;
 import static project.controllers.MainMenuController.mainMenuScene;
 import static project.functions.GeneralFunctions.generateDoubleBetween;
@@ -51,6 +52,7 @@ public class BoardController implements Initializable {
     // Variant 2 => Players can choose their cards by turn
     // Variant 3 => Variant 1 + Variant 2
     private static int roundNumber;
+    private static int roundNumberCap;
     private static GridPane scoreBoardGridPane;
     private static GridPane characterCardsGridPane;
     private static GridPane takenCardsGridPane;
@@ -79,19 +81,20 @@ public class BoardController implements Initializable {
     /**
      * Function used by the main menu controller to send to the board scene
      *
-     * @param event             MouseEvent
-     * @param playerNumberParam Number of players
-     * @param npcNumberParam    Number of NPCs
-     * @param variantParam      Variant Number
+     * @param event               Event
+     * @param playerNumberParam   Number of Players
+     * @param npcNumberParam      Number of NPCs
+     * @param variantParam        Variant
+     * @param roundNumberParam    Number of Rounds
+     * @param startingPointsParam Starting Points
+     * @param difficultyParam     Difficulty
      */
     public static void boardScene(MouseEvent event, int playerNumberParam, int npcNumberParam, Variant variantParam, int roundNumberParam, int startingPointsParam, Difficulty difficultyParam) {
-        roundNumber = roundNumberParam;
         deck = new Deck(variantParam, playerNumberParam, npcNumberParam);
         characters = new Characters(playerNumberParam, npcNumberParam, startingPointsParam);
-
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        boardSceneSub(stage, roundNumberParam, difficultyParam);
+        boardSceneSub(stage, roundNumberParam, difficultyParam, roundNumberParam);
     }
 
     /**
@@ -100,17 +103,16 @@ public class BoardController implements Initializable {
      * @param stageParam       Stage
      * @param deckParam        Deck
      * @param charactersParam  Characters
-     * @param roundNumberParam Number of rounds
+     * @param roundNumberParam Number of Rounds
      * @param difficultyParam  Difficulty
      */
-    public static void boardScene(Stage stageParam, Deck deckParam, Characters charactersParam, int roundNumberParam, Difficulty difficultyParam) {
-        roundNumber = roundNumberParam;
+    public static void boardScene(Stage stageParam, Deck deckParam, Characters charactersParam,
+                                  int roundNumberParam, int roundNumberCap, Difficulty difficultyParam) {
         characters = charactersParam;
         deck = deckParam;
         stage = stageParam;
 
-
-        boardSceneSub(stageParam, roundNumberParam, difficultyParam);
+        boardSceneSub(stageParam, roundNumberParam, difficultyParam, roundNumberCap);
     }
 
     /**
@@ -120,8 +122,10 @@ public class BoardController implements Initializable {
      * @param roundNumberParam Number of Rounds
      * @param difficultyParam  Difficulty
      */
-    private static void boardSceneSub(Stage stage, int roundNumberParam, Difficulty difficultyParam) {
+    private static void boardSceneSub(Stage stage, int roundNumberParam, Difficulty difficultyParam, int roundNumberCapParam) {
         roundNumber = roundNumberParam;
+        roundNumberCap = roundNumberCapParam;
+
         FXMLLoader fxmlLoader = new FXMLLoader(returnFXMLURL("Board.fxml"));
         difficulty = difficultyParam;
         notExited = true;
@@ -130,6 +134,32 @@ public class BoardController implements Initializable {
         Scene scene = sendToScene(stage, fxmlLoader);
 
         scene.setOnKeyPressed(e -> onExitKeyPressed(e, BoardController::exit));
+    }
+
+    /**
+     * Initialize the game
+     *
+     * @param url            URL
+     * @param resourceBundle Resource Bundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        characters.initializeCards(deck);
+        initializeChosenCardsGridPane();
+        initializeScoreBoard();
+        initializeChosenCardsInfoGridPane();
+        initializeCharacterCardsGridPane();
+        initializeTakenCardsGridPane();
+
+        displayScoreBoard(scoreBoardInfoGridPane, scoreBoardGridPane, characters, 0, 1, 10);
+
+        initializeBoard();
+        displayGameBoardGridPane();
+        setBoardRowsOnHover();
+
+        Platform.runLater(() -> {
+            characterTurn(0);
+        });
     }
 
     /**
@@ -220,38 +250,12 @@ public class BoardController implements Initializable {
     }
 
     /**
-     * Initialize the game
-     *
-     * @param url            URL
-     * @param resourceBundle Resource Bundle
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        characters.initializeCards(deck);
-        initializeChosenCardsGridPane();
-        initializeScoreBoard();
-        initializeChosenCardsInfoGridPane();
-        initializeCharacterCardsGridPane();
-        initializeTakenCardsGridPane();
-
-        displayScoreBoard(scoreBoardInfoGridPane, scoreBoardGridPane, characters, 0, 1, 10);
-
-        initializeBoard();
-        displayBoard();
-        setBoardRowsOnHover();
-
-        Platform.runLater(() -> {
-            characterTurn(0);
-        });
-    }
-
-    /**
      * Resolves the cards in the chosen cards list and calls the function
      * again until all the cards in the chosen cards list are gone
      */
     public void resolveCards() {
         if (notExited) {
-            displayNextTurnInfo("Cards Resolution");
+            displayNextTurnInfo(returnRoundInfo() + "Cards Resolution");
             chosenCardsList = sortCardsByIncreasingOrder(chosenCardsList);
 
             Card[][] localBoard = board.getBoard();
@@ -359,8 +363,6 @@ public class BoardController implements Initializable {
      * If the game ended, displays the end game scene
      */
     private void checkEndGame() {
-        roundNumber--;
-
         if (isEndGame()) {
             disableAllGridPaneButtons(gameBoardGridPane);
             disableAllGridPaneButtons(characterCardsGridPane);
@@ -369,6 +371,60 @@ public class BoardController implements Initializable {
 
             endGameScene(stage);
         }
+    }
+
+    /**
+     * Checks if the round has ended by checking if all the characters have no cards
+     * Plays again if all characters have no cards left
+     */
+    private void checkEndRound() {
+        if (isEndRound()) {
+            roundNumber--;
+            if(!isEndGame()) {
+                deck = new Deck(deck.getVariant(), deck.getPlayerNumber(), deck.getNpcNumber());
+                characters.initializeCards(deck);
+
+                if(deck.getVariant().equals(Variant.VARIANT_2) || deck.getVariant().equals(Variant.VARIANT_3)) {
+                    chooseCardsScene(stage, deck, characters, roundNumber, roundNumberCap, difficulty);
+                    notExited = false;
+                }
+                else {
+                    initializeBoard();
+                    clearGameBoardGridPane();
+                    initializeTakenCardsGridPane();
+                    displayGameBoardGridPane();
+                    setBoardRowsOnHover();
+                }
+            }
+        }
+    }
+
+    /**
+     * Clear the game board Grid Pane at the end of each round
+     *
+     */
+    private void clearGameBoardGridPane() {
+        List<Node> nodesToRemove = new ArrayList<>();
+        gameBoardGridPane.getChildren().forEach(node -> {
+            if(node.getId() != null) {
+                nodesToRemove.add(node);
+            }
+        });
+
+        Platform.runLater(() -> {
+            for(Node node : nodesToRemove) {
+                gameBoardGridPane.getChildren().remove(node);
+            }
+            System.out.println("************Game board Grid Pane cleared************");
+        });
+    }
+
+    /**
+     * Returns A boolean if all the characters have no cards left to play
+     */
+    private boolean isEndRound() {
+        List<AbstractCharacter> charactersWithNoCards = returnCharactersWithNoCards();
+        return charactersWithNoCards.size() == characters.getCharactersList().size();
     }
 
     /**
@@ -398,12 +454,29 @@ public class BoardController implements Initializable {
         List<AbstractCharacter> charactersWithNoPoints = new ArrayList<>();
 
         for (AbstractCharacter character : characters.getCharactersList()) {
-            if (character.getPoints() < 0) {
+            if (character.getPoints() <= 0) {
                 charactersWithNoPoints.add(character);
             }
         }
 
         return charactersWithNoPoints;
+    }
+
+    /**
+     * Checks which characters have no cards and adds them to a list
+     *
+     * @return a list of characters with no cards
+     */
+    private List<AbstractCharacter> returnCharactersWithNoCards() {
+        List<AbstractCharacter> charactersWithNoCards = new ArrayList<>();
+
+        for (AbstractCharacter character : characters.getCharactersList()) {
+            if (character.getCardsList().size() == 0) {
+                charactersWithNoCards.add(character);
+            }
+        }
+
+        return charactersWithNoCards;
     }
 
     /**
@@ -422,6 +495,7 @@ public class BoardController implements Initializable {
         if (chosenCardsList.size() > 0) {
             resolveCards();
         } else {
+            checkEndRound();
             checkEndGame();
             if (!isEndGame()) characterTurn(0);
         }
@@ -823,7 +897,7 @@ public class BoardController implements Initializable {
 
         bestCardsList.sort(Comparator.comparing(BestCard::getNumberDifference));
 
-        System.out.println("returnBestCard *FUNCTION* BEST CARD: " +
+        System.out.println("NPC BEST CARD: " +
                 bestCardsList.get(0).getCard().getCardNumber() +
                 " On row " + bestCardsList.get(0).getRow() +
                 " And column " + bestCardsList.get(0).getColumn());
@@ -879,7 +953,11 @@ public class BoardController implements Initializable {
      */
     private void displayCharacterInfo(AbstractCharacter abstractCharacter) {
         playerCardsT.setText(abstractCharacter.getCharacterName() + "'s Cards");
-        playerTurnT.setText(abstractCharacter.getCharacterName() + "'s Turn");
+        playerTurnT.setText(returnRoundInfo() + abstractCharacter.getCharacterName() + "'s Turn");
+    }
+
+    private String returnRoundInfo() {
+        return "Round Number: " + (roundNumberCap + 1 - roundNumber) + " | ";
     }
 
     /**
@@ -908,7 +986,7 @@ public class BoardController implements Initializable {
     /**
      * Display the cards on the board
      */
-    private void displayBoard() {
+    private void displayGameBoardGridPane() {
         Card[][] localBoard = board.getBoard();
 
         for (int row = 0; row < localBoard.length; row++) {
@@ -986,6 +1064,7 @@ public class BoardController implements Initializable {
      * Initialize the taken cards GridPane
      */
     private void initializeTakenCardsGridPane() {
+        takenCardsInfoGridPane.getChildren().remove(takenCardsGridPane);
         takenCardsGridPane = new GridPane();
 
         takenCardsGridPane.setAlignment(Pos.CENTER);

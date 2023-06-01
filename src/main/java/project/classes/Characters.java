@@ -80,4 +80,12 @@ public class Characters {
         return null;
     }
 
+    /**
+     * Clears the cards list for each character
+     *
+     */
+    public void clearCardsList() {
+        this.getCharactersList().forEach(character -> character.getCardsList().clear());
+    }
+
 }

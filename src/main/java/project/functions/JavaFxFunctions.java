@@ -123,25 +123,6 @@ public class JavaFxFunctions {
     /**
      * Creates a customized popup message
      *
-     * @param event     ActionEvent of the button clicked
-     * @param alertType Type of the popup
-     * @param popUpMsg  Message to display in the popup
-     * @return ButtonType of the button clicked to assign a function to it
-     */
-    public static Optional<ButtonType> createPopup(ActionEvent event, Alert.AlertType alertType, String popUpMsg) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        Alert alert = new Alert(alertType, "");
-        alert.initModality(Modality.APPLICATION_MODAL);
-        alert.initOwner(stage);
-
-        alert.getDialogPane().setContentText(popUpMsg);
-        return alert.showAndWait();
-    }
-
-    /**
-     * Creates a customized popup message
-     *
      * @param stage     Stage to display the popup on
      * @param alertType Type of the popup
      * @param popUpMsg  Message to display in the popup
@@ -154,26 +135,6 @@ public class JavaFxFunctions {
 
         alert.getDialogPane().setContentText(popUpMsg);
         return alert.showAndWait();
-    }
-
-    /**
-     * Returns an Image View of a given image string
-     *
-     * @param objectName Name of the image
-     * @param height     Height of the image
-     * @param width      Width of the image
-     * @param opacity    Opacity of the image
-     * @return Image View Object of the given image string
-     */
-    public static ImageView returnObjectImageView(String objectName, double height, double width, double opacity) {
-        Image spellImage = returnImage(objectName);
-        ImageView spellImageView = new ImageView(spellImage);
-        spellImageView.setFitHeight(height);
-        spellImageView.setFitWidth(width);
-        spellImageView.setOpacity(opacity);
-
-
-        return spellImageView;
     }
 
     /**
@@ -237,18 +198,6 @@ public class JavaFxFunctions {
      */
     public static URL returnFXMLURL(String fxmlName) {
         return returnURL("project/fxml/", fxmlName);
-    }
-
-    /**
-     * Disables a given node inside a grid pane
-     *
-     * @param parentGridPane Grid pane where the node is located
-     * @param node           Node to disable
-     */
-    public static void disableGridPaneButton(GridPane parentGridPane, Node node) {
-        parentGridPane.getChildren().stream()
-                .filter(n -> n.equals(node))
-                .forEach(n -> n.setDisable(true));
     }
 
     /**

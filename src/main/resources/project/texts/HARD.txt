@@ -7,4 +7,4 @@ If the Npc has no card greater than every last card placed on each row, they wil
 
 The Npcs will choose the row with the least amount of heads when their card is too small to be placed on the board.
 
-On Variant 2 and 3 they will always try to choose a card with the highest number of heads.
+On Variant 2 and 3 they will always try to choose a card with the highest number.
