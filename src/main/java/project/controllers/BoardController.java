@@ -253,7 +253,7 @@ public class BoardController implements Initializable {
      * Resolves the cards in the chosen cards list and calls the function
      * again until all the cards in the chosen cards list are gone
      */
-    public void resolveCards() {
+    private void resolveCards() {
         if (notExited) {
             displayNextTurnInfo(returnRoundInfo() + "Cards Resolution");
             chosenCardsList = sortCardsByIncreasingOrder(chosenCardsList);
@@ -840,11 +840,11 @@ public class BoardController implements Initializable {
     }
 
     /**
-     * Calculates the best card for NPC based on variant
+     * Calculates the best card for NPC based on variant and difficulty
      *
      * @return Card
      */
-    private Card returnBestCard() {
+    public Card returnBestCard() {
         Card[][] localBoard = board.getBoard();
         RowResults rowResults;
         int bestCardNumberDifference = 100;
@@ -1008,7 +1008,7 @@ public class BoardController implements Initializable {
     /**
      * Initialize the scoreboard GridPane
      */
-    public void initializeScoreBoard() {
+    private void initializeScoreBoard() {
         scoreBoardGridPane = new GridPane();
 
         scoreBoardGridPane.setAlignment(Pos.TOP_CENTER);
